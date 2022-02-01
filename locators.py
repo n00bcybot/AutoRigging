@@ -2,7 +2,7 @@ import maya.cmds as cmds
 
 # select vertices and spawn locator at each vertex' position
 
-vertex_list = cmds.ls(sl=True, fl=True)                    #create list from selected vertices
+vertex_list = cmds.ls(sl=True, fl=True)                    # create list from selected vertices
 for i in vertex_list:
     print(i)
 

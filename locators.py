@@ -10,5 +10,3 @@ def vertexToLocator():
         vertexPosition.append(cmds.pointPosition(i, local=True))
     for i in vertexPosition:
         cmds.spaceLocator(position=i)                                      # spawn locator at the positions in the list
-
-vertexToLocator()

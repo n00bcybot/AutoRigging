@@ -1,4 +1,7 @@
+from locators import *
 import maya.cmds as cmds
+
+
 
 
 class MyWindow:
@@ -6,10 +9,10 @@ class MyWindow:
         self.window = 'My Window'
         self.title = 'Rigging Tools'
         self.size = (400, 400)
-        self.button = 'button_makeCube'
+        self.button = 'Make Locators'
 
-        def makeCube():
-            cmds.polyCube()
+        def vertexLocator(self):
+            vertexToLocator()
 
         if cmds.window(self.window, exists=True):
             cmds.deleteUI(self.window, window=True)
@@ -18,10 +21,11 @@ class MyWindow:
         cmds.columnLayout(adjustableColumn=True)
 
         cmds.separator(height=20)
-        cmds.button(self.button, label='Make Cube', command=makeCube)
+        cmds.button(self.button, label='Make Locators', command=vertexLocator)
         cmds.separator(height=20)
 
         cmds.showWindow()
 
 
 windowMain = MyWindow()
+

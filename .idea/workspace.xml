@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Created simple interface with class approach. Not sure yet if class is actually necessary, since I have gotten good results with just a function before">
-      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Created recursive function in locators.py that checks for and removes a prefix from given string list. Recursive function was necessary, since simply recreating the list with .remove method won't work unless you use 2 for loops - one containing the strings to be removed and another one containing the original list with the items from the helping list removed. Another way would be to leave the unwanted strings out by using &quot;not&quot; in the condition statement">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/interface.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/locators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +35,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/test.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
   <component name="RunManager" selected="MayaCharm.test">
@@ -86,6 +85,9 @@
       <module name="AutoRigging" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -101,12 +103,12 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="MayaCharm.test" />
-      <item itemvalue="MayaCharm.locators" />
       <item itemvalue="MayaCharm.hand" />
-      <item itemvalue="MayaCharm.spine" />
-      <item itemvalue="MayaCharm.leg" />
       <item itemvalue="MayaCharm.interface" />
+      <item itemvalue="MayaCharm.leg" />
+      <item itemvalue="MayaCharm.locators" />
+      <item itemvalue="MayaCharm.spine" />
+      <item itemvalue="MayaCharm.test" />
       <item itemvalue="Python.locators" />
     </list>
     <recent_temporary>
@@ -166,7 +168,21 @@
       <option name="project" value="LOCAL" />
       <updated>1643827675128</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Created recursive function in locators.py that checks for and removes a prefix from given string list. Recursive function was necessary, since simply recreating the list with .remove method won't work unless you use 2 for loops - one containing the strings to be removed and another one containing the original list with the items from the helping list removed. Another way would be to leave the unwanted strings out by using &quot;not&quot; in the condition statement">
+      <created>1643912050703</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1643912050703</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Created recursive function in locators.py that checks for and removes a prefix from given string list. Recursive function was necessary, since simply recreating the list with .remove method won't work unless you use 2 for loops - one containing the strings to be removed and another one containing the original list with the items from the helping list removed. Another way would be to leave the unwanted strings out by using &quot;not&quot; in the condition statement">
+      <created>1643912066462</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1643912066462</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -213,6 +229,7 @@
     <MESSAGE value="Setting up" />
     <MESSAGE value="Setting up locators" />
     <MESSAGE value="Created simple interface with class approach. Not sure yet if class is actually necessary, since I have gotten good results with just a function before" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created simple interface with class approach. Not sure yet if class is actually necessary, since I have gotten good results with just a function before" />
+    <MESSAGE value="Created recursive function in locators.py that checks for and removes a prefix from given string list. Recursive function was necessary, since simply recreating the list with .remove method won't work unless you use 2 for loops - one containing the strings to be removed and another one containing the original list with the items from the helping list removed. Another way would be to leave the unwanted strings out by using &quot;not&quot; in the condition statement" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created recursive function in locators.py that checks for and removes a prefix from given string list. Recursive function was necessary, since simply recreating the list with .remove method won't work unless you use 2 for loops - one containing the strings to be removed and another one containing the original list with the items from the helping list removed. Another way would be to leave the unwanted strings out by using &quot;not&quot; in the condition statement" />
   </component>
 </project>

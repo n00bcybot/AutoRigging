@@ -103,12 +103,12 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="MayaCharm.hand" />
-      <item itemvalue="MayaCharm.interface" />
-      <item itemvalue="MayaCharm.leg" />
-      <item itemvalue="MayaCharm.locators" />
-      <item itemvalue="MayaCharm.spine" />
       <item itemvalue="MayaCharm.test" />
+      <item itemvalue="MayaCharm.locators" />
+      <item itemvalue="MayaCharm.hand" />
+      <item itemvalue="MayaCharm.spine" />
+      <item itemvalue="MayaCharm.leg" />
+      <item itemvalue="MayaCharm.interface" />
       <item itemvalue="Python.locators" />
     </list>
     <recent_temporary>

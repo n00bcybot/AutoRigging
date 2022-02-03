@@ -2,17 +2,15 @@ from locators import *
 import maya.cmds as cmds
 
 
-
-
-class MyWindow:
+class GuiWindow:
     def __init__(self):
         self.window = 'My Window'
         self.title = 'Rigging Tools'
         self.size = (400, 400)
         self.button = 'Make Locators'
 
-        def vertexLocator(self):
-            vertexToLocator()
+        def vertexLocator(self):   # the only way I was able to import function from other file was to create a
+            vertexToLocator()      # new one with the imported one
 
         if cmds.window(self.window, exists=True):
             cmds.deleteUI(self.window, window=True)
@@ -27,5 +25,4 @@ class MyWindow:
         cmds.showWindow()
 
 
-windowMain = MyWindow()
-
+windowMain = GuiWindow()

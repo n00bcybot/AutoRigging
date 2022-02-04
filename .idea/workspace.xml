@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Created recursive function in locators.py that checks for and removes a prefix from given string list. Recursive function was necessary, since simply recreating the list with .remove method won't work unless you use 2 for loops - one containing the strings to be removed and another one containing the original list with the items from the helping list removed. Another way would be to leave the unwanted strings out by using &quot;not&quot; in the condition statement">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Created function which replaces a string with another for each item in string list">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/locators.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -182,7 +181,28 @@
       <option name="project" value="LOCAL" />
       <updated>1643912066462</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Created function which replaces a string with another for each item in string list">
+      <created>1643922989886</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1643922989886</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Created function which replaces a string with another for each item in string list">
+      <created>1643923078201</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1643923078201</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Created function which replaces a string with another for each item in string list">
+      <created>1643923191236</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1643923191236</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -230,6 +250,7 @@
     <MESSAGE value="Setting up locators" />
     <MESSAGE value="Created simple interface with class approach. Not sure yet if class is actually necessary, since I have gotten good results with just a function before" />
     <MESSAGE value="Created recursive function in locators.py that checks for and removes a prefix from given string list. Recursive function was necessary, since simply recreating the list with .remove method won't work unless you use 2 for loops - one containing the strings to be removed and another one containing the original list with the items from the helping list removed. Another way would be to leave the unwanted strings out by using &quot;not&quot; in the condition statement" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created recursive function in locators.py that checks for and removes a prefix from given string list. Recursive function was necessary, since simply recreating the list with .remove method won't work unless you use 2 for loops - one containing the strings to be removed and another one containing the original list with the items from the helping list removed. Another way would be to leave the unwanted strings out by using &quot;not&quot; in the condition statement" />
+    <MESSAGE value="Created function which replaces a string with another for each item in string list" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created function which replaces a string with another for each item in string list" />
   </component>
 </project>

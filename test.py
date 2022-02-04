@@ -1,23 +1,15 @@
 import maya.cmds as cmds
 
-jointList = cmds.ls(et="joint")  # create list from selected joints
-removeString = "r_"  # define string to remove
+locatorsList = cmds.ls(sl=True)
 
 
-def removePrefix(list, prefix):  # recursive function
-    for i in list:  #
-        if prefix in i:  # as long as this condition is true, the
-            list.remove(i)  #
-            removePrefix(list, prefix)  # function will keep calling itself
+
+cmds.select(deselect=True)
+locatorsPosition = []
+for i in locatorsList:
+    locatorsPosition.append(cmds.pointPosition(i, world = True))
+
+for i in locatorsPosition:
+    cmds.joint(position = i)
 
 
-def replaceString(list, string, stringNew):
-    for i in list:
-        if string in i:
-            i.replace(string, stringNew)
-
-
-removePrefix(jointList, removeString)
-x = "_jnt"
-y = "_loc"
-replaceString(jointList, x, y)

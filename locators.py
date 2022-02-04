@@ -27,8 +27,8 @@ def removePrefix(list, prefix):                                            # rec
 
 ########################################################################################################################
 
-def replaceString(inputlist, string, newString, outputList):               # replace a string with another for each
-    for i in inputlist:                                                    # item in list empty output list must be
+def replaceString(inputlist, string, newString, outputList):               # Replace a string with another for each
+    for i in inputlist:                                                    # item in list; empty output list must be
         if string in i:                                                    # defined for this to work
             temp = i.replace(string, newString)                            #
             outputList.append(temp)                                        #

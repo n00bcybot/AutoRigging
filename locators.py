@@ -54,9 +54,31 @@ def spawnJoints(list):                                                  #
         cmds.joint(position=i, name=j+"_jnt")                           # This line renames the joint
     for i in list:                                                      # This loop deletes all locators use for
         cmds.delete(i)                                                  # the joint creation
-                                                                        #
-locatorsList = ['locator45', 'locator46', 'locator47']                  # Sample list
+########################################################################################################################
+def createJoints(list):
+    for i, j in locatorsDict.items():
+        if i in list:
+            cmds.joint(position=j, n=i + "_jnt")
+#######################################################################################################################
+locatorsList = ['COMOffset_loc', 'COM_loc', 'head01_loc', 'head02_loc', 'headNub_loc', 'jawNub_loc', 'jaw_loc',
+                'l_calf_loc', 'l_clavicleNub_loc', 'l_clavicle_loc', 'l_eyeNub_loc', 'l_eye_loc', 'l_foreArm_loc',
+                'l_hand_loc', 'l_heel_loc', 'l_indexFinger01_loc', 'l_indexFinger02_loc', 'l_indexFinger03_loc',
+                'l_indexFingerNub_loc', 'l_middleFinger01_loc', 'l_middleFinger02_loc', 'l_middleFinger03_loc',
+                'l_middleFingerNub_loc', 'l_pinkyFinger01_loc', 'l_pinkyFinger02_loc', 'l_pinkyFinger03_loc',
+                'l_pinkyFingerNub_loc', 'l_ringFinger01_loc', 'l_ringFinger02_loc', 'l_ringFinger03_loc',
+                'l_ringFingerNub_loc', 'l_thigh_loc', 'l_thumb01_loc', 'l_thumb02_loc', 'l_thumbNub_loc',
+                'l_toeNub_loc', 'l_toe_loc', 'l_upperArm_loc', 'neck01_loc', 'neck02_loc', 'pelvis_loc',
+                'root_loc', 'spine01_loc', 'spine02_loc', 'spine03_loc', 'spine04_loc']
 
 spawnJoints(locatorsList)
+
+########################################################################################################################
+
+def compareLists(list1, list2):             # Compares a list to another and produces a new list in the same order
+    newList = []                            # like the first one out of the second one
+    for i in list1:
+         if i == list2[list2.index(i)]:
+             newList.append(i)
+    print(newList)
 
 ########################################################################################################################

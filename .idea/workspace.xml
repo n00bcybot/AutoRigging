@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Wrist">
-      <change afterPath="$PROJECT_DIR$/locatorsDict.py" afterDir="false" />
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Finally discovered a good way to compare list to dictionary keys and fetch the corresponding values in order to create new dictionary in particular order">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/interface.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/locators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locatorsDict.py" beforeDir="false" afterPath="$PROJECT_DIR$/locatorsDict.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,7 +40,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../GUI" />
     <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
-  <component name="RunManager" selected="MayaCharm.test">
+  <component name="RunManager" selected="MayaCharm.interface">
     <configuration name="hand" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MAYACHARM_RUN_CONFIGURATION">
       <option name="executionType" value="FILE" />
       <option name="mayaSdkPath" value="C:\Program Files\Autodesk\Maya2022\bin\mayapy.exe" />
@@ -233,7 +233,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644002156637</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Finally discovered a good way to compare list to dictionary keys and fetch the corresponding values in order to create new dictionary in particular order">
+      <created>1644151638157</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1644151638157</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -284,6 +291,7 @@
     <MESSAGE value="Created function which replaces a string with another for each item in string list" />
     <MESSAGE value="This block creates a list of locators and spawns joints in their place" />
     <MESSAGE value="Wrist" />
-    <option name="LAST_COMMIT_MESSAGE" value="Wrist" />
+    <MESSAGE value="Finally discovered a good way to compare list to dictionary keys and fetch the corresponding values in order to create new dictionary in particular order" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finally discovered a good way to compare list to dictionary keys and fetch the corresponding values in order to create new dictionary in particular order" />
   </component>
 </project>

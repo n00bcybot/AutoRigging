@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Finally discovered a good way to compare list to dictionary keys and fetch the corresponding values in order to create new dictionary in particular order">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/interface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/locators.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/locatorsDict.py" beforeDir="false" afterPath="$PROJECT_DIR$/locatorsDict.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
@@ -37,7 +38,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GUI" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
   <component name="RunManager" selected="MayaCharm.interface">
@@ -67,6 +68,13 @@
       <option name="mayaSdkPath" value="C:\Program Files\Autodesk\Maya2022\bin\mayapy.exe" />
       <option name="scriptCodeText" value="" />
       <option name="scriptFilePath" value="C:\Users\fresh\PycharmProjects\AutoRigging\locators.py" />
+      <method v="2" />
+    </configuration>
+    <configuration name="locatorsDict" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MAYACHARM_RUN_CONFIGURATION">
+      <option name="executionType" value="FILE" />
+      <option name="mayaSdkPath" value="C:\Program Files\Autodesk\Maya2022\bin\mayapy.exe" />
+      <option name="scriptCodeText" value="" />
+      <option name="scriptFilePath" value="C:\Users\fresh\PycharmProjects\AutoRigging\locatorsDict.py" />
       <method v="2" />
     </configuration>
     <configuration name="spine" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MAYACHARM_RUN_CONFIGURATION">
@@ -111,6 +119,7 @@
       <item itemvalue="MayaCharm.spine" />
       <item itemvalue="MayaCharm.leg" />
       <item itemvalue="MayaCharm.interface" />
+      <item itemvalue="MayaCharm.locatorsDict" />
       <item itemvalue="Python.locators" />
     </list>
     <recent_temporary>
@@ -240,7 +249,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644151638157</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Finally discovered a good way to compare list to dictionary keys and fetch the corresponding values in order to create new dictionary in particular order">
+      <created>1644181070615</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1644181070615</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

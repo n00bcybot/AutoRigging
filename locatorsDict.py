@@ -59,4 +59,6 @@ legLocs = ['l_thigh_loc', 'l_calf_loc', 'l_heel_loc', 'l_toe_loc', 'l_toeNub_loc
 eyeLocs = ['l_eyeNub_loc', 'l_eye_loc']
 jawLocs = ['jawNub_loc', 'jaw_loc']
 
-allLists = [thumbLocs, indexLocs, middleLocs, ringLocs, pinkyLocs, armLocs, spineLocs, legLocs, eyeLocs, jawLocs]
+handLoc = [thumbLocs, indexLocs, middleLocs, ringLocs, pinkyLocs]
+allLists = [armLocs, legLocs, spineLocs, eyeLocs, jawLocs, thumbLocs, indexLocs, middleLocs, ringLocs, pinkyLocs]
+allChains = [armLocs, legLocs, spineLocs, eyeLocs, jawLocs, handLoc, allLists]

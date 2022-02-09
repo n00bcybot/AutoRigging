@@ -43,7 +43,8 @@ def spawnJoints(list, dict):                            # Create joints from lis
     cmds.select(deselect=True)
 
 spawnTempLocators()
-spawnJoints(spineLocs, createDict())
+for i in allLists:
+    spawnJoints(i, createDict())
 
 
 

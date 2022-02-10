@@ -42,8 +42,14 @@ def spawnJoints(list, dict):                            # Create joints from lis
         cmds.joint(position=j, n=i + "_jnt")
     cmds.select(deselect=True)
 
+    x = cmds.ls(type='locator')                         # Delete locators corresponding to the selected list
+    y = [i.replace('Shape', '') for i in x]
+    for i in y:
+        if i in list:
+            cmds.delete(i)
+    print(list)
 spawnTempLocators()
-for i in allLists:
+for i in handLoc:
     spawnJoints(i, createDict())
 
 

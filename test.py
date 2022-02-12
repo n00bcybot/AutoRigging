@@ -38,20 +38,36 @@ def spawnJoints(list, dict):                            # Create joints from lis
         if i in list_B:                                 # add it to the dictNew
             dictNew[i] = dict[i]                        # dictNew[item] becomes the key, = , dictOld[i] gets the
                                                         # corresponding values
-    for i, j in dictNew.items():
-        cmds.joint(position=j, n=i + "_jnt")
+    for i, j in dictNew.items():  # Creating the chain by iterating over the keys and the values
+        cmds.joint(n=i.replace('_loc', '_jnt'), position=j)
+                        # in the dictionary
     cmds.select(deselect=True)
+
+    orientJoints=cmds.ls(type='joint')                  # Orient all joints
+    for i in orientJoints:
+        cmds.joint(i, e=True, zso=True, oj='xyz')
 
     x = cmds.ls(type='locator')                         # Delete locators corresponding to the selected list
     y = [i.replace('Shape', '') for i in x]
     for i in y:
         if i in list:
             cmds.delete(i)
-    print(list)
+
 spawnTempLocators()
-for i in handLoc:
+
+for i in allLists:                                      # Spawn skeleton
     spawnJoints(i, createDict())
 
+'''
+y=[]                                                    # Parent all fingers to hand joint
+for eachlist in handLoc:
+    y.append(eachlist[0].replace('_loc', '_jnt'))
+for i in y:
+    cmds.connectJoint(i, 'l_hand_jnt', pm=True)
 
+cmds.connectJoint('l_thigh_jnt', 'pelvis_jnt', pm=True) # Parent the rest of the chains
+cmds.connectJoint('l_clavicle_jnt', 'spine04_jnt', pm=True)
+cmds.connectJoint('jaw_jnt', 'head02_jnt', pm=True)
+cmds.connectJoint('l_eye_jnt', 'head02_jnt', pm=True)
 
-
+'''

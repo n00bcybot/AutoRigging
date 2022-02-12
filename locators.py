@@ -46,7 +46,7 @@ print(replaceString(list, x, y, z))
 ########################################################################################################################
 # Creates joint chain from locators list
 
-def spawnJoints2(list):                                                  #
+def spawnJoints2(list):                                                 #
     cmds.select(deselect=True)                                          # In case there is anything selected in the
     locatorsPosition = []                                               # scene, this command deselects it - otherwise
     for i in list:                                                      # messes up the command
@@ -65,8 +65,8 @@ def createJoints(list):
 
 #######################################################################################################################
 
-def compareLists(list1, list2):             # Compares a list to another and produces a new list in the same order
-    newList = []                            # like the first one out of the second one
+def compareLists(list1, list2):                              # Compares a list to another and produces a new list in the same order
+    newList = []                                             # like the first one out of the second one
     for i in list1:
          if i == list2[list2.index(i)]:
              newList.append(i)
@@ -74,17 +74,17 @@ def compareLists(list1, list2):             # Compares a list to another and pro
 
 ########################################################################################################################
 
-def spawnTempLocators():                                                    # Create locators from  template dictionary
+def spawnTempLocators(args):                                                    # Create locators from  template dictionary
     for i, j in zip(locatorsDictionary.keys(), locatorsDictionary.values()):
         cmds.spaceLocator(position=j, name=i)
 
 ########################################################################################################################
 
 def createDict():
-    x = cmds.ls(type='locator')                     # Create dictionary from locators in the scene,  with locators'
+    x = cmds.ls(type='locator')                             # Create dictionary from locators in the scene,  with locators'
     y = [i.replace('Shape', '') for i in x]
-    locatorsDict = {}                               # names as keys and their positions in space, as values.
-    for i in y:                                     # Joints will be spawned from this dictionary
+    locatorsDict = {}                                       # names as keys and their positions in space, as values.
+    for i in y:                                             # Joints will be spawned from this dictionary
         position = cmds.pointPosition(i, world=True)
         locatorsDict[i] = position
     print(locatorsDict)
@@ -92,21 +92,28 @@ def createDict():
 
 ########################################################################################################################
 
-def spawnJoints(list, dict):                        # Create joints from list
+def spawnJoints(list, dict):                                # Create joints from list
     cmds.select(deselect=True)
-    dict_keys=dict.keys()                           # Creating dict list of keys from the dictionary
+    dict_keys = dict.keys()                                 # Creating dict list of keys from the dictionary
 
-    list_B=[]                                       # Converting it to regular list. This step is necessary, since
-    for i in dict_keys:                             # dict list is not iterable
+    list_B = []                                             # Converting it to regular list. This step is necessary, since
+    for i in dict_keys:                                     # dict list is not iterable
         list_B.append(i)
 
-    dictNew={}                                      # Declaring the new list
-    for i in list:                                  # For each item in list_A, if the item is in list_B
-        if i in list_B:                             # add it to the dictNew
-            dictNew[i]=dict[i]                      # dictNew[item] becomes the key, = , dictOld[i] gets the
-                                                    # corresponding values
-    for i, j in dictNew.items():
-        cmds.joint(position=j, n=i+"_jnt")
+    dictNew = {}                                            # Declaring the new list
+    for i in list:                                          # For each item in list_A, if the item is in list_B
+        if i in list_B:                                     # add it to the dictNew
+            dictNew[i] = dict[i]                            # dictNew[item] becomes the key, = , dictOld[i] gets the
+                                                            # corresponding values
+    for i, j in dictNew.items():                            # Creating the chain by iterating over the keys and the values
+        cmds.joint(position=j, n=i.replace('_loc', '_jnt')) # in the dictionary
+
     cmds.select(deselect=True)
+
+    x = cmds.ls(type='locator')                             # Delete locators corresponding to the selected list
+    y = [i.replace('Shape', '') for i in x]
+    for i in y:
+        if i in list:
+            cmds.delete(i)
 
 ########################################################################################################################

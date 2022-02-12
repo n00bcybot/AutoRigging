@@ -8,7 +8,7 @@ locatorsDictionary = {
     'jaw_loc': [-7.677378623110254e-13, 164.0049086101554, 1.5995099911410542],
     'l_calf_loc': [9.016487172208775, 55.99999943954483, 4.0000000438007675],
     'l_clavicleNub_loc': [13.000593365381423, 148.65536599425872, -0.46805474032901184],
-    'l_clavicle_loc': [-0.19431781585151536, 148.14189486770232, 4.467180828980827],
+    'l_clavicle_loc': [0.5, 148.14189486770232, 4.467180828980827],
     'l_eyeNub_loc': [2.8762510108536112, 169.08230670451212, 8.743195847205346],
     'l_eye_loc': [2.8762517261093254, 169.08230670451212, 7.192147091559658],
     'l_foreArm_loc': [38.47961368255215, 148.65537316436195, -1.872071462890321],
@@ -56,9 +56,12 @@ armLocs = ['l_clavicle_loc', 'l_clavicleNub_loc', 'l_upperArm_loc', 'l_foreArm_l
 spineLocs = ['root_loc', 'COMOffset_loc', 'COM_loc', 'pelvis_loc', 'spine01_loc', 'spine02_loc', 'spine03_loc',
              'spine04_loc', 'neck01_loc', 'neck02_loc', 'head01_loc', 'head02_loc', 'headNub_loc']
 legLocs = ['l_thigh_loc', 'l_calf_loc', 'l_heel_loc', 'l_toe_loc', 'l_toeNub_loc']
-eyeLocs = ['l_eyeNub_loc', 'l_eye_loc']
-jawLocs = ['jawNub_loc', 'jaw_loc']
+eyeLocs = ['l_eye_loc', 'l_eyeNub_loc']
+jawLocs = ['jaw_loc', 'jawNub_loc']
 
 handLoc = [thumbLocs, indexLocs, middleLocs, ringLocs, pinkyLocs]
 allLists = [armLocs, legLocs, spineLocs, eyeLocs, jawLocs, thumbLocs, indexLocs, middleLocs, ringLocs, pinkyLocs]
 allChains = [armLocs, legLocs, spineLocs, eyeLocs, jawLocs, handLoc, allLists]
+
+for i, j in locatorsDictionary.items():
+    print(i, j)

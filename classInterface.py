@@ -77,40 +77,57 @@ class GUI:
 
     def spawnTempLocators(self):
         for i, j in zip(GUI.locTemp.keys(),
-                        GUI.locTemp.values()):       # Create locators from  template dictionary
+                        GUI.locTemp.values()):                      # Create locators from template dictionary
             cmds.spaceLocator(position=j, name=i)
 
-    def spawnJoints(self, slist):                                # Create joints from list
+    def spawnJoints(self, slist):                                   # Create joints from list
 
-        x = cmds.ls(type='locator')                             # Create dictionary from locators in the scene,  with locators'
+        x = cmds.ls(type='locator', s=False)                                 # Create dictionary from locators in the scene,  with locators'
         y = [i.replace('Shape', '') for i in x]
-        locatorsDict = {}                                       # names as keys and their positions in space, as values.
-        for i in y:                                             # Joints will be spawned from this dictionary
+        locatorsDict = {}                                           # names as keys and their positions in space, as values.
+        for i in y:                                                 # Joints will be spawned from this dictionary
             position = cmds.pointPosition(i, world=True)
             locatorsDict[i] = position
 
         cmds.select(deselect=True)
-        dict_keys = locatorsDict.keys()                             # Creating dict list of keys from the dictionary
+        dictKeys = locatorsDict.keys()                             # Creating dict list of keys from the dictionary
 
         list_B = []                                                 # Converting it to regular list. This step is necessary, since
-        for i in dict_keys:                                         # dict list is not iterable
+        for i in dictKeys:                                         # dict list is not iterable
             list_B.append(i)
 
         dictNew = {}                                                # Declaring the new list
-        for i in slist:                                              # For each item in list_A, if the item is in list_B
+        for i in slist:                                             # For each item in list_A, if the item is in list_B
             if i in list_B:                                         # add it to the dictNew
                 dictNew[i] = locatorsDict[i]                        # dictNew[item] becomes the key, = , dictOld[i] gets the corresponding values
 
         for i, j in dictNew.items():                                # Creating the chain by iterating over the keys and the values
-            cmds.joint(position=j, n=i.replace('_loc', '_jnt'))     # in the dictionary
+            cmds.joint(n=i.replace('_loc', '_jnt'), position=j)     # in the dictionary
 
         cmds.select(deselect=True)
 
-        x = cmds.ls(type='locator')                             # Delete locators corresponding to the selected list
-        y = [i.replace('Shape', '') for i in x]
-        for i in y:
-            if i in slist:
-                cmds.delete(i)
+        orientJoints = cmds.ls(type='joint')
+        print(orientJoints)                                         # Orient all joints
+        cmds.joint(orientJoints[0], e=True, oj='xyz', sao='zup', ch=True, zso=True)
+
+       # x = cmds.ls(type='locator')                                 # Delete locators corresponding to the selected list
+       # y = [i.replace('Shape', '') for i in x]
+       # for i in y:
+       #     if i in slist:
+       #         cmds.delete(i)
+
+    def displayLocalAxis(self):                                     # Display local orientation axis
+        jointList=cmds.ls(type='joint')
+        selection=cmds.ls(sl=True)
+        for i in jointList:
+            if i in selection:
+                if cmds.setAttr(i + ".displayLocalAxis", 0):
+                    cmds.setAttr(i + ".displayLocalAxis", 1)
+                    print(i)
+                elif cmds.setAttr(i + ".displayLocalAxis", 1):
+                    cmds.setAttr(i + ".displayLocalAxis", 0)
+            print(i)
+
 
     def selectJointChain(self):
         selected = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
@@ -139,13 +156,16 @@ class GUI:
         cmds.menuItem(label='Eyes')
         cmds.menuItem(label='Jaw')
         cmds.menuItem(label='Hand')
-        cmds.menuItem(label='All')
+        cmds.menuItem(label='All chains')
 
         cmds.separator(height=2, st='none')
         cmds.button(label='Spawn Locators', command=GUI.spawnTempLocators, height=30)
 
         cmds.separator(height=2, st='none')
         cmds.button(label='Spawn Joints', command=GUI.selectJointChain, height=30)
+
+        cmds.separator(height=2, st='none')
+        cmds.button(label='Display Local Orientation Axis', command=GUI.displayLocalAxis, height=30)
 
         cmds.showWindow()
 

@@ -119,14 +119,12 @@ class GUI:
                 if i in slist:
                     cmds.delete(i)
 
-
-
-    def displayLocalAxis(self):                                     # Display local orientation axis
-        jointList=cmds.ls(type='joint')
-        selection=cmds.ls(sl=True)
+    def displayLocalAxis(self):                                         # Display local orientation axis
+        jointList = cmds.ls(type='joint')
+        selection = cmds.ls(sl=True)
         for i in selection:
             if i in jointList:
-                if cmds.getAttr(i + '.displayLocalAxis') == False:
+                if not cmds.getAttr(i + '.displayLocalAxis'):
                     cmds.setAttr(i + '.displayLocalAxis', 1)
                 else:
                     cmds.setAttr(i + '.displayLocalAxis', 0)
@@ -137,16 +135,14 @@ class GUI:
         for each in locators:
             cmds.delete(each)
 
-
-
     def selectJointChain(self):
         selected = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
         dropdownList = GUI.allChains[int(selected)]
 
-        if isinstance(dropdownList[0], list):               # If selected list contains list (like handLoc)
-            for i in dropdownList:                          # execute for each sublist
+        if isinstance(dropdownList[0], list):                       # If selected list contains list (like handLoc)
+            for i in dropdownList:                                  # execute for each sublist
                 GUI.spawnJoints(self, i)
-        else:                                               # else execute list
+        else:                                                       # else execute list
             GUI.spawnJoints(self, dropdownList)
 
     def windowFunction(self):

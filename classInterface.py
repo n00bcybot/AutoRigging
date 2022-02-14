@@ -73,7 +73,7 @@ class GUI:
 
         self.window = 'MyWindow'
         self.title = 'Rigging Tools'
-        self.size = (100, 100)
+        self.size = (400, 400)
 
     def spawnTempLocators(self):
         for i, j in zip(GUI.locTemp.keys(),
@@ -119,14 +119,19 @@ class GUI:
     def displayLocalAxis(self):                                     # Display local orientation axis
         jointList=cmds.ls(type='joint')
         selection=cmds.ls(sl=True)
-        for i in jointList:
-            if i in selection:
-                if cmds.setAttr(i + ".displayLocalAxis", 0):
-                    cmds.setAttr(i + ".displayLocalAxis", 1)
-                    print(i)
-                elif cmds.setAttr(i + ".displayLocalAxis", 1):
-                    cmds.setAttr(i + ".displayLocalAxis", 0)
-            print(i)
+        for i in selection:
+            if i in jointList:
+                if cmds.getAttr(i + '.displayLocalAxis') == False:
+                    cmds.setAttr(i + '.displayLocalAxis', 1)
+                else:
+                    cmds.setAttr(i + '.displayLocalAxis', 0)
+
+    def deleteAllLocators(self):
+
+        locators = [each.replace('Shape', '') for each in cmds.ls(type='locator')]
+        for each in locators:
+            cmds.delete(each)
+
 
 
     def selectJointChain(self):
@@ -146,9 +151,11 @@ class GUI:
         cmds.window(self.window, title=self.title, widthHeight=self.size)
         cmds.columnLayout(adjustableColumn=True, ebg=True)
 
+        tabs = cmds.tabLayout()
+
+        tab1 = cmds.columnLayout(adjustableColumn=True, ebg=True)
         cmds.separator(height=10, st='none')
         cmds.optionMenuGrp('optMenu', label='Joint Chain')
-
         cmds.separator(height=10, st='none')
         cmds.menuItem(label='Arm')
         cmds.menuItem(label='Leg')
@@ -157,15 +164,21 @@ class GUI:
         cmds.menuItem(label='Jaw')
         cmds.menuItem(label='Hand')
         cmds.menuItem(label='All chains')
-
         cmds.separator(height=2, st='none')
         cmds.button(label='Spawn Locators', command=GUI.spawnTempLocators, height=30)
-
         cmds.separator(height=2, st='none')
         cmds.button(label='Spawn Joints', command=GUI.selectJointChain, height=30)
 
+        cmds.setParent('..')
+
+        tab2 = cmds.columnLayout(adjustableColumn=True, ebg=True)
         cmds.separator(height=2, st='none')
         cmds.button(label='Display Local Orientation Axis', command=GUI.displayLocalAxis, height=30)
+        cmds.separator(height=2, st='none')
+        cmds.button(label='Delete All Locators', command=GUI.deleteAllLocators, height=30)
+        cmds.setParent('..')
+
+        cmds.tabLayout(tabs, edit=True, tabLabel=((tab1, 'Main'), (tab2, 'Misc')))
 
         cmds.showWindow()
 

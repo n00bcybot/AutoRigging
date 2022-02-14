@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Restructured the class completely. Now all the variable containing the data (mostly the locators positions) and the functions are contained within the class, and it's all cleaner and better structured">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Added tab menu with misc functions and created 2 misc functions - displayLocalAxis and deleteAllLocators. Originally locators were deleted upon spawning the joints, but it might be useful to keep them until final joint chains are defined">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
     </list>
@@ -302,7 +302,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644759691713</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Added tab menu with misc functions and created 2 misc functions - displayLocalAxis and deleteAllLocators. Originally locators were deleted upon spawning the joints, but it might be useful to keep them until final joint chains are defined">
+      <created>1644863956711</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1644863956711</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -357,6 +364,7 @@
     <MESSAGE value="Spawning selected joint chains from dropdown menu" />
     <MESSAGE value="Added functionality for deleting the locators corresponding to the selected list, from which joints will be spawned.&#10;Wrote correct condition check for selectJointChain(). Now, the function will execute both list of locators and list of nested lists of locators. Nested list of locators allows group of joints to be spawned, like the hand for example, which contains list for each finger. Breaking into lists is necessary, because otherwise the last joint spawned in pne list will be connected/parented to the first joint in the following joint chain." />
     <MESSAGE value="Restructured the class completely. Now all the variable containing the data (mostly the locators positions) and the functions are contained within the class, and it's all cleaner and better structured" />
-    <option name="LAST_COMMIT_MESSAGE" value="Restructured the class completely. Now all the variable containing the data (mostly the locators positions) and the functions are contained within the class, and it's all cleaner and better structured" />
+    <MESSAGE value="Added tab menu with misc functions and created 2 misc functions - displayLocalAxis and deleteAllLocators. Originally locators were deleted upon spawning the joints, but it might be useful to keep them until final joint chains are defined" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added tab menu with misc functions and created 2 misc functions - displayLocalAxis and deleteAllLocators. Originally locators were deleted upon spawning the joints, but it might be useful to keep them until final joint chains are defined" />
   </component>
 </project>

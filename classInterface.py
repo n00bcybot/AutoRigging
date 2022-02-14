@@ -110,11 +110,16 @@ class GUI:
         print(orientJoints)                                         # Orient all joints
         cmds.joint(orientJoints[0], e=True, oj='xyz', sao='zup', ch=True, zso=True)
 
-       # x = cmds.ls(type='locator')                                 # Delete locators corresponding to the selected list
-       # y = [i.replace('Shape', '') for i in x]
-       # for i in y:
-       #     if i in slist:
-       #         cmds.delete(i)
+        x = cmds.ls(type='locator')                                 # Delete locators corresponding to the selected list
+        y = [i.replace('Shape', '') for i in x]
+        confirmMessage = cmds.confirmDialog(title='Confirm', message='Delete corresponding locators?', button=['Yes', 'No'],
+                                            defaultButton='Yes', cancelButton='No', dismissString='No')
+        if confirmMessage == 'Yes':
+            for i in y:
+                if i in slist:
+                    cmds.delete(i)
+
+
 
     def displayLocalAxis(self):                                     # Display local orientation axis
         jointList=cmds.ls(type='joint')
@@ -151,11 +156,11 @@ class GUI:
         cmds.window(self.window, title=self.title, widthHeight=self.size)
         cmds.columnLayout(adjustableColumn=True, ebg=True)
 
-        tabs = cmds.tabLayout()
+        tabs = cmds.tabLayout(bs='none')
 
         tab1 = cmds.columnLayout(adjustableColumn=True, ebg=True)
         cmds.separator(height=10, st='none')
-        cmds.optionMenuGrp('optMenu', label='Joint Chain')
+        cmds.optionMenuGrp('optMenu', label='Create Joint Chain')
         cmds.separator(height=10, st='none')
         cmds.menuItem(label='Arm')
         cmds.menuItem(label='Leg')

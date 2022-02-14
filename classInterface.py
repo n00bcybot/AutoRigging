@@ -110,14 +110,12 @@ class GUI:
         print(orientJoints)                                         # Orient all joints
         cmds.joint(orientJoints[0], e=True, oj='xyz', sao='zup', ch=True, zso=True)
 
-        x = cmds.ls(type='locator')                                 # Delete locators corresponding to the selected list
-        y = [i.replace('Shape', '') for i in x]
+
         confirmMessage = cmds.confirmDialog(title='Confirm', message='Delete corresponding locators?', button=['Yes', 'No'],
                                             defaultButton='Yes', cancelButton='No', dismissString='No')
         if confirmMessage == 'Yes':
-            for i in y:
-                if i in slist:
-                    cmds.delete(i)
+            for i in slist:
+                cmds.delete(i)
 
     def displayLocalAxis(self):                                         # Display local orientation axis
         jointList = cmds.ls(type='joint')

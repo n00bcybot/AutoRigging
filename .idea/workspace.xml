@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Added confirmation message if locators need to be deleted when joints are created  and separate function to delete all locators">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Nice">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
     </list>
@@ -316,7 +316,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644867583765</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Nice">
+      <created>1644873520733</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1644873520733</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -373,6 +380,7 @@
     <MESSAGE value="Restructured the class completely. Now all the variable containing the data (mostly the locators positions) and the functions are contained within the class, and it's all cleaner and better structured" />
     <MESSAGE value="Added tab menu with misc functions and created 2 misc functions - displayLocalAxis and deleteAllLocators. Originally locators were deleted upon spawning the joints, but it might be useful to keep them until final joint chains are defined" />
     <MESSAGE value="Added confirmation message if locators need to be deleted when joints are created  and separate function to delete all locators" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added confirmation message if locators need to be deleted when joints are created  and separate function to delete all locators" />
+    <MESSAGE value="Nice" />
+    <option name="LAST_COMMIT_MESSAGE" value="Nice" />
   </component>
 </project>

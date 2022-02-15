@@ -117,3 +117,24 @@ def spawnJoints(list, dict):                                # Create joints from
             cmds.delete(i)
 
 ########################################################################################################################
+
+allJoints = cmds.ls(type='joint')                                   # Convert suffix to prefix
+
+def prefixJoint(jointList, oldString, newString):
+
+    for i in jointList:
+        if oldString in i:
+            cmds.rename(i, newString + i.replace(oldString, ''))
+
+
+def renameAllJoints(jointList):                                     # Add '_jnt' suffix to all joints
+    for i in jointList:
+        cmds.rename(i, i + '_jnt')
+
+prefixJoint(allJoints, '_r', 'r_')
+prefixJoint(allJoints, '_l', 'l_')
+
+allJoints = cmds.ls(type='joint')
+renameAllJoints(allJoints)
+
+########################################################################################################################

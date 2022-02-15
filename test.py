@@ -1,9 +1,65 @@
-import os
 import sys
-
+import os
 sys.path.append(os.path.abspath("C:/Users/fresh/PycharmProjects/AutoRigging"))
-from locators import *
 import maya.cmds as cmds
+
+'''
+jointList = cmds.ls(et='joint')
+
+jointPosition = []
+for i in jointList:
+   jointPosition.append(cmds.xform(i, q=1,ws=1,rp=1))
+
+for i in jointPosition:
+   cmds.spaceLocator(position=i)
+'''
+
+
+
+jointList = cmds.ls(et="joint")
+prefix = "r_"
+
+def removePrefix(list):
+    for i in list:
+        if prefix in i:
+            list.remove(i)
+            removePrefix(list)
+
+removePrefix(jointList)
+
+jointPosition = []
+for i in jointList:
+    jointPosition.append(cmds.xform(i, q=1, ws=1, rp=1))
+
+y = []
+for i in jointPosition:
+    y.append(i)
+
+locatorsList = []
+for i, j in zip(jointPosition, jointList):
+    locatorsList.append(cmds.spaceLocator(position=i, name=(j.replace("_jnt", "_loc"))))
+
+x = []
+for i in locatorsList:
+    x.append(i[0])
+
+namesValues = {}
+nameValues = dict(zip(x, y))
+
+for key, value in nameValues.items():
+    print(key, ' : ', value)
+
+'''
+
+
+def renameJoint(jointList, newList):
+    for i in jointList:
+        if '_r' in i:
+            cmds.rename(i, newList[int(i[0:])] + '_jnt')
+
+
+
+renameJoint(allJoints, removePrefix(allJoints))
 
 
 
@@ -58,7 +114,7 @@ spawnTempLocators()
 for i in allLists:                                      # Spawn skeleton
     spawnJoints(i, createDict())
 
-'''
+
 y=[]                                                    # Parent all fingers to hand joint
 for eachlist in handLoc:
     y.append(eachlist[0].replace('_loc', '_jnt'))

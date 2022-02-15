@@ -118,12 +118,12 @@ def spawnJoints(list, dict):                                # Create joints from
 
 ########################################################################################################################
 
-allJoints = cmds.ls(type='joint')                                   # Convert suffix to prefix
+allJoints = cmds.ls(type='joint')                                   # Convert suffix to prefix - UE mannequin
 
-def prefixJoint(jointList, oldString, newString):
-
-    for i in jointList:
-        if oldString in i:
+def prefixJoint(jointList, oldString, newString):                   # This function was used to rename UE mannequin
+                                                                    # rig joints into more familiar convention  -
+    for i in jointList:                                             # joint name starting with right/left position
+        if oldString in i:                                          # and each bone with suffix '_jnt'
             cmds.rename(i, newString + i.replace(oldString, ''))
 
 
@@ -138,3 +138,36 @@ allJoints = cmds.ls(type='joint')
 renameAllJoints(allJoints)
 
 ########################################################################################################################
+
+jointList = cmds.ls(et="joint")                             # Creating template locators from given rig
+prefix = "r_"                                               # The function creates locators only for the left side
+                                                            # of the rig with the intention to be mirrored later
+def removePrefix(list):                                     # in the process
+    for i in list:
+        if prefix in i:
+            list.remove(i)
+            removePrefix(list)
+
+removePrefix(jointList)
+
+jointPosition = []
+for i in jointList:
+    jointPosition.append(cmds.xform(i, q=1, ws=1, rp=1))
+
+y = []
+for i in jointPosition:
+    y.append(i)
+
+locatorsList = []
+for i, j in zip(jointPosition, jointList):
+    locatorsList.append(cmds.spaceLocator(position=i, name=(j.replace("_jnt", "_loc"))))
+
+x = []
+for i in locatorsList:
+    x.append(i[0])
+
+namesValues = {}
+nameValues = dict(zip(x, y))
+
+for key, value in nameValues.items():
+    print(key, ' : ', value)

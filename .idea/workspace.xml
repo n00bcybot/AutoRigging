@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Nice">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="I thought it might be a good idea to base the template skeleton on the UE mannequin, or at least have it as another template. In the process developed a function that renames the joints with the joint position prefix instead of suffix. Not essential for the project, but it might be useful in some situations.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/locators.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
@@ -39,7 +38,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
-  <component name="RunManager" selected="MayaCharm.test">
+  <component name="RunManager" selected="MayaCharm.classInterface">
     <configuration name="classInterface" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MAYACHARM_RUN_CONFIGURATION">
       <option name="executionType" value="FILE" />
       <option name="mayaSdkPath" value="C:\Program Files\Autodesk\Maya2022\bin\mayapy.exe" />
@@ -324,7 +323,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644880918850</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="I thought it might be a good idea to base the template skeleton on the UE mannequin, or at least have it as another template. In the process developed a function that renames the joints with the joint position prefix instead of suffix. Not essential for the project, but it might be useful in some situations.">
+      <created>1644956294151</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1644956294151</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -382,6 +388,7 @@
     <MESSAGE value="Added tab menu with misc functions and created 2 misc functions - displayLocalAxis and deleteAllLocators. Originally locators were deleted upon spawning the joints, but it might be useful to keep them until final joint chains are defined" />
     <MESSAGE value="Added confirmation message if locators need to be deleted when joints are created  and separate function to delete all locators" />
     <MESSAGE value="Nice" />
-    <option name="LAST_COMMIT_MESSAGE" value="Nice" />
+    <MESSAGE value="I thought it might be a good idea to base the template skeleton on the UE mannequin, or at least have it as another template. In the process developed a function that renames the joints with the joint position prefix instead of suffix. Not essential for the project, but it might be useful in some situations." />
+    <option name="LAST_COMMIT_MESSAGE" value="I thought it might be a good idea to base the template skeleton on the UE mannequin, or at least have it as another template. In the process developed a function that renames the joints with the joint position prefix instead of suffix. Not essential for the project, but it might be useful in some situations." />
   </component>
 </project>

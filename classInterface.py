@@ -181,6 +181,34 @@ class GUI:
         else:                                                       # else execute list
             GUI.spawnJoints(self, dropdownList)
 
+    def selectAllJoints(self):
+        cmds.select(cmds.ls(et='joint'))                            # Select all joints in the scene
+
+    def selectHierarchy(self):
+        cmds.select(hi=True)                                        # Select hierarchy of the selected joint
+
+    def disableScaleCompensation(self):                             # Display local orientation axis
+        jointList = cmds.ls(type='joint')
+        selection = cmds.ls(sl=True)
+        for i in selection:
+            if i in jointList:
+                if not cmds.getAttr(i + '.segmentScaleCompensate'):
+                    cmds.setAttr(i + '.segmentScaleCompensate', 1)
+                else:
+                    cmds.setAttr(i + '.segmentScaleCompensate', 0)
+
+    def changeRotationOrder(self):
+        jointList = cmds.ls(sl=True)                                        # Change rotation order for the selected joint
+        selection = cmds.optionMenuGrp('rotationMenu', query=True, sl=True) - 1
+        for each in jointList:
+            cmds.setAttr(each + '.rotateOrder', int(selection))
+
+    def alignTransAxis(self):
+        x = cmds.ls(sl=True)
+        for i in x:
+            cmds.joint(i, edit=True, zso=True)                             # Align translational axis to local rotational axis
+
+
     def windowFunction(self):
         if cmds.window(self.window, query=True, exists=True):
             cmds.deleteUI(self.window)
@@ -210,9 +238,30 @@ class GUI:
 
         tab2 = cmds.columnLayout(adjustableColumn=True, ebg=True)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Display Local Orientation Axis', command=GUI.displayLocalAxis, height=30)
+        cmds.button(label='Display/Hide Local Orientation Axis', command=GUI.displayLocalAxis, height=30)
         cmds.separator(height=2, st='none')
         cmds.button(label='Delete All Locators', command=GUI.deleteAllLocators, height=30)
+        cmds.separator(height=2, st='none')
+        cmds.button(label='Select all joints', command=GUI.selectAllJoints, height=30)
+        cmds.separator(height=2, st='none')
+        cmds.button(label='Select hierarchy', command=GUI.selectHierarchy, height=30)
+        cmds.separator(height=2, st='none')
+        cmds.button(label='Disable/Enable Scale Compensation', command=GUI.disableScaleCompensation, height=30)
+        cmds.separator(height=2, st='none')
+        cmds.button(label='Set Rotation Order', command=GUI.changeRotationOrder, height=30)
+
+        cmds.separator(height=10, st='none')
+        cmds.optionMenuGrp('rotationMenu', label='Select Order:')
+        cmds.separator(height=10, st='none')
+        cmds.menuItem(label='xyz')
+        cmds.menuItem(label='yzx')
+        cmds.menuItem(label='zxy')
+        cmds.menuItem(label='xzy')
+        cmds.menuItem(label='yxz')
+        cmds.menuItem(label='zyx')
+
+        cmds.separator(height=2, st='none')
+        cmds.button(label='Align Translational Axis To Local Rotational Axis', command=GUI.alignTransAxis, height=30)
         cmds.setParent('..')
 
         cmds.tabLayout(tabs, edit=True, tabLabel=((tab1, 'Main'), (tab2, 'Misc')))

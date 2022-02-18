@@ -140,9 +140,8 @@ renameAllJoints(allJoints)
 ########################################################################################################################
 
 jointList = cmds.ls(et="joint")                             # Creating template locators from given rig
-prefix = "r_"                                               # The function creates locators only for the left side
-                                                            # of the rig with the intention to be mirrored later
-def removePrefix(list):                                     # in the process
+                                                            # The function creates locators only for the left side                                                            # of the rig with the intention to be mirrored later
+def removePrefix(list, prefix):                             # in the process
     for i in list:
         if prefix in i:
             list.remove(i)
@@ -171,3 +170,27 @@ nameValues = dict(zip(x, y))
 
 for key, value in nameValues.items():
     print(key, ' : ', value)
+
+########################################################################################################################
+
+x = cmds.ls(sl=True)                                    # Change rotation order for the selected joint
+for i in x:
+    cmds.setAttr(i + '.rotateOrder', 0)
+
+########################################################################################################################
+
+x = cmds.ls(sl=True)                                    # Enable stretching for the selected joint
+for i in x:
+    cmds.setAttr(i + '.segmentScaleCompensate', 1)
+
+########################################################################################################################
+
+cmds.select(hi=True)                                    # Select hierarchy of the selected joint
+
+########################################################################################################################
+
+cmds.select(cmds.ls(et='joint'))                        # Select all joints
+
+########################################################################################################################
+
+cmds.joint(edit=True, zso=True)                        # Align translational axis to local rotational axis

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Updated locators.py with the latest utility functions">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Looking into orientations and rotations. Created a few more utility functions - select all joints, select hierarchy, enable scale compensation, set rotation order and align translational axis to local rotational axis. These should help to any rig setup and are related to the most important procedures for correctly creating a rig. Next, I will look into creating joints with predefined orientation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/locators.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +95,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="locators" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="locators" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="AutoRigging" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -129,7 +128,6 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.interface" />
-        <item itemvalue="Python.locators" />
       </list>
     </recent_temporary>
   </component>
@@ -338,7 +336,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644963579952</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Looking into orientations and rotations. Created a few more utility functions - select all joints, select hierarchy, enable scale compensation, set rotation order and align translational axis to local rotational axis. These should help to any rig setup and are related to the most important procedures for correctly creating a rig. Next, I will look into creating joints with predefined orientation">
+      <created>1645195853519</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1645195853519</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -398,6 +403,7 @@
     <MESSAGE value="Nice" />
     <MESSAGE value="I thought it might be a good idea to base the template skeleton on the UE mannequin, or at least have it as another template. In the process developed a function that renames the joints with the joint position prefix instead of suffix. Not essential for the project, but it might be useful in some situations." />
     <MESSAGE value="Updated locators.py with the latest utility functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated locators.py with the latest utility functions" />
+    <MESSAGE value="Looking into orientations and rotations. Created a few more utility functions - select all joints, select hierarchy, enable scale compensation, set rotation order and align translational axis to local rotational axis. These should help to any rig setup and are related to the most important procedures for correctly creating a rig. Next, I will look into creating joints with predefined orientation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Looking into orientations and rotations. Created a few more utility functions - select all joints, select hierarchy, enable scale compensation, set rotation order and align translational axis to local rotational axis. These should help to any rig setup and are related to the most important procedures for correctly creating a rig. Next, I will look into creating joints with predefined orientation" />
   </component>
 </project>

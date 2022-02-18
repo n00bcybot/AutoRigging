@@ -110,7 +110,7 @@ class GUI:
     def __init__(self):
 
         self.window = 'MyWindow'
-        self.title = 'Rigging Tools'
+        self.title = 'RigMate'
         self.size = (400, 400)
 
     def spawnTempLocators(self):
@@ -142,12 +142,15 @@ class GUI:
         for i, j in dictNew.items():                                # Creating the chain by iterating over the keys and the values
             cmds.joint(n=i.replace('_loc', '_jnt'), position=j)     # in the dictionary
 
-        cmds.select(deselect=True)
 
         orientJoints = cmds.ls(type='joint')
-        print(orientJoints)                                         # Orient all joints
-        cmds.joint(orientJoints[0], e=True, oj='xyz', sao='zup', ch=True, zso=True)
+        for i in orientJoints:                                         # Orient all joints
+            if 'Nub' not in i:
+                cmds.joint(i, e=True, oj='xyz', sao='zup', ch=True, zso=True)
+            else:
+                 cmds.joint(e=True, oj='none', ch=True, zso=True)
 
+        cmds.select(deselect=True)
 
         confirmMessage = cmds.confirmDialog(title='Confirm', message='Delete corresponding locators?', button=['Yes', 'No'],
                                             defaultButton='Yes', cancelButton='No', dismissString='No')

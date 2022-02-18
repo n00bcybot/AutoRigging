@@ -5,17 +5,10 @@ import maya.cmds as cmds
 
 
 
+cmds.select(hi=True)
+x = cmds.ls(sl=True)
+print(x[-1:])
 
-
-
-x = cmds.ls(sl=True)                                    # Change rotation order for the selected joint
-for i in x:
-    cmds.setAttr(i + '.rotateOrder', 0)
-
-
-x = cmds.ls(sl=True)                                    # Enable stretching for the selected joint
-for i in x:
-    cmds.setAttr(i + '.segmentScaleCompensate', 1)
 
 
 '''

@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Looking into orientations and rotations. Created a few more utility functions - select all joints, select hierarchy, enable scale compensation, set rotation order and align translational axis to local rotational axis. These should help to any rig setup and are related to the most important procedures for correctly creating a rig. Next, I will look into creating joints with predefined orientation">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
-    </list>
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Managed to set the orientation with the joint creation properly and parented the fingers to the arm. As it is now, the thumb still has to be rotated manually to curl in the palm" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -349,7 +346,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645224086431</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Managed to set the orientation with the joint creation properly and parented the fingers to the arm. As it is now, the thumb still has to be rotated manually to curl in the palm">
+      <created>1645302351412</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1645302351412</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -410,6 +414,7 @@
     <MESSAGE value="I thought it might be a good idea to base the template skeleton on the UE mannequin, or at least have it as another template. In the process developed a function that renames the joints with the joint position prefix instead of suffix. Not essential for the project, but it might be useful in some situations." />
     <MESSAGE value="Updated locators.py with the latest utility functions" />
     <MESSAGE value="Looking into orientations and rotations. Created a few more utility functions - select all joints, select hierarchy, enable scale compensation, set rotation order and align translational axis to local rotational axis. These should help to any rig setup and are related to the most important procedures for correctly creating a rig. Next, I will look into creating joints with predefined orientation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Looking into orientations and rotations. Created a few more utility functions - select all joints, select hierarchy, enable scale compensation, set rotation order and align translational axis to local rotational axis. These should help to any rig setup and are related to the most important procedures for correctly creating a rig. Next, I will look into creating joints with predefined orientation" />
+    <MESSAGE value="Managed to set the orientation with the joint creation properly and parented the fingers to the arm. As it is now, the thumb still has to be rotated manually to curl in the palm" />
+    <option name="LAST_COMMIT_MESSAGE" value="Managed to set the orientation with the joint creation properly and parented the fingers to the arm. As it is now, the thumb still has to be rotated manually to curl in the palm" />
   </component>
 </project>

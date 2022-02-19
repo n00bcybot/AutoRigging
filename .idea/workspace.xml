@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Managed to set the orientation with the joint creation properly and parented the fingers to the arm. As it is now, the thumb still has to be rotated manually to curl in the palm" />
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Managed to set the orientation with the joint creation properly and parented the fingers to the arm. As it is now, the thumb still has to be rotated manually to curl in the palm">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -113,13 +116,13 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="MayaCharm.test" />
       <item itemvalue="MayaCharm.classInterface" />
+      <item itemvalue="MayaCharm.locators" />
       <item itemvalue="MayaCharm.interface" />
       <item itemvalue="MayaCharm.locatorsDict" />
-      <item itemvalue="MayaCharm.locators" />
-      <item itemvalue="MayaCharm.test" />
-      <item itemvalue="Python.interface" />
       <item itemvalue="Python.locators" />
+      <item itemvalue="Python.interface" />
     </list>
     <recent_temporary>
       <list>
@@ -360,7 +363,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645303402912</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Managed to set the orientation with the joint creation properly and parented the fingers to the arm. As it is now, the thumb still has to be rotated manually to curl in the palm">
+      <created>1645303686299</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1645303686299</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

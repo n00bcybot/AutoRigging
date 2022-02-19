@@ -3,7 +3,7 @@ import maya.cmds as cmds
 
 class GUI:
 
-    unreal_mannequinn = {
+    unreal_mannequin = {
 
         'head_loc': [8.2638619126872e-06, 165.51602844828014, -3.977627446646858],
         'l_ball_loc': [17.908687880693478, 2.81181185206154, 8.355310421255368],

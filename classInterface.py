@@ -102,10 +102,11 @@ class GUI:
     eyeLocators = ['l_eye_loc', 'l_eyeNub_loc']
     jawLocators = ['jaw_loc', 'jawNub_loc']
 
-    handLocators = [thumbLocators, indexLocators, middleLocators, ringLocators, pinkyLocators]
+    fingers = [thumbLocators, indexLocators, middleLocators, ringLocators, pinkyLocators]
+    handLocators = [armLocators, thumbLocators, indexLocators, middleLocators, ringLocators, pinkyLocators]
     allLists = [armLocators, legLocators, spineLocators, eyeLocators, jawLocators, thumbLocators,
                 indexLocators, middleLocators, ringLocators, pinkyLocators]
-    allChains = [armLocators, legLocators, spineLocators, eyeLocators, jawLocators, handLocators, allLists]
+    allChains = [handLocators, legLocators, spineLocators, eyeLocators, jawLocators, allLists]
 
     def __init__(self):
 
@@ -135,28 +136,38 @@ class GUI:
             list_B.append(i)
 
         dictNew = {}                                                # Declaring the new list
-        for i in slist:                                             # For each item in list_A, if the item is in list_B
+        for i in slist:                                             # For each item in slist, if the item is in list_B
             if i in list_B:                                         # add it to the dictNew
                 dictNew[i] = locatorsDict[i]                        # dictNew[item] becomes the key, = , dictOld[i] gets the corresponding values
 
         for i, j in dictNew.items():                                # Creating the chain by iterating over the keys and the values
             cmds.joint(n=i.replace('_loc', '_jnt'), position=j)     # in the dictionary
 
-
-        orientJoints = cmds.ls(type='joint')
-        for i in orientJoints:                                         # Orient all joints
-            if 'Nub' not in i:
-                cmds.joint(i, e=True, oj='xyz', sao='zup', ch=True, zso=True)
-            else:
-                 cmds.joint(e=True, oj='none', ch=True, zso=True)
-
         cmds.select(deselect=True)
 
-        confirmMessage = cmds.confirmDialog(title='Confirm', message='Delete corresponding locators?', button=['Yes', 'No'],
-                                            defaultButton='Yes', cancelButton='No', dismissString='No')
-        if confirmMessage == 'Yes':
-            for i in slist:
-                cmds.delete(i)
+        # confirmMessage = cmds.confirmDialog(title='Confirm', message='Delete corresponding locators?', button=['Yes', 'No'],
+        #                                     defaultButton='Yes', cancelButton='No', dismissString='No')
+        # if confirmMessage == 'Yes':
+        #    for i in slist:
+        #        cmds.delete(i)
+
+    def orientJoints(self):
+        orientJoints = cmds.ls(type='joint')
+        for i in orientJoints:                                          # Orient all joints
+            if 'Nub' in i:
+                cmds.joint(i, e=True, oj='none', ch=True, zso=True)
+            elif 'hand' in i:
+                cmds.joint(i, e=True, oj='none', ch=True, zso=True)
+            else:
+                cmds.joint(i, e=True, oj='xyz', sao='zup', ch=True, zso=True)
+
+    def parentJoints(self):
+
+        y = []  # Parent all fingers to hand joint
+        for eachlist in GUI.fingers:
+            y.append(eachlist[0].replace('_loc', '_jnt'))
+        for i in y:
+            cmds.connectJoint(i, 'l_hand_jnt', pm=True)
 
     def displayLocalAxis(self):                                         # Display local orientation axis
         jointList = cmds.ls(type='joint')
@@ -183,6 +194,8 @@ class GUI:
                 GUI.spawnJoints(self, i)
         else:                                                       # else execute list
             GUI.spawnJoints(self, dropdownList)
+        GUI.orientJoints(self)
+        GUI.parentJoints(self)
 
     def selectAllJoints(self):
         cmds.select(cmds.ls(et='joint'))                            # Select all joints in the scene
@@ -190,7 +203,7 @@ class GUI:
     def selectHierarchy(self):
         cmds.select(hi=True)                                        # Select hierarchy of the selected joint
 
-    def disableScaleCompensation(self):                             # Display local orientation axis
+    def disableScaleComp(self):                             # Display local orientation axis
         jointList = cmds.ls(type='joint')
         selection = cmds.ls(sl=True)
         for i in selection:
@@ -211,7 +224,6 @@ class GUI:
         for i in x:
             cmds.joint(i, edit=True, zso=True)                             # Align translational axis to local rotational axis
 
-
     def windowFunction(self):
         if cmds.window(self.window, query=True, exists=True):
             cmds.deleteUI(self.window)
@@ -230,8 +242,8 @@ class GUI:
         cmds.menuItem(label='Spine')
         cmds.menuItem(label='Eyes')
         cmds.menuItem(label='Jaw')
-        cmds.menuItem(label='Hand')
         cmds.menuItem(label='All chains')
+
         cmds.separator(height=2, st='none')
         cmds.button(label='Spawn Locators', command=GUI.spawnTempLocators, height=30)
         cmds.separator(height=2, st='none')
@@ -249,7 +261,7 @@ class GUI:
         cmds.separator(height=2, st='none')
         cmds.button(label='Select hierarchy', command=GUI.selectHierarchy, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Disable/Enable Scale Compensation', command=GUI.disableScaleCompensation, height=30)
+        cmds.button(label='Disable/Enable Scale Compensation', command=GUI.disableScaleComp, height=30)
         cmds.separator(height=2, st='none')
         cmds.button(label='Set Rotation Order', command=GUI.changeRotationOrder, height=30)
 

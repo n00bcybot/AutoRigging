@@ -113,13 +113,13 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="MayaCharm.test" />
       <item itemvalue="MayaCharm.classInterface" />
-      <item itemvalue="MayaCharm.locators" />
       <item itemvalue="MayaCharm.interface" />
       <item itemvalue="MayaCharm.locatorsDict" />
-      <item itemvalue="Python.locators" />
+      <item itemvalue="MayaCharm.locators" />
+      <item itemvalue="MayaCharm.test" />
       <item itemvalue="Python.interface" />
+      <item itemvalue="Python.locators" />
     </list>
     <recent_temporary>
       <list>
@@ -353,7 +353,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645302351412</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Managed to set the orientation with the joint creation properly and parented the fingers to the arm. As it is now, the thumb still has to be rotated manually to curl in the palm">
+      <created>1645303402912</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1645303402912</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

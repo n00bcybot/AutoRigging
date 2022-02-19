@@ -5,12 +5,6 @@ import maya.cmds as cmds
 
 
 
-cmds.select(hi=True)
-x = cmds.ls(sl=True)
-print(x[-1:])
-
-
-
 '''
 y=[]                                                    # Parent all fingers to hand joint
 for eachlist in handLoc:

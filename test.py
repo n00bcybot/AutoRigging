@@ -29,8 +29,10 @@ def checkboxState(args):
     elif cmds.checkBox(checkbox1, q=True, v=True) == 0:
         cmds.columnLayout(layout2, e=True, en=1)
 
-def values():
-    print()
+def values(args):
+    print(cmds.radioButtonGrp(radioGroup1, query=True, sl=True))
+    print(cmds.radioButtonGrp(radioGroup2, query=True, sl=True))
+    print(cmds.radioButtonGrp(radioGroup3, query=True, sl=True))
 
 radioWindow = cmds.window(title="Spawn Joints", widthHeight=(600, 250))
 layout1 = cmds.columnLayout(adjustableColumn=True, ebg=True)
@@ -41,7 +43,7 @@ radioGroup1 = cmds.radioButtonGrp(nrb=3, label='Primary Axis', labelArray3=['X',
 radioGroup2 = cmds.radioButtonGrp(nrb=4, label='Secondary Axis', labelArray4=['X', 'Y', 'Z', 'None'], sl=2, p=layout2, on1=setXYZs, on2=setXYZs, on3=setXYZs)
 radioGroup3 = cmds.radioButtonGrp(nrb=3, label='World Orientation', labelArray3=['X', 'Y', 'Z'], sl=2, p=layout2)
 
-cmds.button(label='Do Nothing', command=values, parent=layout1)
+cmds.button(label='Print Values', command=values, parent=layout1)
 cmds.button(label='Close', command=('cmds.deleteUI(\"' + radioWindow + '\", window=True)'), parent=layout1)
 
 cmds.showWindow(radioWindow)

@@ -111,7 +111,7 @@ class GUI:
     def __init__(self):
 
         self.window = 'MyWindow'
-        self.title = 'RigMate'
+        self.title = 'Rigging Tools'
         self.size = (400, 400)
 
     def spawnTempLocators(self):
@@ -185,7 +185,7 @@ class GUI:
         for each in locators:
             cmds.delete(each)
 
-    def selectJointChain(self):
+    def createJointChain(self):
         selected = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
         dropdownList = GUI.allChains[int(selected)]
 
@@ -247,7 +247,7 @@ class GUI:
         cmds.separator(height=2, st='none')
         cmds.button(label='Spawn Locators', command=GUI.spawnTempLocators, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Spawn Joints', command=GUI.selectJointChain, height=30)
+        cmds.button(label='Spawn Joints', command=GUI.createJointChain, height=30)
 
         cmds.setParent('..')
 

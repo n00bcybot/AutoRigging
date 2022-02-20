@@ -1,7 +1,6 @@
 import sys
 import os
 sys.path.append(os.path.abspath("C:/Users/fresh/PycharmProjects/AutoRigging"))
-from locatorsDict import *
 import maya.cmds as cmds
 
 

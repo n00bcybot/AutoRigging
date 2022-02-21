@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Aligning the radio box">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Created and connected radio buttons for joint creation to the main layout">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
@@ -391,7 +391,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645437097406</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Created and connected radio buttons for joint creation to the main layout">
+      <created>1645458932100</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1645458932100</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -456,6 +463,7 @@
     <MESSAGE value="Cleaning up" />
     <MESSAGE value="Managed to build radio buttons interface, similar to the one in the joint creation tool and the orient joint tool." />
     <MESSAGE value="Aligning the radio box" />
-    <option name="LAST_COMMIT_MESSAGE" value="Aligning the radio box" />
+    <MESSAGE value="Created and connected radio buttons for joint creation to the main layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created and connected radio buttons for joint creation to the main layout" />
   </component>
 </project>

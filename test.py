@@ -34,10 +34,123 @@ def noneUnchecked(args):
     cmds.radioButtonGrp(radioGroup3, e=True, en=1)
 
 def values(args):
-    print(cmds.radioButtonGrp(radioGroup1, query=True, sl=True))
-    print(cmds.radioButtonGrp(radioGroup2, query=True, sl=True))
-    print(cmds.radioButtonGrp(radioGroup3, query=True, sl=True))
-    print(cmds.optionMenuGrp('updown', query=True, sl=True))
+
+    rg1 = cmds.radioButtonGrp(radioGroup1, query=True, sl=True)
+    rg2 = cmds.radioButtonGrp(radioGroup2, query=True, sl=True)
+    rg3 = cmds.radioButtonGrp(radioGroup3, query=True, sl=True)
+    om = cmds.optionMenuGrp('updown',query=True, sl=True)
+
+    if rg1 == 1 and rg2 ==2:
+        if rg3 == 1:
+            if om == 1:
+                print('joint -e -oj xyz -sao xup -ch -zso')
+            else:
+                print('joint -e -oj xyz -sao xdown -ch -zso')
+        elif rg3 == 2:
+            if om == 1:
+                print('joint -e -oj xyz -sao yup -ch -zso')
+            else:
+                print('joint -e -oj xyz -sao ydown -ch -zso')
+        elif rg3 == 3:
+            if om == 1:
+                print('joint -e -oj xyz -sao zup -ch -zso')
+            else:
+                print('joint -e -oj xyz -sao zdown -ch -zso')
+
+    elif rg1 == 1 and rg2 == 3:
+        if rg3 == 1:
+            if om == 1:
+                print('joint -e -oj xzy -sao xup -ch -zso')
+            else:
+                print('joint -e -oj xzy -sao xdown -ch -zso')
+        elif rg3 == 2:
+            if om == 1:
+                print('joint -e -oj xzy -sao yup -ch -zso')
+            else:
+                print('joint -e -oj xzy -sao ydown -ch -zso')
+        elif rg3 == 3:
+            if om == 1:
+                print('joint -e -oj xzy -sao zup -ch -zso')
+            else:
+                print('joint -e -oj xzy -sao zdown -ch -zso')
+
+    elif rg2 == 4:
+        if rg1 == 1:
+            print('joint -e -oj xyz -ch -zso')
+        elif rg1 == 2:
+            print('joint -e -oj yzx -ch -zso')
+        elif rg1 == 3:
+            print('joint -e -oj zxy -ch -zso')
+
+    elif rg1 == 2 and rg2 ==1:
+        if rg3 == 1:
+            if om == 1:
+                print('joint -e -oj yxz -sao xup -ch -zso')
+            else:
+                print('joint -e -oj yxz -sao xdown -ch -zso')
+        elif rg3 == 2:
+            if om == 1:
+                print('joint -e -oj yxz -sao yup -ch -zso')
+            else:
+                print('joint -e -oj yxz -sao ydown -ch -zso')
+        elif rg3 == 3:
+            if om == 1:
+                print('joint -e -oj yxz -sao zup -ch -zso')
+            else:
+                print('joint -e -oj yxz -sao zdown -ch -zso')
+
+    elif rg1 == 2 and rg2 == 3:
+        if rg3 == 1:
+            if om == 1:
+                print('joint -e -oj yzx -sao xup -ch -zso')
+            else:
+                print('joint -e -oj yzx -sao xdown -ch -zso')
+        elif rg3 == 2:
+            if om == 1:
+                print('joint -e -oj yzx -sao yup -ch -zso')
+            else:
+                print('joint -e -oj yzx -sao ydown -ch -zso')
+        elif rg3 == 3:
+            if om == 1:
+                print('joint -e -oj yzx -sao zup -ch -zso')
+            else:
+                print('joint -e -oj yzx -sao zdown -ch -zso')
+
+    elif rg1 == 3 and rg2 == 1:
+        if rg3 == 1:
+            if om == 1:
+                print('joint -e -oj zxy -sao xup -ch -zso')
+            else:
+                print('joint -e -oj zxy -sao xdown -ch -zso')
+        elif rg3 == 2:
+            if om == 1:
+                print('joint -e -oj zxy -sao yup -ch -zso')
+            else:
+                print('joint -e -oj zxy -sao ydown -ch -zso')
+        elif rg3 == 3:
+            if om == 1:
+                print('joint -e -oj zxy -sao zup -ch -zso')
+            else:
+                print('joint -e -oj zxy -sao zdown -ch -zso')
+
+    elif rg1 == 3 and rg2 == 2:
+        if rg3 == 1:
+            if om == 1:
+                print('joint -e -oj zyx -sao xup -ch -zso')
+            else:
+                print('joint -e -oj zyx -sao xdown -ch -zso')
+        elif rg3 == 2:
+            if om == 1:
+                print('joint -e -oj zyx -sao yup -ch -zso')
+            else:
+                print('joint -e -oj zyx -sao ydown -ch -zso')
+        elif rg3 == 3:
+            if om == 1:
+                print('joint -e -oj zyx -sao zup -ch -zso')
+            else:
+                print('joint -e -oj zyx -sao zdown -ch -zso')
+
+    return
 
 radioWindow = cmds.window(title="Spawn Joints", widthHeight=(470, 250))
 layout1 = cmds.columnLayout(adjustableColumn=True, ebg=True)
@@ -59,6 +172,7 @@ cmds.button(label='Close', command=('cmds.deleteUI(\"' + radioWindow + '\", wind
 
 cmds.showWindow(radioWindow)
 
+values(args=True)
 '''
 
 y=[]                                                    # Parent all fingers to hand joint

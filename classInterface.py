@@ -258,11 +258,116 @@ class GUI:
         def noneUnchecked(args):
             cmds.radioButtonGrp(radioGroup3, e=True, en=1)
 
-        def values(args):
-            print(cmds.radioButtonGrp(radioGroup1, query=True, sl=True))
-            print(cmds.radioButtonGrp(radioGroup2, query=True, sl=True))
-            print(cmds.radioButtonGrp(radioGroup3, query=True, sl=True))
-            print(cmds.optionMenuGrp('updown', query=True, sl=True))
+        def printValues(args):
+            rg1 = cmds.radioButtonGrp(radioGroup1, query=True, sl=True)
+            rg2 = cmds.radioButtonGrp(radioGroup2, query=True, sl=True)
+            rg3 = cmds.radioButtonGrp(radioGroup3, query=True, sl=True)
+            om = cmds.optionMenuGrp('updown', query=True, sl=True)
+
+            if rg1 == 1 and rg2 == 2:
+                if rg3 == 1:
+                    if om == 1:
+                        print('e=True oj='' xyz sao='' xup ch=True zso=True')
+                    else:
+                        print('e=True, oj=\"xyz\", sao=\"xdown\", ch=True, zso=True')
+                elif rg3 == 2:
+                    if om == 1:
+                        print('e=True oj='' xyz sao='' yup ch=True zso=True')
+                    else:
+                        print('e=True oj='' xyz sao='' ydown ch=True zso=True')
+                elif rg3 == 3:
+                    if om == 1:
+                        print('e=True oj='' xyz sao='' zup ch=True zso=True')
+                    else:
+                        print('e=True oj='' xyz sao='' zdown ch=True zso=True')
+            elif rg1 == 1 and rg2 == 3:
+                if rg3 == 1:
+                    if om == 1:
+                        print('e=True oj='' xzy sao='' xup ch=True zso=True')
+                    else:
+                        print('e=True oj='' xzy sao='' xdown ch=True zso=True')
+                elif rg3 == 2:
+                    if om == 1:
+                        print('e=True oj='' xzy sao='' yup ch=True zso=True')
+                    else:
+                        print('e=True oj='' xzy sao='' ydown ch=True zso=True')
+                elif rg3 == 3:
+                    if om == 1:
+                        print('e=True oj='' xzy sao='' zup ch=True zso=True')
+                    else:
+                        print('e=True oj='' xzy sao='' zdown ch=True zso=True')
+            elif rg2 == 4:
+                if rg1 == 1:
+                    print('e=True oj='' xyz ch=True zso=True')
+                elif rg1 == 2:
+                    print('e=True oj='' yzx ch=True zso=True')
+                elif rg1 == 3:
+                    print('e=True oj='' zxy ch=True zso=True')
+            elif rg1 == 2 and rg2 == 1:
+                if rg3 == 1:
+                    if om == 1:
+                        print('e=True oj='' yxz sao='' xup ch=True zso=True')
+                    else:
+                        print('e=True oj='' yxz sao='' xdown ch=True zso=True')
+                elif rg3 == 2:
+                    if om == 1:
+                        print('e=True oj='' yxz sao='' yup ch=True zso=True')
+                    else:
+                        print('e=True oj='' yxz sao='' ydown ch=True zso=True')
+                elif rg3 == 3:
+                    if om == 1:
+                        print('e=True oj='' yxz sao='' zup ch=True zso=True')
+                    else:
+                        print('e=True oj='' yxz sao='' zdown ch=True zso=True')
+            elif rg1 == 2 and rg2 == 3:
+                if rg3 == 1:
+                    if om == 1:
+                        print('e=True oj='' yzx sao='' xup ch=True zso=True')
+                    else:
+                        print('e=True oj='' yzx sao='' xdown ch=True zso=True')
+                elif rg3 == 2:
+                    if om == 1:
+                        print('e=True oj='' yzx sao='' yup ch=True zso=True')
+                    else:
+                        print('e=True oj='' yzx sao='' ydown ch=True zso=True')
+                elif rg3 == 3:
+                    if om == 1:
+                        print('e=True oj='' yzx sao='' zup ch=True zso=True')
+                    else:
+                        print('e=True oj='' yzx sao='' zdown ch=True zso=True')
+            elif rg1 == 3 and rg2 == 1:
+                if rg3 == 1:
+                    if om == 1:
+                        print('e=True oj='' zxy sao='' xup ch=True zso=True')
+                    else:
+                        print('e=True oj='' zxy sao='' xdown ch=True zso=True')
+                elif rg3 == 2:
+                    if om == 1:
+                        print('e=True oj='' zxy sao='' yup ch=True zso=True')
+                    else:
+                        print('e=True oj='' zxy sao='' ydown ch=True zso=True')
+                elif rg3 == 3:
+                    if om == 1:
+                        print('e=True oj='' zxy sao='' zup ch=True zso=True')
+                    else:
+                        print('e=True oj='' zxy sao='' zdown ch=True zso=True')
+            elif rg1 == 3 and rg2 == 2:
+                if rg3 == 1:
+                    if om == 1:
+                        print('e=True oj='' zyx sao='' xup ch=True zso=True')
+                    else:
+                        print('e=True oj='' zyx sao='' xdown ch=True zso=True')
+                elif rg3 == 2:
+                    if om == 1:
+                        print('e=True oj='' zyx sao='' yup ch=True zso=True')
+                    else:
+                        print('e=True oj='' zyx sao='' ydown ch=True zso=True')
+                elif rg3 == 3:
+                    if om == 1:
+                        print('e=True oj='' zyx sao='' zup ch=True zso=True')
+                    else:
+                        print('e=True oj='' zyx sao='' zdown ch=True zso=True')
+            return
 
         if cmds.window(self.window, query=True, exists=True):
             cmds.deleteUI(self.window)
@@ -303,7 +408,7 @@ class GUI:
         cmds.optionMenuGrp('updown', parent=radioGroup3)
         cmds.menuItem(label='+')
         cmds.menuItem(label='-')
-        cmds.button(label='Print Values', command=values, parent=layout1)
+        cmds.button(label='Print Values', command=printValues, parent=layout1)
 
         cmds.separator(height=2, st='none')
         cmds.button(label='Spawn Joints', command=GUI.createJointChain, height=30)
@@ -314,9 +419,9 @@ class GUI:
         cmds.separator(height=2, st='none')
         cmds.button(label='Delete All Locators', command=GUI.deleteAllLocators, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Select all joints', command=GUI.selectAllJoints, height=30)
+        cmds.button(label='Select All Joints', command=GUI.selectAllJoints, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Select hierarchy', command=GUI.selectHierarchy, height=30)
+        cmds.button(label='Select Hierarchy', command=GUI.selectHierarchy, height=30)
         cmds.separator(height=2, st='none')
         cmds.button(label='Disable/Enable Scale Compensation', command=GUI.disableScaleComp, height=30)
         cmds.separator(height=2, st='none')

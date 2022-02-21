@@ -225,15 +225,54 @@ class GUI:
             cmds.joint(i, edit=True, zso=True)                             # Align translational axis to local rotational axis
 
     def windowFunction(self):
+
+        def setXYZp(args):
+            a = cmds.radioButtonGrp(radioGroup1, q=True, sl=True)
+            b = cmds.radioButtonGrp(radioGroup2, q=True, sl=True)
+            if a == 1 and b == 1:
+                cmds.radioButtonGrp(radioGroup2, e=True, sl=2)
+            elif a == 2 and b == 2:
+                cmds.radioButtonGrp(radioGroup2, e=True, sl=3)
+            elif a == 3 and b == 3:
+                cmds.radioButtonGrp(radioGroup2, e=True, sl=1)
+
+        def setXYZs(args):
+            a = cmds.radioButtonGrp(radioGroup1, q=True, sl=True)
+            b = cmds.radioButtonGrp(radioGroup2, q=True, sl=True)
+            if b == 1 and a == 1:
+                cmds.radioButtonGrp(radioGroup1, e=True, sl=2)
+            elif b == 2 and a == 2:
+                cmds.radioButtonGrp(radioGroup1, e=True, sl=3)
+            elif b == 3 and a == 3:
+                cmds.radioButtonGrp(radioGroup1, e=True, sl=1)
+
+        def checkboxState(args):
+            if cmds.checkBox(checkbox1, q=True, v=True) == 1:
+                cmds.columnLayout(layout2, e=True, en=0)
+            elif cmds.checkBox(checkbox1, q=True, v=True) == 0:
+                cmds.columnLayout(layout2, e=True, en=1)
+
+        def noneChecked(args):
+            cmds.radioButtonGrp(radioGroup3, e=True, en=0)
+
+        def noneUnchecked(args):
+            cmds.radioButtonGrp(radioGroup3, e=True, en=1)
+
+        def values(args):
+            print(cmds.radioButtonGrp(radioGroup1, query=True, sl=True))
+            print(cmds.radioButtonGrp(radioGroup2, query=True, sl=True))
+            print(cmds.radioButtonGrp(radioGroup3, query=True, sl=True))
+            print(cmds.optionMenuGrp('updown', query=True, sl=True))
+
         if cmds.window(self.window, query=True, exists=True):
             cmds.deleteUI(self.window)
 
-        cmds.window(self.window, title=self.title, widthHeight=self.size)
-        cmds.columnLayout(adjustableColumn=True, ebg=True)
+        mainWindow = cmds.window(self.window, title=self.title, widthHeight=self.size)
+        mainLayout = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=mainWindow)
 
-        tabs = cmds.tabLayout(bs='none')
+        tabs = cmds.tabLayout(bs='none', parent=mainLayout)
 
-        tab1 = cmds.columnLayout(adjustableColumn=True, ebg=True)
+        tab1 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=tabs)
         cmds.separator(height=10, st='none')
         cmds.optionMenuGrp('optMenu', label='Create Joint Chain')
         cmds.separator(height=10, st='none')
@@ -247,11 +286,29 @@ class GUI:
         cmds.separator(height=2, st='none')
         cmds.button(label='Spawn Locators', command=GUI.spawnTempLocators, height=30)
         cmds.separator(height=2, st='none')
+
+        layout1 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=tab1)
+        layout3 = cmds.columnLayout(parent=layout1, cw=470, cat=('both', 142))
+
+        checkbox1 = cmds.checkBox(label='Orient Joint To World', value=0, onc=checkboxState, ofc=checkboxState,
+                                  parent=layout3)
+        layout2 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=layout1)
+        radioGroup1 = cmds.radioButtonGrp(nrb=3, label='Primary Axis', labelArray3=['X', 'Y', 'Z'],
+                                          cw=([2, 70], [3, 70]), sl=1, p=layout2, on1=setXYZp, on2=setXYZp, on3=setXYZp)
+        radioGroup2 = cmds.radioButtonGrp(nrb=4, label='Secondary Axis', labelArray4=['X', 'Y', 'Z', 'None'],
+                                          cw=([2, 70], [3, 70], [4, 70]), sl=2, p=layout2, on1=setXYZs, on2=setXYZs,
+                                          on3=setXYZs, on4=noneChecked, of4=noneUnchecked)
+        radioGroup3 = cmds.radioButtonGrp(nrb=3, label='SA World Orientation', labelArray3=['X', 'Y', 'Z'],
+                                          cw=([2, 70], [3, 70], [4, 70]), sl=2, p=layout2)
+        cmds.optionMenuGrp('updown', parent=radioGroup3)
+        cmds.menuItem(label='+')
+        cmds.menuItem(label='-')
+        cmds.button(label='Print Values', command=values, parent=layout1)
+
+        cmds.separator(height=2, st='none')
         cmds.button(label='Spawn Joints', command=GUI.createJointChain, height=30)
 
-        cmds.setParent('..')
-
-        tab2 = cmds.columnLayout(adjustableColumn=True, ebg=True)
+        tab2 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=tabs)
         cmds.separator(height=2, st='none')
         cmds.button(label='Display/Hide Local Orientation Axis', command=GUI.displayLocalAxis, height=30)
         cmds.separator(height=2, st='none')
@@ -277,7 +334,7 @@ class GUI:
 
         cmds.separator(height=2, st='none')
         cmds.button(label='Align Translational Axis To Local Rotational Axis', command=GUI.alignTransAxis, height=30)
-        cmds.setParent('..')
+
 
         cmds.tabLayout(tabs, edit=True, tabLabel=((tab1, 'Main'), (tab2, 'Misc')))
 

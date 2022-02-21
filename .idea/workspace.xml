@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Managed to build radio buttons interface, similar to the one in the joint creation tool and the orient joint tool.">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Aligning the radio box">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +38,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/test2.py" />
     <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
-  <component name="RunManager" selected="MayaCharm.test">
+  <component name="RunManager" selected="MayaCharm.classInterface">
     <configuration name="classInterface" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MAYACHARM_RUN_CONFIGURATION">
       <option name="executionType" value="FILE" />
       <option name="mayaSdkPath" value="C:\Program Files\Autodesk\Maya2022\bin\mayapy.exe" />
@@ -383,7 +384,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645401401029</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Aligning the radio box">
+      <created>1645437097406</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1645437097406</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -447,6 +455,7 @@
     <MESSAGE value="Managed to set the orientation with the joint creation properly and parented the fingers to the arm. As it is now, the thumb still has to be rotated manually to curl in the palm" />
     <MESSAGE value="Cleaning up" />
     <MESSAGE value="Managed to build radio buttons interface, similar to the one in the joint creation tool and the orient joint tool." />
-    <option name="LAST_COMMIT_MESSAGE" value="Managed to build radio buttons interface, similar to the one in the joint creation tool and the orient joint tool." />
+    <MESSAGE value="Aligning the radio box" />
+    <option name="LAST_COMMIT_MESSAGE" value="Aligning the radio box" />
   </component>
 </project>

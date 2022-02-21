@@ -27,23 +27,31 @@ def checkboxState(args):
     elif cmds.checkBox(checkbox1, q=True, v=True) == 0:
         cmds.columnLayout(layout2, e=True, en=1)
 
+def noneChecked(args):
+    cmds.radioButtonGrp(radioGroup3, e=True, en=0)
+
+def noneUnchecked(args):
+    cmds.radioButtonGrp(radioGroup3, e=True, en=1)
+
 def values(args):
     print(cmds.radioButtonGrp(radioGroup1, query=True, sl=True))
     print(cmds.radioButtonGrp(radioGroup2, query=True, sl=True))
     print(cmds.radioButtonGrp(radioGroup3, query=True, sl=True))
+    print(cmds.optionMenuGrp('updown', query=True, sl=True))
 
 radioWindow = cmds.window(title="Spawn Joints", widthHeight=(470, 250))
 layout1 = cmds.columnLayout(adjustableColumn=True, ebg=True)
 layout3 = cmds.columnLayout(parent=layout1, cw=470, cat=('both', 142))
 
-checkbox1 = cmds.checkBox(label='Orient To World', value=0, onc=checkboxState, ofc=checkboxState, parent=layout3)
-
+checkbox1 = cmds.checkBox(label='Orient Joint To World', value=0, onc=checkboxState, ofc=checkboxState, parent=layout3)
 layout2 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=layout1)
-radioGroup1 = cmds.radioButtonGrp(nrb=3, label='Primary Axis', labelArray3=['X', 'Y', 'Z'], cw=([2,70], [3,70]), sl=1, p=layout2, on1=setXYZp, on2=setXYZp, on3=setXYZp)
-radioGroup2 = cmds.radioButtonGrp(nrb=4, label='Secondary Axis', labelArray4=['X', 'Y', 'Z', 'None'], cw=([2,70], [3,70], [4,70]), sl=2, p=layout2, on1=setXYZs, on2=setXYZs, on3=setXYZs)
-radioGroup3 = cmds.radioButtonGrp(nrb=3, label='World Orientation', labelArray3=['X', 'Y', 'Z'], cw=([2,70], [3,70], [4,70]), sl=2, p=layout2)
+radioGroup1 = cmds.radioButtonGrp(nrb=3, label='Primary Axis', labelArray3=['X', 'Y', 'Z'],
+                                  cw=([2,70], [3,70]), sl=1, p=layout2, on1=setXYZp, on2=setXYZp, on3=setXYZp)
+radioGroup2 = cmds.radioButtonGrp(nrb=4, label='Secondary Axis', labelArray4=['X', 'Y', 'Z', 'None'],
+                                  cw=([2,70], [3,70], [4,70]), sl=2, p=layout2, on1=setXYZs, on2=setXYZs, on3=setXYZs, on4=noneChecked, of4=noneUnchecked)
+radioGroup3 = cmds.radioButtonGrp(nrb=3, label='SA World Orientation', labelArray3=['X', 'Y', 'Z'],
+                                  cw=([2,70], [3,70], [4,70]), sl=2, p=layout2)
 cmds.optionMenuGrp('updown', parent=radioGroup3)
-
 cmds.menuItem(label='+')
 cmds.menuItem(label='-')
 cmds.button(label='Print Values', command=values, parent=layout1)

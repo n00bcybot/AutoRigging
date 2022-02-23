@@ -1,7 +1,7 @@
 import maya.cmds as cmds
 
 
-class RiggingToolsGUI:
+class RiggingTools:
 
     unrealMannequin = {
 
@@ -102,7 +102,7 @@ class RiggingToolsGUI:
     eyeLocators = ['l_eye_loc', 'l_eyeNub_loc']
     jawLocators = ['jaw_loc', 'jawNub_loc']
 
-    fingers = [thumbLocators, indexLocators, middleLocators, ringLocators, pinkyLocators]
+    fingerLocators = [thumbLocators, indexLocators, middleLocators, ringLocators, pinkyLocators]
     handLocators = [armLocators, thumbLocators, indexLocators, middleLocators, ringLocators, pinkyLocators]
     allLists = [armLocators, legLocators, spineLocators, eyeLocators, jawLocators, thumbLocators,
                 indexLocators, middleLocators, ringLocators, pinkyLocators]
@@ -238,7 +238,7 @@ class RiggingToolsGUI:
     def parentJoints(self, args):
 
         y = []  # Parent all fingers to hand joint
-        for each in self.fingers:
+        for each in self.fingerLocators:
             y.append(each[0].replace('_loc', '_jnt'))
         for i in y:
             cmds.connectJoint(i, 'l_hand_jnt', pm=True)
@@ -271,7 +271,8 @@ class RiggingToolsGUI:
         else:  # else execute list
             self.spawnJoints(dropdownList)
         self.orientJoints(args=True)
-
+        if selected == 'Arm':
+            self.parentJoints(args=True)
     @staticmethod
     def selectAllJoints(args):
         cmds.select(cmds.ls(et='joint'))  # Select all joints in the scene
@@ -361,4 +362,4 @@ class RiggingToolsGUI:
         print(secAxis)
 
 
-newWindow = RiggingToolsGUI()
+newWindow = RiggingTools()

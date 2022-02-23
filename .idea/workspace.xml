@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Class restructuring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +34,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/classinterface.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/test2.py" />
     <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
   <component name="RecentsManager">
@@ -420,7 +419,28 @@
       <option name="project" value="LOCAL" />
       <updated>1645577365524</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Class restructuring">
+      <created>1645626776794</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1645626776794</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Class restructuring">
+      <created>1645626781241</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1645626781241</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Class restructuring">
+      <created>1645626858854</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1645626858854</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -488,6 +508,7 @@
     <MESSAGE value="Created and connected radio buttons for joint creation to the main layout" />
     <MESSAGE value="Trying to connect the radio buttons interface with spawnJoints function" />
     <MESSAGE value="Working on integrating the radio buttons" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working on integrating the radio buttons" />
+    <MESSAGE value="Class restructuring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Class restructuring" />
   </component>
 </project>

@@ -259,115 +259,30 @@ class GUI:
             cmds.radioButtonGrp(radioGroup3, e=True, en=1)
 
         def printValues(args):
-            rg1 = cmds.radioButtonGrp(radioGroup1, query=True, sl=True)
-            rg2 = cmds.radioButtonGrp(radioGroup2, query=True, sl=True)
-            rg3 = cmds.radioButtonGrp(radioGroup3, query=True, sl=True)
-            om = cmds.optionMenuGrp('updown', query=True, sl=True)
 
-            if rg1 == 1 and rg2 == 2:
-                if rg3 == 1:
-                    if om == 1:
-                        print('e=True oj='' xyz sao='' xup ch=True zso=True')
-                    else:
-                        print('e=True, oj=\"xyz\", sao=\"xdown\", ch=True, zso=True')
-                elif rg3 == 2:
-                    if om == 1:
-                        print('e=True oj='' xyz sao='' yup ch=True zso=True')
-                    else:
-                        print('e=True oj='' xyz sao='' ydown ch=True zso=True')
-                elif rg3 == 3:
-                    if om == 1:
-                        print('e=True oj='' xyz sao='' zup ch=True zso=True')
-                    else:
-                        print('e=True oj='' xyz sao='' zdown ch=True zso=True')
-            elif rg1 == 1 and rg2 == 3:
-                if rg3 == 1:
-                    if om == 1:
-                        print('e=True oj='' xzy sao='' xup ch=True zso=True')
-                    else:
-                        print('e=True oj='' xzy sao='' xdown ch=True zso=True')
-                elif rg3 == 2:
-                    if om == 1:
-                        print('e=True oj='' xzy sao='' yup ch=True zso=True')
-                    else:
-                        print('e=True oj='' xzy sao='' ydown ch=True zso=True')
-                elif rg3 == 3:
-                    if om == 1:
-                        print('e=True oj='' xzy sao='' zup ch=True zso=True')
-                    else:
-                        print('e=True oj='' xzy sao='' zdown ch=True zso=True')
-            elif rg2 == 4:
-                if rg1 == 1:
-                    print('e=True oj='' xyz ch=True zso=True')
-                elif rg1 == 2:
-                    print('e=True oj='' yzx ch=True zso=True')
-                elif rg1 == 3:
-                    print('e=True oj='' zxy ch=True zso=True')
-            elif rg1 == 2 and rg2 == 1:
-                if rg3 == 1:
-                    if om == 1:
-                        print('e=True oj='' yxz sao='' xup ch=True zso=True')
-                    else:
-                        print('e=True oj='' yxz sao='' xdown ch=True zso=True')
-                elif rg3 == 2:
-                    if om == 1:
-                        print('e=True oj='' yxz sao='' yup ch=True zso=True')
-                    else:
-                        print('e=True oj='' yxz sao='' ydown ch=True zso=True')
-                elif rg3 == 3:
-                    if om == 1:
-                        print('e=True oj='' yxz sao='' zup ch=True zso=True')
-                    else:
-                        print('e=True oj='' yxz sao='' zdown ch=True zso=True')
-            elif rg1 == 2 and rg2 == 3:
-                if rg3 == 1:
-                    if om == 1:
-                        print('e=True oj='' yzx sao='' xup ch=True zso=True')
-                    else:
-                        print('e=True oj='' yzx sao='' xdown ch=True zso=True')
-                elif rg3 == 2:
-                    if om == 1:
-                        print('e=True oj='' yzx sao='' yup ch=True zso=True')
-                    else:
-                        print('e=True oj='' yzx sao='' ydown ch=True zso=True')
-                elif rg3 == 3:
-                    if om == 1:
-                        print('e=True oj='' yzx sao='' zup ch=True zso=True')
-                    else:
-                        print('e=True oj='' yzx sao='' zdown ch=True zso=True')
-            elif rg1 == 3 and rg2 == 1:
-                if rg3 == 1:
-                    if om == 1:
-                        print('e=True oj='' zxy sao='' xup ch=True zso=True')
-                    else:
-                        print('e=True oj='' zxy sao='' xdown ch=True zso=True')
-                elif rg3 == 2:
-                    if om == 1:
-                        print('e=True oj='' zxy sao='' yup ch=True zso=True')
-                    else:
-                        print('e=True oj='' zxy sao='' ydown ch=True zso=True')
-                elif rg3 == 3:
-                    if om == 1:
-                        print('e=True oj='' zxy sao='' zup ch=True zso=True')
-                    else:
-                        print('e=True oj='' zxy sao='' zdown ch=True zso=True')
-            elif rg1 == 3 and rg2 == 2:
-                if rg3 == 1:
-                    if om == 1:
-                        print('e=True oj='' zyx sao='' xup ch=True zso=True')
-                    else:
-                        print('e=True oj='' zyx sao='' xdown ch=True zso=True')
-                elif rg3 == 2:
-                    if om == 1:
-                        print('e=True oj='' zyx sao='' yup ch=True zso=True')
-                    else:
-                        print('e=True oj='' zyx sao='' ydown ch=True zso=True')
-                elif rg3 == 3:
-                    if om == 1:
-                        print('e=True oj='' zyx sao='' zup ch=True zso=True')
-                    else:
-                        print('e=True oj='' zyx sao='' zdown ch=True zso=True')
-            return
+            xyz = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']
+
+            a = ['x', 'y', 'z']
+            b = ['up', 'down']
+
+            r1 = cmds.radioButtonGrp(radioGroup1, query=True, sl=True)
+            r2 = cmds.radioButtonGrp(radioGroup2, query=True, sl=True)
+            r3 = cmds.radioButtonGrp(radioGroup3, query=True, sl=True)
+            r4 = cmds.optionMenuGrp('updown', query=True, sl=True)
+
+            sel = a[r1 - 1] + a[r2 - 1]
+
+            allAxis = ''
+            for i in xyz:
+                if sel in i:
+                    if a[r1 - 1] == i[0]:
+                        allAxis = i
+
+            secAxis = a[r3 - 1] + b[r4 - 1]
+
+
+            print(allAxis)
+            print(secAxis)
 
         if cmds.window(self.window, query=True, exists=True):
             cmds.deleteUI(self.window)
@@ -448,3 +363,4 @@ class GUI:
 
 myWindow = GUI()
 myWindow.windowFunction()
+

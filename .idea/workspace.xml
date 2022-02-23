@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Created and connected radio buttons for joint creation to the main layout">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Trying to connect the radio buttons interface with spawnJoints function">
+      <change afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +67,14 @@
       <option name="scriptFilePath" value="C:\Users\fresh\PycharmProjects\AutoRigging\test.py" />
       <method v="2" />
     </configuration>
-    <configuration name="interface" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="test2" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MAYACHARM_RUN_CONFIGURATION">
+      <option name="executionType" value="FILE" />
+      <option name="mayaSdkPath" value="C:\Program Files\Autodesk\Maya2022\bin\mayapy.exe" />
+      <option name="scriptCodeText" value="" />
+      <option name="scriptFilePath" value="C:\Users\fresh\PycharmProjects\AutoRigging\test2.py" />
+      <method v="2" />
+    </configuration>
+    <configuration name="interface" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="AutoRigging" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -112,16 +119,12 @@
     <list>
       <item itemvalue="MayaCharm.test" />
       <item itemvalue="MayaCharm.classInterface" />
+      <item itemvalue="MayaCharm.test2" />
       <item itemvalue="MayaCharm.locators" />
       <item itemvalue="MayaCharm.interface" />
       <item itemvalue="Python.locators" />
       <item itemvalue="Python.interface" />
     </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.interface" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -398,7 +401,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645458932100</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Trying to connect the radio buttons interface with spawnJoints function">
+      <created>1645475220618</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1645475220618</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -464,6 +474,7 @@
     <MESSAGE value="Managed to build radio buttons interface, similar to the one in the joint creation tool and the orient joint tool." />
     <MESSAGE value="Aligning the radio box" />
     <MESSAGE value="Created and connected radio buttons for joint creation to the main layout" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created and connected radio buttons for joint creation to the main layout" />
+    <MESSAGE value="Trying to connect the radio buttons interface with spawnJoints function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Trying to connect the radio buttons interface with spawnJoints function" />
   </component>
 </project>

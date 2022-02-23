@@ -122,13 +122,13 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="MayaCharm.classInterface" />
-      <item itemvalue="MayaCharm.interface" />
-      <item itemvalue="MayaCharm.locators" />
-      <item itemvalue="MayaCharm.test2" />
       <item itemvalue="MayaCharm.test" />
-      <item itemvalue="Python.interface" />
+      <item itemvalue="MayaCharm.classInterface" />
+      <item itemvalue="MayaCharm.test2" />
+      <item itemvalue="MayaCharm.locators" />
+      <item itemvalue="MayaCharm.interface" />
       <item itemvalue="Python.locators" />
+      <item itemvalue="Python.interface" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

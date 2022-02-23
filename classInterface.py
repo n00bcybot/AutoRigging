@@ -1,5 +1,30 @@
 import maya.cmds as cmds
 
+'''
+array = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']
+
+a = ['x', 'y', 'z']
+b = ['up', 'down']
+
+r1 = 2
+r2 = 2
+r3 = 1
+r4 = 2
+
+sel = a[r1-1] + a[r2-1]
+
+allAxis = ''
+for i in array:
+    if sel in i:
+        if a[r1-1] == i[0]:
+            allAxis = i
+
+secAxis =  a[r3-1] + b[r4-1]
+
+print(allAxis)
+print(secAxis)
+'''
+
 
 class GUI:
 
@@ -114,185 +139,15 @@ class GUI:
         self.title = 'Rigging Tools'
         self.size = (400, 400)
 
-    def spawnTempLocators(self):
-        for i, j in zip(GUI.locTemp.keys(),
-                        GUI.locTemp.values()):                      # Create locators from template dictionary
-            cmds.spaceLocator(position=j, name=i)
-
-    def spawnJoints(self, slist):                                   # Create joints from list
-
-        x = cmds.ls(type='locator', s=False)                                 # Create dictionary from locators in the scene,  with locators'
-        y = [i.replace('Shape', '') for i in x]
-        locatorsDict = {}                                           # names as keys and their positions in space, as values.
-        for i in y:                                                 # Joints will be spawned from this dictionary
-            position = cmds.pointPosition(i, world=True)
-            locatorsDict[i] = position
-
-        cmds.select(deselect=True)
-        dictKeys = locatorsDict.keys()                             # Creating dict list of keys from the dictionary
-
-        list_B = []                                                 # Converting it to regular list. This step is necessary, since
-        for i in dictKeys:                                         # dict list is not iterable
-            list_B.append(i)
-
-        dictNew = {}                                                # Declaring the new list
-        for i in slist:                                             # For each item in slist, if the item is in list_B
-            if i in list_B:                                         # add it to the dictNew
-                dictNew[i] = locatorsDict[i]                        # dictNew[item] becomes the key, = , dictOld[i] gets the corresponding values
-
-        for i, j in dictNew.items():                                # Creating the chain by iterating over the keys and the values
-            cmds.joint(n=i.replace('_loc', '_jnt'), position=j)     # in the dictionary
-
-        cmds.select(deselect=True)
-
-        # confirmMessage = cmds.confirmDialog(title='Confirm', message='Delete corresponding locators?', button=['Yes', 'No'],
-        #                                     defaultButton='Yes', cancelButton='No', dismissString='No')
-        # if confirmMessage == 'Yes':
-        #    for i in slist:
-        #        cmds.delete(i)
-
-    def orientJoints(self):
-        orientJoints = cmds.ls(type='joint')
-        for i in orientJoints:                                          # Orient all joints
-            if 'Nub' in i:
-                cmds.joint(i, e=True, oj='none', ch=True, zso=True)
-            elif 'hand' in i:
-                cmds.joint(i, e=True, oj='none', ch=True, zso=True)
-            else:
-                cmds.joint(i, e=True, oj='xyz', sao='zup', ch=True, zso=True)
-
-    def parentJoints(self):
-
-        y = []  # Parent all fingers to hand joint
-        for eachlist in GUI.fingers:
-            y.append(eachlist[0].replace('_loc', '_jnt'))
-        for i in y:
-            cmds.connectJoint(i, 'l_hand_jnt', pm=True)
-
-    def displayLocalAxis(self):                                         # Display local orientation axis
-        jointList = cmds.ls(type='joint')
-        selection = cmds.ls(sl=True)
-        for i in selection:
-            if i in jointList:
-                if not cmds.getAttr(i + '.displayLocalAxis'):
-                    cmds.setAttr(i + '.displayLocalAxis', 1)
-                else:
-                    cmds.setAttr(i + '.displayLocalAxis', 0)
-
-    def deleteAllLocators(self):
-
-        locators = [each.replace('Shape', '') for each in cmds.ls(type='locator')]
-        for each in locators:
-            cmds.delete(each)
-
-    def createJointChain(self):
-        selected = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
-        dropdownList = GUI.allChains[int(selected)]
-
-        if isinstance(dropdownList[0], list):                       # If selected list contains list (like handLoc)
-            for i in dropdownList:                                  # execute for each sublist
-                GUI.spawnJoints(self, i)
-        else:                                                       # else execute list
-            GUI.spawnJoints(self, dropdownList)
-        GUI.orientJoints(self)
-        GUI.parentJoints(self)
-
-    def selectAllJoints(self):
-        cmds.select(cmds.ls(et='joint'))                            # Select all joints in the scene
-
-    def selectHierarchy(self):
-        cmds.select(hi=True)                                        # Select hierarchy of the selected joint
-
-    def disableScaleComp(self):                             # Display local orientation axis
-        jointList = cmds.ls(type='joint')
-        selection = cmds.ls(sl=True)
-        for i in selection:
-            if i in jointList:
-                if not cmds.getAttr(i + '.segmentScaleCompensate'):
-                    cmds.setAttr(i + '.segmentScaleCompensate', 1)
-                else:
-                    cmds.setAttr(i + '.segmentScaleCompensate', 0)
-
-    def changeRotationOrder(self):
-        jointList = cmds.ls(sl=True)                                        # Change rotation order for the selected joint
-        selection = cmds.optionMenuGrp('rotationMenu', query=True, sl=True) - 1
-        for each in jointList:
-            cmds.setAttr(each + '.rotateOrder', int(selection))
-
-    def alignTransAxis(self):
-        x = cmds.ls(sl=True)
-        for i in x:
-            cmds.joint(i, edit=True, zso=True)                             # Align translational axis to local rotational axis
-
-    def windowFunction(self):
-
-        def setXYZp(args):
-            a = cmds.radioButtonGrp(radioGroup1, q=True, sl=True)
-            b = cmds.radioButtonGrp(radioGroup2, q=True, sl=True)
-            if a == 1 and b == 1:
-                cmds.radioButtonGrp(radioGroup2, e=True, sl=2)
-            elif a == 2 and b == 2:
-                cmds.radioButtonGrp(radioGroup2, e=True, sl=3)
-            elif a == 3 and b == 3:
-                cmds.radioButtonGrp(radioGroup2, e=True, sl=1)
-
-        def setXYZs(args):
-            a = cmds.radioButtonGrp(radioGroup1, q=True, sl=True)
-            b = cmds.radioButtonGrp(radioGroup2, q=True, sl=True)
-            if b == 1 and a == 1:
-                cmds.radioButtonGrp(radioGroup1, e=True, sl=2)
-            elif b == 2 and a == 2:
-                cmds.radioButtonGrp(radioGroup1, e=True, sl=3)
-            elif b == 3 and a == 3:
-                cmds.radioButtonGrp(radioGroup1, e=True, sl=1)
-
-        def checkboxState(args):
-            if cmds.checkBox(checkbox1, q=True, v=True) == 1:
-                cmds.columnLayout(layout2, e=True, en=0)
-            elif cmds.checkBox(checkbox1, q=True, v=True) == 0:
-                cmds.columnLayout(layout2, e=True, en=1)
-
-        def noneChecked(args):
-            cmds.radioButtonGrp(radioGroup3, e=True, en=0)
-
-        def noneUnchecked(args):
-            cmds.radioButtonGrp(radioGroup3, e=True, en=1)
-
-        def printValues(args):
-
-            xyz = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']
-
-            a = ['x', 'y', 'z']
-            b = ['up', 'down']
-
-            r1 = cmds.radioButtonGrp(radioGroup1, query=True, sl=True)
-            r2 = cmds.radioButtonGrp(radioGroup2, query=True, sl=True)
-            r3 = cmds.radioButtonGrp(radioGroup3, query=True, sl=True)
-            r4 = cmds.optionMenuGrp('updown', query=True, sl=True)
-
-            sel = a[r1 - 1] + a[r2 - 1]
-
-            allAxis = ''
-            for i in xyz:
-                if sel in i:
-                    if a[r1 - 1] == i[0]:
-                        allAxis = i
-
-            secAxis = a[r3 - 1] + b[r4 - 1]
-
-
-            print(allAxis)
-            print(secAxis)
-
         if cmds.window(self.window, query=True, exists=True):
             cmds.deleteUI(self.window)
 
-        mainWindow = cmds.window(self.window, title=self.title, widthHeight=self.size)
-        mainLayout = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=mainWindow)
+        self.mainWindow = cmds.window(self.window, title=self.title, widthHeight=self.size)
+        self.mainLayout = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=self.mainWindow)
 
-        tabs = cmds.tabLayout(bs='none', parent=mainLayout)
+        self.tabs = cmds.tabLayout(bs='none', parent=self.mainLayout)
 
-        tab1 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=tabs)
+        self.tab1 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=self.tabs)
         cmds.separator(height=10, st='none')
         cmds.optionMenuGrp('optMenu', label='Create Joint Chain')
         cmds.separator(height=10, st='none')
@@ -304,43 +159,39 @@ class GUI:
         cmds.menuItem(label='All chains')
 
         cmds.separator(height=2, st='none')
-        cmds.button(label='Spawn Locators', command=GUI.spawnTempLocators, height=30)
+        cmds.button(label='Spawn Locators', command=self.spawnTempLocators, height=30)
         cmds.separator(height=2, st='none')
 
-        layout1 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=tab1)
-        layout3 = cmds.columnLayout(parent=layout1, cw=470, cat=('both', 142))
+        self.layout1 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=self.tab1)
+        self.layout3 = cmds.columnLayout(parent=self.layout1, cw=470, cat=('both', 142))
 
-        checkbox1 = cmds.checkBox(label='Orient Joint To World', value=0, onc=checkboxState, ofc=checkboxState,
-                                  parent=layout3)
-        layout2 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=layout1)
-        radioGroup1 = cmds.radioButtonGrp(nrb=3, label='Primary Axis', labelArray3=['X', 'Y', 'Z'],
-                                          cw=([2, 70], [3, 70]), sl=1, p=layout2, on1=setXYZp, on2=setXYZp, on3=setXYZp)
-        radioGroup2 = cmds.radioButtonGrp(nrb=4, label='Secondary Axis', labelArray4=['X', 'Y', 'Z', 'None'],
-                                          cw=([2, 70], [3, 70], [4, 70]), sl=2, p=layout2, on1=setXYZs, on2=setXYZs,
-                                          on3=setXYZs, on4=noneChecked, of4=noneUnchecked)
-        radioGroup3 = cmds.radioButtonGrp(nrb=3, label='SA World Orientation', labelArray3=['X', 'Y', 'Z'],
-                                          cw=([2, 70], [3, 70], [4, 70]), sl=2, p=layout2)
-        cmds.optionMenuGrp('updown', parent=radioGroup3)
+        self.checkbox1 = cmds.checkBox(label='Orient Joint To World', value=0, onc=self.checkboxState, ofc=self.checkboxState, parent=self.layout3)
+        self.layout2 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=self.layout1)
+        self.radioGroup1 = cmds.radioButtonGrp(nrb=3, label='Primary Axis', labelArray3=['X', 'Y', 'Z'], cw=([2, 70], [3, 70]), sl=1, p=self.layout2, on1=self.setXYZp, on2=self.setXYZp, on3=self.setXYZp)
+        self.radioGroup2 = cmds.radioButtonGrp(nrb=4, label='Secondary Axis', labelArray4=['X', 'Y', 'Z', 'None'], cw=([2, 70], [3, 70], [4, 70]), sl=2, p=self.layout2, on1=self.setXYZs, on2=self.setXYZs, on3=self.setXYZs, on4=self.noneChecked, of4=self.noneUnchecked)
+        self.radioGroup3 = cmds.radioButtonGrp(nrb=3, label='SA World Orientation', labelArray3=['X', 'Y', 'Z'], cw=([2, 70], [3, 70], [4, 70]), sl=2, p=self.layout2)
+
+        cmds.optionMenuGrp('updown', parent=self.radioGroup3)
         cmds.menuItem(label='+')
         cmds.menuItem(label='-')
-        cmds.button(label='Print Values', command=printValues, parent=layout1)
+        cmds.button(label='Print Values', command=self.printValues, parent=self.layout1)
 
         cmds.separator(height=2, st='none')
-        cmds.button(label='Spawn Joints', command=GUI.createJointChain, height=30)
+        cmds.button(label='Spawn Joints', command=self.createJointChain, height=30)
 
-        tab2 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=tabs)
+        self.tab2 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=self.tabs)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Display/Hide Local Orientation Axis', command=GUI.displayLocalAxis, height=30)
+        cmds.button(label='Display/Hide Local Orientation Axis', command=self.displayLocalAxis, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Delete All Locators', command=GUI.deleteAllLocators, height=30)
+        cmds.button(label='Delete All Locators', command=self.deleteAllLocators, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Select All Joints', command=GUI.selectAllJoints, height=30)
+        cmds.button(label='Select All Joints', command=self.selectAllJoints, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Select Hierarchy', command=GUI.selectHierarchy, height=30)
+        cmds.button(label='Select Hierarchy', command=self.selectHierarchy, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Disable/Enable Scale Compensation', command=GUI.disableScaleComp, height=30)
+        cmds.button(label='Disable/Enable Scale Compensation', command=self.disableScaleComp, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Set Rotation Order', command=GUI.changeRotationOrder, height=30)
+        cmds.button(label='Set Rotation Order', command=self.changeRotationOrder, height=30)
 
         cmds.separator(height=10, st='none')
         cmds.optionMenuGrp('rotationMenu', label='Select Order:')
@@ -353,14 +204,187 @@ class GUI:
         cmds.menuItem(label='zyx')
 
         cmds.separator(height=2, st='none')
-        cmds.button(label='Align Translational Axis To Local Rotational Axis', command=GUI.alignTransAxis, height=30)
+        cmds.button(label='Align Translational Axis To Local Rotational Axis', command=self.alignTransAxis, height=30)
 
-
-        cmds.tabLayout(tabs, edit=True, tabLabel=((tab1, 'Main'), (tab2, 'Misc')))
+        cmds.tabLayout(self.tabs, edit=True, tabLabel=((self.tab1, 'Main'), (self.tab2, 'Misc')))
 
         cmds.showWindow()
 
+    def spawnTempLocators(self, args):
+        for i, j in zip(self.locTemp.keys(),
+                        self.locTemp.values()):  # Create locators from template dictionary
+            cmds.spaceLocator(position=j, name=i)
 
-myWindow = GUI()
-myWindow.windowFunction()
+    @staticmethod
+    def spawnJoints(slist):  # Create joints from list
 
+        x = cmds.ls(type='locator', s=False)  # Create dictionary from locators in the scene,  with locators'
+        y = [i.replace('Shape', '') for i in x]
+        locatorsDict = {}  # names as keys and their positions in space, as values.
+        for i in y:  # Joints will be spawned from this dictionary
+            position = cmds.pointPosition(i, world=True)
+            locatorsDict[i] = position
+
+        cmds.select(deselect=True)
+        dictKeys = locatorsDict.keys()  # Creating dict list of keys from the dictionary
+
+        list_B = []  # Converting it to regular list. This step is necessary, since
+        for i in dictKeys:  # dict list is not iterable
+            list_B.append(i)
+
+        dictNew = {}  # Declaring the new list
+        for i in slist:  # For each item in slist, if the item is in list_B
+            if i in list_B:  # add it to the dictNew
+                dictNew[i] = locatorsDict[
+                        i]  # dictNew[item] becomes the key, = , dictOld[i] gets the corresponding values
+
+        for i, j in dictNew.items():  # Creating the chain by iterating over the keys and the values
+            cmds.joint(n=i.replace('_loc', '_jnt'), position=j)  # in the dictionary
+
+        cmds.select(deselect=True)
+
+        # confirmMessage = cmds.confirmDialog(title='Confirm', message='Delete corresponding locators?', button=['Yes', 'No'],
+        #                                     defaultButton='Yes', cancelButton='No', dismissString='No')
+        # if confirmMessage == 'Yes':
+        #    for i in slist:
+        #        cmds.delete(i)
+
+    @staticmethod
+    def orientJoints(args):
+        orientJoint = cmds.ls(type='joint')
+        for i in orientJoint:  # Orient all joints
+            if 'Nub' in i:
+                cmds.joint(i, e=True, oj='none', ch=True, zso=True)
+            elif 'hand' in i:
+                cmds.joint(i, e=True, oj='none', ch=True, zso=True)
+            else:
+                cmds.joint(i, e=True, oj='xyz', sao='zup', ch=True, zso=True)
+
+    def parentJoints(self, args):
+
+        y = []  # Parent all fingers to hand joint
+        for each in self.fingers:
+            y.append(each[0].replace('_loc', '_jnt'))
+        for i in y:
+            cmds.connectJoint(i, 'l_hand_jnt', pm=True)
+
+    @staticmethod
+    def displayLocalAxis(args):  # Display local orientation axis
+        jointList = cmds.ls(type='joint')
+        selection = cmds.ls(sl=True)
+        for i in selection:
+            if i in jointList:
+                if not cmds.getAttr(i + '.displayLocalAxis'):
+                    cmds.setAttr(i + '.displayLocalAxis', 1)
+                else:
+                    cmds.setAttr(i + '.displayLocalAxis', 0)
+
+    @staticmethod
+    def deleteAllLocators(args):
+
+        locators = [each.replace('Shape', '') for each in cmds.ls(type='locator')]
+        for each in locators:
+            cmds.delete(each)
+
+    def createJointChain(self, args):
+        selected = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
+        dropdownList = self.allChains[int(selected)]
+
+        if isinstance(dropdownList[0], list):  # If selected list contains list (like handLoc)
+            for i in dropdownList:  # execute for each sublist
+                self.spawnJoints(i)
+        else:  # else execute list
+            self.spawnJoints(dropdownList)
+        self.orientJoints(args=True)
+        
+
+    @staticmethod
+    def selectAllJoints(args):
+        cmds.select(cmds.ls(et='joint'))  # Select all joints in the scene
+
+    @staticmethod
+    def selectHierarchy(args):
+        cmds.select(hi=True)  # Select hierarchy of the selected joint
+
+    @staticmethod
+    def disableScaleComp(args):  # Display local orientation axis
+        jointList = cmds.ls(type='joint')
+        selection = cmds.ls(sl=True)
+        for i in selection:
+            if i in jointList:
+                if not cmds.getAttr(i + '.segmentScaleCompensate'):
+                    cmds.setAttr(i + '.segmentScaleCompensate', 1)
+                else:
+                    cmds.setAttr(i + '.segmentScaleCompensate', 0)
+
+    @staticmethod
+    def changeRotationOrder(args):
+        jointList = cmds.ls(sl=True)  # Change rotation order for the selected joint
+        selection = cmds.optionMenuGrp('rotationMenu', query=True, sl=True) - 1
+        for each in jointList:
+            cmds.setAttr(each + '.rotateOrder', int(selection))
+
+    @staticmethod
+    def alignTransAxis(args):
+        x = cmds.ls(sl=True)
+        for i in x:
+            cmds.joint(i, edit=True, zso=True)
+
+    def setXYZp(self, args):
+        a = cmds.radioButtonGrp(self.radioGroup1, q=True, sl=True)
+        b = cmds.radioButtonGrp(self.radioGroup2, q=True, sl=True)
+        if a == 1 and b == 1:
+            cmds.radioButtonGrp(self.radioGroup2, e=True, sl=2)
+        elif a == 2 and b == 2:
+            cmds.radioButtonGrp(self.radioGroup2, e=True, sl=3)
+        elif a == 3 and b == 3:
+            cmds.radioButtonGrp(self.radioGroup2, e=True, sl=1)
+
+    def setXYZs(self, args):
+        a = cmds.radioButtonGrp(self.radioGroup1, q=True, sl=True)
+        b = cmds.radioButtonGrp(self.radioGroup2, q=True, sl=True)
+        if b == 1 and a == 1:
+            cmds.radioButtonGrp(self.radioGroup1, e=True, sl=2)
+        elif b == 2 and a == 2:
+            cmds.radioButtonGrp(self.radioGroup1, e=True, sl=3)
+        elif b == 3 and a == 3:
+            cmds.radioButtonGrp(self.radioGroup1, e=True, sl=1)
+
+    def checkboxState(self, args):
+        if cmds.checkBox(self.checkbox1, q=True, v=True) == 1:
+            cmds.columnLayout(self.layout2, e=True, en=0)
+        elif cmds.checkBox(self.checkbox1, q=True, v=True) == 0:
+            cmds.columnLayout(self.layout2, e=True, en=1)
+
+    def noneChecked(self, args):
+        cmds.radioButtonGrp(self.radioGroup3, e=True, en=0)
+
+    def noneUnchecked(self, args):
+        cmds.radioButtonGrp(self.radioGroup3, e=True, en=1)
+
+    def printValues(self, args):
+        xyz = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']
+
+        a = ['x', 'y', 'z']
+        b = ['up', 'down']
+
+        r1 = cmds.radioButtonGrp(self.radioGroup1, query=True, sl=True)
+        r2 = cmds.radioButtonGrp(self.radioGroup2, query=True, sl=True)
+        r3 = cmds.radioButtonGrp(self.radioGroup3, query=True, sl=True)
+        r4 = cmds.optionMenuGrp('updown', query=True, sl=True)
+
+        sel = a[r1 - 1] + a[r2 - 1]
+
+        allAxis = ''
+        for i in xyz:
+            if sel in i:
+                if a[r1 - 1] == i[0]:
+                    allAxis = i
+
+        secAxis = a[r3 - 1] + b[r4 - 1]
+
+        print(allAxis)
+        print(secAxis)
+
+
+newWindow = GUI()

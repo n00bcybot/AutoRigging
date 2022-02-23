@@ -149,7 +149,7 @@ class RiggingTools:
         cmds.optionMenuGrp('updown', parent=self.radioGroup3)
         cmds.menuItem(label='+')
         cmds.menuItem(label='-')
-        cmds.button(label='Print Values', command=self.printValues, parent=self.layout1)
+
 
         cmds.separator(height=2, st='none')
         cmds.button(label='Spawn Joints', command=self.createJointChain, height=30)
@@ -224,18 +224,37 @@ class RiggingTools:
         #    for i in slist:
         #        cmds.delete(i)
 
-    @staticmethod
-    def orientJoints(args):
-        orientJoint = cmds.ls(type='joint')
-        for i in orientJoint:  # Orient all joints
+    def createJoints(self, args):
+        xyz = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']
+
+        a = ['x', 'y', 'z']
+        b = ['up', 'down']
+
+        r1 = cmds.radioButtonGrp(self.radioGroup1, query=True, sl=True)
+        r2 = cmds.radioButtonGrp(self.radioGroup2, query=True, sl=True)
+        r3 = cmds.radioButtonGrp(self.radioGroup3, query=True, sl=True)
+        r4 = cmds.optionMenuGrp('updown', query=True, sl=True)
+
+        sel = a[r1 - 1] + a[r2 - 1]
+
+        allAxis = ''
+        for i in xyz:
+            if sel in i:
+                if a[r1 - 1] == i[0]:
+                    allAxis = i
+
+        secAxis = a[r3 - 1] + b[r4 - 1]
+
+        orient = cmds.ls(type='joint')
+        for i in orient:  # Orient all joints
             if 'Nub' in i:
                 cmds.joint(i, e=True, oj='none', ch=True, zso=True)
             elif 'hand' in i:
                 cmds.joint(i, e=True, oj='none', ch=True, zso=True)
             else:
-                cmds.joint(i, e=True, oj='xyz', sao='zup', ch=True, zso=True)
+                cmds.joint(i, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
 
-    def parentJoints(self, args):
+    def parentFingers(self, args):
 
         y = []  # Parent all fingers to hand joint
         for each in self.fingerLocators:
@@ -270,9 +289,9 @@ class RiggingTools:
                 self.spawnJoints(i)
         else:  # else execute list
             self.spawnJoints(dropdownList)
-        self.orientJoints(args=True)
+        self.createJoints(args=True)
         if selected == 'Arm':
-            self.parentJoints(args=True)
+            self.parentFingers(args=True)
     @staticmethod
     def selectAllJoints(args):
         cmds.select(cmds.ls(et='joint'))  # Select all joints in the scene
@@ -337,29 +356,7 @@ class RiggingTools:
     def noneUnchecked(self, args):
         cmds.radioButtonGrp(self.radioGroup3, e=True, en=1)
 
-    def printValues(self, args):
-        xyz = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']
 
-        a = ['x', 'y', 'z']
-        b = ['up', 'down']
-
-        r1 = cmds.radioButtonGrp(self.radioGroup1, query=True, sl=True)
-        r2 = cmds.radioButtonGrp(self.radioGroup2, query=True, sl=True)
-        r3 = cmds.radioButtonGrp(self.radioGroup3, query=True, sl=True)
-        r4 = cmds.optionMenuGrp('updown', query=True, sl=True)
-
-        sel = a[r1 - 1] + a[r2 - 1]
-
-        allAxis = ''
-        for i in xyz:
-            if sel in i:
-                if a[r1 - 1] == i[0]:
-                    allAxis = i
-
-        secAxis = a[r3 - 1] + b[r4 - 1]
-
-        print(allAxis)
-        print(secAxis)
 
 
 newWindow = RiggingTools()

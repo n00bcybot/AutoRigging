@@ -1,5 +1,6 @@
 import maya.cmds as cmds
 
+'''
 array = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']
 
 a = ['x', 'y', 'z']
@@ -22,3 +23,6 @@ secAxis =  a[r3-1] + b[r4-1]
 
 print(allAxis)
 print(secAxis)
+'''
+
+

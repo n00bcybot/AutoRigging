@@ -150,7 +150,6 @@ class RiggingTools:
         cmds.menuItem(label='+')
         cmds.menuItem(label='-')
 
-
         cmds.separator(height=2, st='none')
         cmds.button(label='Spawn Joints', command=self.createJointChain, height=30)
         cmds.separator(height=2, st='none')
@@ -248,6 +247,7 @@ class RiggingTools:
         secAxis = a[r3 - 1] + b[r4 - 1]
 
         orient = cmds.ls(type='joint')
+
         for i in orient:  # Orient all joints
             if 'Nub' in i:
                 cmds.joint(i, e=True, oj='none', ch=True, zso=True)
@@ -259,16 +259,19 @@ class RiggingTools:
         c = []
         for i in orient:
             c.append(cmds.joint(i, q=True, o=True))
+
         for i in c:
-            if round(i[0]) == 180:
-                secAxis = a[r3] + b[r4 - 1]
+            for j in i:
+                if round(j) == 180:
+                    secAxis = a[r3] + b[r4 - 1]
+
         for i in orient:
             if 'Nub' in i:
                 cmds.joint(i, e=True, oj='none', ch=True, zso=True)
             elif 'hand' in i:
                 cmds.joint(i, e=True, oj='none', ch=True, zso=True)
-            cmds.joint(i, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
-
+            else:
+                cmds.joint(i, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
 
     def parentFingers(self, args):
 
@@ -306,8 +309,8 @@ class RiggingTools:
         else:  # else execute list
             self.spawnJoints(dropdownList)
         self.createJoints(args=True)
-        if selected == 'Arm':
-            self.parentFingers(args=True)
+        self.parentFingers(args=True)
+
     @staticmethod
     def selectAllJoints(args):
         cmds.select(cmds.ls(et='joint'))  # Select all joints in the scene
@@ -371,8 +374,6 @@ class RiggingTools:
 
     def noneUnchecked(self, args):
         cmds.radioButtonGrp(self.radioGroup3, e=True, en=1)
-
-
 
 
 newWindow = RiggingTools()

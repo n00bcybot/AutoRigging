@@ -95,7 +95,7 @@ class RiggingTools:
     middleLocators = ['l_middleFinger01_loc', 'l_middleFinger02_loc', 'l_middleFinger03_loc', 'l_middleFingerNub_loc']
     ringLocators = ['l_ringFinger01_loc', 'l_ringFinger02_loc', 'l_ringFinger03_loc', 'l_ringFingerNub_loc']
     pinkyLocators = ['l_pinkyFinger01_loc', 'l_pinkyFinger02_loc', 'l_pinkyFinger03_loc', 'l_pinkyFingerNub_loc']
-    armLocators = ['l_clavicle_loc', 'l_clavicleNub_loc', 'l_upperArm_loc', 'l_foreArm_loc', 'l_hand_loc']
+    armLocators = ['l_clavicle_loc', 'l_upperArm_loc', 'l_foreArm_loc', 'l_hand_loc']
     spineLocators = ['root_loc', 'COMOffset_loc', 'COM_loc', 'pelvis_loc', 'spine01_loc', 'spine02_loc', 'spine03_loc',
                      'spine04_loc', 'neck01_loc', 'neck02_loc', 'head01_loc', 'head02_loc', 'headNub_loc']
     legLocators = ['l_thigh_loc', 'l_calf_loc', 'l_heel_loc', 'l_toe_loc', 'l_toeNub_loc']
@@ -153,6 +153,8 @@ class RiggingTools:
 
         cmds.separator(height=2, st='none')
         cmds.button(label='Spawn Joints', command=self.createJointChain, height=30)
+        cmds.separator(height=2, st='none')
+        cmds.button(label='Orient Joints', command=self.createJoints, height=30)
 
         self.tab2 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=self.tabs)
         cmds.separator(height=2, st='none')
@@ -253,6 +255,20 @@ class RiggingTools:
                 cmds.joint(i, e=True, oj='none', ch=True, zso=True)
             else:
                 cmds.joint(i, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
+
+        c = []
+        for i in orient:
+            c.append(cmds.joint(i, q=True, o=True))
+        for i in c:
+            if round(i[0]) == 180:
+                secAxis = a[r3] + b[r4 - 1]
+        for i in orient:
+            if 'Nub' in i:
+                cmds.joint(i, e=True, oj='none', ch=True, zso=True)
+            elif 'hand' in i:
+                cmds.joint(i, e=True, oj='none', ch=True, zso=True)
+            cmds.joint(i, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
+
 
     def parentFingers(self, args):
 

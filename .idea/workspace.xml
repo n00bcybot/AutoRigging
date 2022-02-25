@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Managed to correct the filipping.">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Managed to correct the flipping.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
@@ -20,6 +20,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="24VRdOYFb4hcIuwiXMYQPsEyuQN" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -469,7 +477,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645727618273</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Managed to correct the flipping.">
+      <created>1645745524654</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1645745524654</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -513,7 +528,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Created recursive function in locators.py that checks for and removes a prefix from given string list. Recursive function was necessary, since simply recreating the list with .remove method won't work unless you use 2 for loops - one containing the strings to be removed and another one containing the original list with the items from the helping list removed. Another way would be to leave the unwanted strings out by using &quot;not&quot; in the condition statement" />
     <MESSAGE value="Created function which replaces a string with another for each item in string list" />
     <MESSAGE value="This block creates a list of locators and spawns joints in their place" />
     <MESSAGE value="Wrist" />
@@ -538,6 +552,7 @@
     <MESSAGE value="Now parenting works for the hand and it doesn't mess witht the rest of the joints." />
     <MESSAGE value="For some reason, Maya will flip the second joint in new hierarchy every time, but I have an idea how to fix it. Whenever that happens, the joint is fipped exactly 180 degrees, so perhaps I can query the hierarchy orientation and whenever there is 180 orientation, I can flip it back." />
     <MESSAGE value="Managed to correct the filipping." />
-    <option name="LAST_COMMIT_MESSAGE" value="Managed to correct the filipping." />
+    <MESSAGE value="Managed to correct the flipping." />
+    <option name="LAST_COMMIT_MESSAGE" value="Managed to correct the flipping." />
   </component>
 </project>

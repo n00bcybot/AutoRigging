@@ -1,7 +1,118 @@
 import maya.cmds as cmds
 
 
-class RiggingTools:
+def spawnJoints(slist):  # Create joints from list
+
+    x = cmds.ls(type='locator', s=False)  # Create dictionary from locators in the scene,  with locators'
+    y = [i.replace('Shape', '') for i in x]
+    locatorsDict = {}  # names as keys and their positions in space, as values.
+    for i in y:  # Joints will be spawned from this dictionary
+        position = cmds.pointPosition(i, world=True)
+        locatorsDict[i] = position
+
+    cmds.select(deselect=True)
+    dictKeys = locatorsDict.keys()  # Creating dict list of keys from the dictionary
+
+    list_B = []  # Converting it to regular list. This step is necessary, since
+    for i in dictKeys:  # dict list is not iterable
+        list_B.append(i)
+
+    dictNew = {}  # Declaring the new list
+    for i in slist:  # For each item in slist, if the item is in list_B
+        if i in list_B:  # add it to the dictNew
+            dictNew[i] = locatorsDict[
+                i]  # dictNew[item] becomes the key, = , dictOld[i] gets the corresponding values
+
+    for i, j in dictNew.items():  # Creating the chain by iterating over the keys and the values
+        cmds.joint(n=i.replace('_loc', '_jnt'), position=j)  # in the dictionary
+
+    cmds.select(deselect=True)
+
+    # confirmMessage = cmds.confirmDialog(title='Confirm', message='Delete corresponding locators?', button=['Yes', 'No'],
+    #                                     defaultButton='Yes', cancelButton='No', dismissString='No')
+    # if confirmMessage == 'Yes':
+    #    for i in slist:
+    #        cmds.delete(i)
+
+
+# noinspection PyUnusedLocal
+def displayLocalAxis(args):  # Display local orientation axis
+    jointList = cmds.ls(type='joint')
+    selection = cmds.ls(sl=True)
+    for i in selection:
+        if i in jointList:
+            if not cmds.getAttr(i + '.displayLocalAxis'):
+                cmds.setAttr(i + '.displayLocalAxis', 1)
+            else:
+                cmds.setAttr(i + '.displayLocalAxis', 0)
+
+
+# noinspection PyUnusedLocal
+def deleteAllLocators(args):
+    locators = [each.replace('Shape', '') for each in cmds.ls(type='locator')]
+    for each in locators:
+        cmds.delete(each)
+
+
+# noinspection PyUnusedLocal
+def selectAllJoints(args):
+    cmds.select(cmds.ls(et='joint'))  # Select all joints in the scene
+
+
+# noinspection PyUnusedLocal
+def selectHierarchy(args):
+    cmds.select(hi=True)  # Select hierarchy of the selected joint
+
+
+# noinspection PyUnusedLocal
+def disableScaleComp(args):  # Display local orientation axis
+    jointList = cmds.ls(type='joint')
+    selection = cmds.ls(sl=True)
+    for i in selection:
+        if i in jointList:
+            if not cmds.getAttr(i + '.segmentScaleCompensate'):
+                cmds.setAttr(i + '.segmentScaleCompensate', 1)
+            else:
+                cmds.setAttr(i + '.segmentScaleCompensate', 0)
+
+
+# noinspection PyUnusedLocal
+def changeRotationOrder(args):
+    jointList = cmds.ls(sl=True)  # Change rotation order for the selected joint
+    selection = cmds.optionMenuGrp('rotationMenu', query=True, sl=True) - 1
+    for each in jointList:
+        cmds.setAttr(each + '.rotateOrder', int(selection))
+
+
+# noinspection PyUnusedLocal
+def alignTransAxis(args):
+    x = cmds.ls(sl=True)
+    for i in x:
+        cmds.joint(i, edit=True, zso=True)
+
+
+# noinspection PyUnusedLocal
+def parentFingers(args):
+    y = []                                          # Parent all fingers to hand joint
+    for each in Interface.fingerLocators:
+        y.append(each[0].replace('_loc', '_jnt'))
+    for i in y:
+        cmds.parent(i, 'l_hand_jnt')
+        cmds.select(deselect=True)
+
+
+# noinspection PyUnusedLocal
+def unparentFingers(args):
+    y = []                                          # Parent all fingers to hand joint
+    for each in Interface.fingerLocators:
+        y.append(each[0].replace('_loc', '_jnt'))
+    for i in y:
+        cmds.parent(i, w=True)
+        cmds.select(deselect=True)
+
+
+# noinspection PyUnusedLocal
+class Interface:
 
     unrealMannequin = {
 
@@ -153,21 +264,26 @@ class RiggingTools:
         cmds.separator(height=2, st='none')
         cmds.button(label='Spawn Joints', command=self.createJointChain, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Orient Joints', command=self.createJoints, height=30)
+        cmds.button(label='Orient Joints', command=self.orientJoints, height=30)
+
+        cmds.separator(height=2, st='none')
+        cmds.button(label='Unparent Fingers', command=unparentFingers, height=30)
+        cmds.separator(height=2, st='none')
+        cmds.button(label='Parent Fingers', command=parentFingers, height=30)
 
         self.tab2 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=self.tabs)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Display/Hide Local Orientation Axis', command=self.displayLocalAxis, height=30)
+        cmds.button(label='Display/Hide Local Orientation Axis', command=displayLocalAxis, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Delete All Locators', command=self.deleteAllLocators, height=30)
+        cmds.button(label='Delete All Locators', command=deleteAllLocators, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Select All Joints', command=self.selectAllJoints, height=30)
+        cmds.button(label='Select All Joints', command=selectAllJoints, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Select Hierarchy', command=self.selectHierarchy, height=30)
+        cmds.button(label='Select Hierarchy', command=selectHierarchy, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Disable/Enable Scale Compensation', command=self.disableScaleComp, height=30)
+        cmds.button(label='Disable/Enable Scale Compensation', command=disableScaleComp, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Set Rotation Order', command=self.changeRotationOrder, height=30)
+        cmds.button(label='Set Rotation Order', command=changeRotationOrder, height=30)
 
         cmds.separator(height=10, st='none')
         cmds.optionMenuGrp('rotationMenu', label='Select Order:')
@@ -180,7 +296,7 @@ class RiggingTools:
         cmds.menuItem(label='zyx')
 
         cmds.separator(height=2, st='none')
-        cmds.button(label='Align Translational Axis To Local Rotational Axis', command=self.alignTransAxis, height=30)
+        cmds.button(label='Align Translational Axis To Local Rotational Axis', command=alignTransAxis, height=30)
 
         cmds.tabLayout(self.tabs, edit=True, tabLabel=((self.tab1, 'Main'), (self.tab2, 'Misc')))
 
@@ -191,41 +307,7 @@ class RiggingTools:
                         self.locTemp.values()):  # Create locators from template dictionary
             cmds.spaceLocator(position=j, name=i)
 
-    @staticmethod
-    def spawnJoints(slist):  # Create joints from list
-
-        x = cmds.ls(type='locator', s=False)  # Create dictionary from locators in the scene,  with locators'
-        y = [i.replace('Shape', '') for i in x]
-        locatorsDict = {}  # names as keys and their positions in space, as values.
-        for i in y:  # Joints will be spawned from this dictionary
-            position = cmds.pointPosition(i, world=True)
-            locatorsDict[i] = position
-
-        cmds.select(deselect=True)
-        dictKeys = locatorsDict.keys()  # Creating dict list of keys from the dictionary
-
-        list_B = []  # Converting it to regular list. This step is necessary, since
-        for i in dictKeys:  # dict list is not iterable
-            list_B.append(i)
-
-        dictNew = {}  # Declaring the new list
-        for i in slist:  # For each item in slist, if the item is in list_B
-            if i in list_B:  # add it to the dictNew
-                dictNew[i] = locatorsDict[
-                        i]  # dictNew[item] becomes the key, = , dictOld[i] gets the corresponding values
-
-        for i, j in dictNew.items():  # Creating the chain by iterating over the keys and the values
-            cmds.joint(n=i.replace('_loc', '_jnt'), position=j)  # in the dictionary
-
-        cmds.select(deselect=True)
-
-        # confirmMessage = cmds.confirmDialog(title='Confirm', message='Delete corresponding locators?', button=['Yes', 'No'],
-        #                                     defaultButton='Yes', cancelButton='No', dismissString='No')
-        # if confirmMessage == 'Yes':
-        #    for i in slist:
-        #        cmds.delete(i)
-
-    def createJoints(self, args):
+    def orientJoints(self, args):
         xyz = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']
 
         a = ['x', 'y', 'z']
@@ -249,9 +331,7 @@ class RiggingTools:
         orient = cmds.ls(type='joint')
 
         for i in orient:  # Orient all joints
-            if 'Nub' in i:
-                cmds.joint(i, e=True, oj='none', ch=True, zso=True)
-            elif 'hand' in i:
+            if cmds.listRelatives(i) is None:
                 cmds.joint(i, e=True, oj='none', ch=True, zso=True)
             else:
                 cmds.joint(i, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
@@ -266,38 +346,10 @@ class RiggingTools:
                     secAxis = a[r3] + b[r4 - 1]
 
         for i in orient:
-            if 'Nub' in i:
-                cmds.joint(i, e=True, oj='none', ch=True, zso=True)
-            elif 'hand' in i:
+            if cmds.listRelatives(i) is None:
                 cmds.joint(i, e=True, oj='none', ch=True, zso=True)
             else:
                 cmds.joint(i, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
-
-    def parentFingers(self, args):
-
-        y = []  # Parent all fingers to hand joint
-        for each in self.fingerLocators:
-            y.append(each[0].replace('_loc', '_jnt'))
-        for i in y:
-            cmds.connectJoint(i, 'l_hand_jnt', pm=True)
-
-    @staticmethod
-    def displayLocalAxis(args):  # Display local orientation axis
-        jointList = cmds.ls(type='joint')
-        selection = cmds.ls(sl=True)
-        for i in selection:
-            if i in jointList:
-                if not cmds.getAttr(i + '.displayLocalAxis'):
-                    cmds.setAttr(i + '.displayLocalAxis', 1)
-                else:
-                    cmds.setAttr(i + '.displayLocalAxis', 0)
-
-    @staticmethod
-    def deleteAllLocators(args):
-
-        locators = [each.replace('Shape', '') for each in cmds.ls(type='locator')]
-        for each in locators:
-            cmds.delete(each)
 
     def createJointChain(self, args):
         selected = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
@@ -305,43 +357,11 @@ class RiggingTools:
 
         if isinstance(dropdownList[0], list):  # If selected list contains list (like handLoc)
             for i in dropdownList:  # execute for each sublist
-                self.spawnJoints(i)
+                spawnJoints(i)
         else:  # else execute list
-            self.spawnJoints(dropdownList)
-        self.createJoints(args=True)
-        self.parentFingers(args=True)
-
-    @staticmethod
-    def selectAllJoints(args):
-        cmds.select(cmds.ls(et='joint'))  # Select all joints in the scene
-
-    @staticmethod
-    def selectHierarchy(args):
-        cmds.select(hi=True)  # Select hierarchy of the selected joint
-
-    @staticmethod
-    def disableScaleComp(args):  # Display local orientation axis
-        jointList = cmds.ls(type='joint')
-        selection = cmds.ls(sl=True)
-        for i in selection:
-            if i in jointList:
-                if not cmds.getAttr(i + '.segmentScaleCompensate'):
-                    cmds.setAttr(i + '.segmentScaleCompensate', 1)
-                else:
-                    cmds.setAttr(i + '.segmentScaleCompensate', 0)
-
-    @staticmethod
-    def changeRotationOrder(args):
-        jointList = cmds.ls(sl=True)  # Change rotation order for the selected joint
-        selection = cmds.optionMenuGrp('rotationMenu', query=True, sl=True) - 1
-        for each in jointList:
-            cmds.setAttr(each + '.rotateOrder', int(selection))
-
-    @staticmethod
-    def alignTransAxis(args):
-        x = cmds.ls(sl=True)
-        for i in x:
-            cmds.joint(i, edit=True, zso=True)
+            spawnJoints(dropdownList)
+        self.orientJoints(args=True)
+        parentFingers(args=True)
 
     def setXYZp(self, args):
         a = cmds.radioButtonGrp(self.radioGroup1, q=True, sl=True)
@@ -376,4 +396,4 @@ class RiggingTools:
         cmds.radioButtonGrp(self.radioGroup3, e=True, en=1)
 
 
-newWindow = RiggingTools()
+newWindow = Interface()

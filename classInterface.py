@@ -361,7 +361,6 @@ class Interface:
         else:  # else execute list
             spawnJoints(dropdownList)
         self.orientJoints(args=True)
-        parentFingers(args=True)
 
     def setXYZp(self, args):
         a = cmds.radioButtonGrp(self.radioGroup1, q=True, sl=True)

@@ -264,7 +264,7 @@ class Interface:
         cmds.separator(height=2, st='none')
         cmds.button(label='Spawn Joints', command=self.createJointChain, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Orient Joints', command=self.orientJoints, height=30)
+        cmds.button(label='Orient Joints', command=self.orientHand, height=30)
 
         cmds.separator(height=2, st='none')
         cmds.button(label='Unparent Fingers', command=unparentFingers, height=30)
@@ -339,10 +339,11 @@ class Interface:
         c = []
         for i in orient:
             c.append(cmds.joint(i, q=True, o=True))
-
         for i in c:
             for j in i:
                 if round(j) == 180:
+                    if r3 == 3:
+                        r3 = 2
                     secAxis = a[r3] + b[r4 - 1]
 
         for i in orient:
@@ -350,6 +351,17 @@ class Interface:
                 cmds.joint(i, e=True, oj='none', ch=True, zso=True)
             else:
                 cmds.joint(i, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
+
+    def orientHand(self, args):
+        jointList = cmds.ls(typ='joint')
+        selection = cmds.select()
+
+        if 'l_hand_jnt' in jointList:
+            unparentFingers(args=True)
+            self.orientJoints(args=True)
+            parentFingers(args=True)
+        else:
+            self.orientJoints(args=True)
 
     def createJointChain(self, args):
         selected = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
@@ -361,6 +373,7 @@ class Interface:
         else:  # else execute list
             spawnJoints(dropdownList)
         self.orientJoints(args=True)
+        parentFingers(args=True)
 
     def setXYZp(self, args):
         a = cmds.radioButtonGrp(self.radioGroup1, q=True, sl=True)

@@ -27,12 +27,19 @@ def printValues():
     cmds.joint(e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
 
     jointList = cmds.ls(et='joint')
-    c = []
+    c = {}
     for i in jointList:
-        c.append(cmds.joint(i, q=True, o=True))
-    for i in c:
-        if round(i[0]) == 180:
-            secAxis = a[r3] + b[r4 - 1]
+         c[i] = cmds.joint(i, q=True, o=True)
+    c_values = c.values()
+    c_keys = c.keys()
+    for i, j in zip(c_keys, c_values):
+        for j in i:
+            print(j)
+            if round(j) == 180:
+                if r3 == 3:
+                    r3 = 1
+                    cmds.setAttr(i + ".jointOrient"+a[r3], 0)
+
     cmds.joint(e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
 
 printValues()

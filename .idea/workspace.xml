@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Restructured the class again by taking all static methods out of the class; created a couple of functions for parenting/unparenting the fingers for ease of use - unparenting is needed when applying new orientation, since when reorientated, the hand joint will point towards the first joint created after it, instead of following the elbow axis (I might b able to change that with 'position' in cmds.joint,which should orient the joint to world). More thorough commenting needs to be done.">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Final touches for the day. Tested leg and hand with IKs, all seems fine. Will continue with proper commenting and will be looking into mirroring.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +43,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/test.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
   <component name="RecentsManager">
@@ -146,13 +147,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00001" summary="Setting up">
-      <created>1643714291375</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1643714291375</updated>
     </task>
     <task id="LOCAL-00002" summary="Setting up locators">
       <created>1643722793946</created>
@@ -490,7 +484,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645824820126</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Final touches for the day. Tested leg and hand with IKs, all seems fine. Will continue with proper commenting and will be looking into mirroring.">
+      <created>1645825900066</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1645825900066</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -534,7 +535,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="This block creates a list of locators and spawns joints in their place" />
     <MESSAGE value="Wrist" />
     <MESSAGE value="Finally discovered a good way to compare list to dictionary keys and fetch the corresponding values in order to create new dictionary in particular order" />
     <MESSAGE value="Spawning selected joint chains from dropdown menu" />
@@ -559,6 +559,7 @@
     <MESSAGE value="Managed to correct the filipping." />
     <MESSAGE value="Managed to correct the flipping." />
     <MESSAGE value="Restructured the class again by taking all static methods out of the class; created a couple of functions for parenting/unparenting the fingers for ease of use - unparenting is needed when applying new orientation, since when reorientated, the hand joint will point towards the first joint created after it, instead of following the elbow axis (I might b able to change that with 'position' in cmds.joint,which should orient the joint to world). More thorough commenting needs to be done." />
-    <option name="LAST_COMMIT_MESSAGE" value="Restructured the class again by taking all static methods out of the class; created a couple of functions for parenting/unparenting the fingers for ease of use - unparenting is needed when applying new orientation, since when reorientated, the hand joint will point towards the first joint created after it, instead of following the elbow axis (I might b able to change that with 'position' in cmds.joint,which should orient the joint to world). More thorough commenting needs to be done." />
+    <MESSAGE value="Final touches for the day. Tested leg and hand with IKs, all seems fine. Will continue with proper commenting and will be looking into mirroring." />
+    <option name="LAST_COMMIT_MESSAGE" value="Final touches for the day. Tested leg and hand with IKs, all seems fine. Will continue with proper commenting and will be looking into mirroring." />
   </component>
 </project>

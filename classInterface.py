@@ -353,8 +353,8 @@ class Interface:
                 cmds.joint(i, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
 
     def orientHand(self, args):
-        jointList = cmds.ls(typ='joint')
-        selection = cmds.select()
+
+        jointList = cmds.ls(sl=True)
 
         if 'l_hand_jnt' in jointList:
             unparentFingers(args=True)

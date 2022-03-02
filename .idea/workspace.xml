@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Final touches for the day. Tested leg and hand with IKs, all seems fine. Will continue with proper commenting and will be looking into mirroring.">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Fixed some orientation issues with secondary axis world orientation and l_hand_jnt orientation. Orientation is working properly now, but it works on all joints, instead of selection of joints. Next will work on that">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +52,7 @@
       <recent name="C:\Users\fresh\PycharmProjects\AutoRigging" />
     </key>
   </component>
-  <component name="RunManager" selected="MayaCharm.classInterface">
+  <component name="RunManager" selected="MayaCharm.test2">
     <configuration name="classInterface" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MAYACHARM_RUN_CONFIGURATION">
       <option name="executionType" value="FILE" />
       <option name="mayaSdkPath" value="C:\Program Files\Autodesk\Maya2022\bin\mayapy.exe" />
@@ -147,13 +148,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Setting up locators">
-      <created>1643722793946</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1643722793946</updated>
     </task>
     <task id="LOCAL-00003" summary="Setting up locators">
       <created>1643722876992</created>
@@ -491,7 +485,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645825900066</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Fixed some orientation issues with secondary axis world orientation and l_hand_jnt orientation. Orientation is working properly now, but it works on all joints, instead of selection of joints. Next will work on that">
+      <created>1645912140828</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1645912140828</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -535,7 +536,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Wrist" />
     <MESSAGE value="Finally discovered a good way to compare list to dictionary keys and fetch the corresponding values in order to create new dictionary in particular order" />
     <MESSAGE value="Spawning selected joint chains from dropdown menu" />
     <MESSAGE value="Added functionality for deleting the locators corresponding to the selected list, from which joints will be spawned.&#10;Wrote correct condition check for selectJointChain(). Now, the function will execute both list of locators and list of nested lists of locators. Nested list of locators allows group of joints to be spawned, like the hand for example, which contains list for each finger. Breaking into lists is necessary, because otherwise the last joint spawned in pne list will be connected/parented to the first joint in the following joint chain." />
@@ -560,6 +560,7 @@
     <MESSAGE value="Managed to correct the flipping." />
     <MESSAGE value="Restructured the class again by taking all static methods out of the class; created a couple of functions for parenting/unparenting the fingers for ease of use - unparenting is needed when applying new orientation, since when reorientated, the hand joint will point towards the first joint created after it, instead of following the elbow axis (I might b able to change that with 'position' in cmds.joint,which should orient the joint to world). More thorough commenting needs to be done." />
     <MESSAGE value="Final touches for the day. Tested leg and hand with IKs, all seems fine. Will continue with proper commenting and will be looking into mirroring." />
-    <option name="LAST_COMMIT_MESSAGE" value="Final touches for the day. Tested leg and hand with IKs, all seems fine. Will continue with proper commenting and will be looking into mirroring." />
+    <MESSAGE value="Fixed some orientation issues with secondary axis world orientation and l_hand_jnt orientation. Orientation is working properly now, but it works on all joints, instead of selection of joints. Next will work on that" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed some orientation issues with secondary axis world orientation and l_hand_jnt orientation. Orientation is working properly now, but it works on all joints, instead of selection of joints. Next will work on that" />
   </component>
 </project>

@@ -308,8 +308,17 @@ class Interface:
             cmds.spaceLocator(position=j, name=i)
 
     def orientJoints(self, args):
-        xyz = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']
 
+        def findNub():
+            cmds.select(hi=True)
+            joint = cmds.ls(sl=True)
+            for each in joint:
+                if cmds.listRelatives(each) is None:
+                    cmds.joint(each, e=True, oj='none', ch=True, zso=True)
+                else:
+                    cmds.joint(each, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
+
+        xyz = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']
         a = ['x', 'y', 'z']
         b = ['up', 'down']
 
@@ -319,38 +328,34 @@ class Interface:
         r4 = cmds.optionMenuGrp('updown', query=True, sl=True)
 
         sel = a[r1 - 1] + a[r2 - 1]
-
         allAxis = ''
         for i in xyz:
-            if sel in i:
-                if a[r1 - 1] == i[0]:
-                    allAxis = i
-
+            if sel in i[:2]:
+                allAxis = i
+        print(allAxis)
         secAxis = a[r3 - 1] + b[r4 - 1]
 
-        orient = cmds.ls(type='joint')
-
-        for i in orient:  # Orient all joints
-            if cmds.listRelatives(i) is None:
-                cmds.joint(i, e=True, oj='none', ch=True, zso=True)
-            else:
-                cmds.joint(i, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
-
+        findNub()
+        cmds.select(hi=True)
+        orient = cmds.ls(sl=True)
+        print(orient)
         c = []
         for i in orient:
             c.append(cmds.joint(i, q=True, o=True))
         for i in c:
             for j in i:
                 if round(j) == 180:
-                    if r3 == 3:
-                        r3 = 2
-                    secAxis = a[r3] + b[r4 - 1]
-
-        for i in orient:
-            if cmds.listRelatives(i) is None:
-                cmds.joint(i, e=True, oj='none', ch=True, zso=True)
-            else:
-                cmds.joint(i, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
+                    if cmds.xform(orient[1], q=1, ws=1, rp=1)[0] > cmds.xform(orient[0], q=1, ws=1, rp=1)[0]:
+                        if r3 == 3:
+                            secAxis = a[r3 - 1] + b[r4 - 1]
+                        else:
+                            secAxis = a[r3 - 3] + b[r4 - 1]
+                    if cmds.xform(orient[1], q=1, ws=1, rp=1)[1] > cmds.xform(orient[0], q=1, ws=1, rp=1)[1]:
+                        if r3 == 3:
+                            secAxis = a[r3 - 1] + b[r4 - 1]
+                        else:
+                            secAxis = a[r3 - 2] + b[r4 - 1]
+        findNub()
 
     def orientHand(self, args):
 

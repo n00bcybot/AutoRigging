@@ -1,9 +1,6 @@
 import maya.cmds as cmds
 
 
-
-
-
 # noinspection PyUnusedLocal
 def displayLocalAxis(args):  # Display local orientation axis
     jointList = cmds.ls(type='joint')
@@ -34,7 +31,7 @@ def selectHierarchy(args):
 
 
 # noinspection PyUnusedLocal
-def disableScaleComp(args):  # Display local orientation axis
+def disableScaleComp(args):  # Disable/enable scale compensate for stretchy joints
     jointList = cmds.ls(type='joint')
     selection = cmds.ls(sl=True)
     for i in selection:
@@ -54,7 +51,7 @@ def changeRotationOrder(args):
 
 
 # noinspection PyUnusedLocal
-def alignTransAxis(args):
+def alignTransAxis(args):       # Aligning translation axis', in case they have been rotated, for the thumb for example
     x = cmds.ls(sl=True)
     for i in x:
         cmds.joint(i, edit=True, zso=True)
@@ -302,10 +299,10 @@ class Interface:
         for i, j in dictNew.items():  # Creating the chain by iterating over the keys and the values
 
             cmds.joint(n=i.replace('_loc', '_jnt'), position=j)  # in the dictionary
-            jointList.append(i.replace('_loc', '_jnt'))
-        cmds.select(deselect=True)
-        cmds.select(jointList[0].replace('_loc', '_jnt'))
+            jointList.append(i.replace('_loc', '_jnt'))  # This line appends a list with joint names, which further down is used
 
+        cmds.select(deselect=True)                      # to select the first joint from the list, after the joints are created.
+        cmds.select(jointList[0].replace('_loc', '_jnt'))  # The selected joint is used then to orient the joints along the chain.
 
         # confirmMessage = cmds.confirmDialog(title='Confirm', message='Delete corresponding locators?', button=['Yes', 'No'],
         #                                     defaultButton='Yes', cancelButton='No', dismissString='No')
@@ -315,15 +312,15 @@ class Interface:
 
     def orientJoints(self, args):
 
-        def findNub():
-
-            for each in orient:
+        def findNub():  # This function checks whether the joint that needs to be orientated is at the end of the chain, as in, it has no children
+            # If it has no children, it will oriented to the world (meaning it will inherit orientation from the parent joint)
+            for each in orient:     # thus automatically aligning correctly
                 if cmds.listRelatives(each) is None:
                     cmds.joint(each, e=True, oj='none', ch=True, zso=True)
                 else:
                     cmds.joint(each, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
 
-        xyz = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']
+        xyz = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']  # List with all possible combinations for primary axis orientation
         a = ['x', 'y', 'z']
         b = ['up', 'down']
 
@@ -332,25 +329,25 @@ class Interface:
         r3 = cmds.radioButtonGrp(self.radioGroup3, query=True, sl=True)
         r4 = cmds.optionMenuGrp('updown', query=True, sl=True)
 
-        sel = a[r1 - 1] + a[r2 - 1]
-        allAxis = ''
-        for i in xyz:
-            if sel in i[:2]:
-                allAxis = i
+        sel = a[r1 - 1] + a[r2 - 1]  # Querying the radio buttons and setting the desired axis from list 'a'
+        allAxis = ''                # The radio buttons produce integers that correspond to the letters of each radio button
+        for i in xyz:               # The corresponding letters are then taken from list 'a', concatenated and compared against
+            if sel in i[:2]:        # list 'xyz'. The matching string is assigned to 'allAxis', which defines the orientation
+                allAxis = i         # of the primary axis
 
-        secAxis = a[r3 - 1] + b[r4 - 1]
+        secAxis = a[r3 - 1] + b[r4 - 1]  # Querying r3 and b to establish orientation for the secondary axis
 
-        cmds.select(hi=True)
-        orient = cmds.ls(sl=True)
+        cmds.select(hi=True)    # Selecting all joints in the hierarchy
+        orient = cmds.ls(sl=True)  # and storing their names in here
         findNub()
-        if 'l_hand_jnt' in orient:
-            unparentFingers(args=True)
+        if 'l_hand_jnt' in orient:  # Checking if 'l_hand_jnt' is in the list of joints, if so, the fingers need to be unparented
+            unparentFingers(args=True)  # and then orientated. If they are not, the wrist will be oriented towards the next joint
 
-        c = []
-        for i in orient:
-            c.append(cmds.joint(i, q=True, o=True))
-        for i in c:
-            for j in i:
+        c = []                           # that is created (the thumb), which is wrong in the case of the hand. Rather, it needs to
+        for i in orient:                        # be aligned with the elbow (the world) - that can only happen if it has no children.
+            c.append(cmds.joint(i, q=True, o=True))  # Creating the joints and a list with their orientations
+        for i in c:                                 # if any of the xyz orientations equals 180, it means the joint has flipped
+            for j in i:                             # the following code corrects that with setting the appropriate secondary axis orientation
                 if round(j) == 180:
                     if cmds.xform(orient[1], q=1, ws=1, rp=1)[0] > cmds.xform(orient[0], q=1, ws=1, rp=1)[0]:
                         if r3 == 3:
@@ -364,11 +361,11 @@ class Interface:
                             secAxis = a[r3 - 2] + b[r4 - 1]
         findNub()
         if 'l_hand_jnt' in orient:
-            parentFingers(args=True)
+            parentFingers(args=True)  # Parents the fingers back
 
     def createJointChain(self, args):
-        selected = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
-        dropdownList = self.allChains[int(selected)]
+        selected = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1  # Querying the dropdown menu
+        dropdownList = self.allChains[int(selected)]  # Getting the respective list form allChains
 
         if isinstance(dropdownList[0], list):  # If selected list contains list (like handLoc)
             for i in dropdownList:  # execute for each sublist
@@ -377,14 +374,14 @@ class Interface:
         else:  # else execute list
             self.spawnJoints(dropdownList)
 
-        if isinstance(dropdownList[0], list):
+        if isinstance(dropdownList[0], list):  # This part selects the first joint in the hierarchy, so it can orientate it with the function further down
             cmds.select(dropdownList[0][0].replace('_loc', '_jnt'))
         else:
             cmds.select(dropdownList[0].replace('_loc', '_jnt'))
         Interface.orientJoints(self, args=True)
         cmds.select(deselect=True)
 
-    def setXYZp(self, args):
+    def setXYZp(self, args):                                        # Radio buttons logic
         a = cmds.radioButtonGrp(self.radioGroup1, q=True, sl=True)
         b = cmds.radioButtonGrp(self.radioGroup2, q=True, sl=True)
         if a == 1 and b == 1:
@@ -418,4 +415,3 @@ class Interface:
 
 
 newWindow = Interface()
-

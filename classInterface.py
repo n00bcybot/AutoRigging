@@ -1,38 +1,7 @@
 import maya.cmds as cmds
 
 
-def spawnJoints(slist):  # Create joints from list
 
-    x = cmds.ls(type='locator', s=False)  # Create dictionary from locators in the scene,  with locators'
-    y = [i.replace('Shape', '') for i in x]
-    locatorsDict = {}  # names as keys and their positions in space, as values.
-    for i in y:  # Joints will be spawned from this dictionary
-        position = cmds.pointPosition(i, world=True)
-        locatorsDict[i] = position
-
-    cmds.select(deselect=True)
-    dictKeys = locatorsDict.keys()  # Creating dict list of keys from the dictionary
-
-    list_B = []  # Converting it to regular list. This step is necessary, since
-    for i in dictKeys:  # dict list is not iterable
-        list_B.append(i)
-
-    dictNew = {}  # Declaring the new list
-    for i in slist:  # For each item in slist, if the item is in list_B
-        if i in list_B:  # add it to the dictNew
-            dictNew[i] = locatorsDict[
-                i]  # dictNew[item] becomes the key, = , dictOld[i] gets the corresponding values
-
-    for i, j in dictNew.items():  # Creating the chain by iterating over the keys and the values
-        cmds.joint(n=i.replace('_loc', '_jnt'), position=j)  # in the dictionary
-
-    cmds.select(deselect=True)
-
-    # confirmMessage = cmds.confirmDialog(title='Confirm', message='Delete corresponding locators?', button=['Yes', 'No'],
-    #                                     defaultButton='Yes', cancelButton='No', dismissString='No')
-    # if confirmMessage == 'Yes':
-    #    for i in slist:
-    #        cmds.delete(i)
 
 
 # noinspection PyUnusedLocal
@@ -262,14 +231,14 @@ class Interface:
         cmds.menuItem(label='-')
 
         cmds.separator(height=2, st='none')
-        cmds.button(label='Spawn Joints', command=self.createJointChain, height=30)
+        cmds.button(label='Spawn Joints', p=self.tab1, command=self.createJointChain, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Orient Joints', command=self.orientHand, height=30)
+        cmds.button(label='Orient Joints', p=self.tab1, command=self.orientJoints, height=30)
 
         cmds.separator(height=2, st='none')
-        cmds.button(label='Unparent Fingers', command=unparentFingers, height=30)
+        cmds.button(label='Unparent Fingers', p=self.tab1, command=unparentFingers, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Parent Fingers', command=parentFingers, height=30)
+        cmds.button(label='Parent Fingers', p=self.tab1, command=parentFingers, height=30)
 
         self.tab2 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=self.tabs)
         cmds.separator(height=2, st='none')
@@ -306,13 +275,49 @@ class Interface:
         for i, j in zip(self.locTemp.keys(),
                         self.locTemp.values()):  # Create locators from template dictionary
             cmds.spaceLocator(position=j, name=i)
+        cmds.select(deselect=True)
+
+    def spawnJoints(self, slist):  # Create joints from list
+
+        x = cmds.ls(type='locator', s=False)  # Create dictionary from locators in the scene,  with locators'
+        y = [i.replace('Shape', '') for i in x]
+        locatorsDict = {}  # names as keys and their positions in space, as values.
+        for i in y:  # Joints will be spawned from this dictionary
+            position = cmds.pointPosition(i, world=True)
+            locatorsDict[i] = position
+
+        dictKeys = locatorsDict.keys()  # Creating dict list of keys from the dictionary
+
+        list_B = []  # Converting it to regular list. This step is necessary, since
+        for i in dictKeys:  # dict list is not iterable
+            list_B.append(i)
+
+        dictNew = {}  # Declaring the new list
+        for i in slist:  # For each item in slist, if the item is in list_B
+            if i in list_B:  # add it to the dictNew
+                dictNew[i] = locatorsDict[
+                    i]  # dictNew[item] becomes the key, = , dictOld[i] gets the corresponding values
+
+        jointList = []
+        for i, j in dictNew.items():  # Creating the chain by iterating over the keys and the values
+
+            cmds.joint(n=i.replace('_loc', '_jnt'), position=j)  # in the dictionary
+            jointList.append(i.replace('_loc', '_jnt'))
+        cmds.select(deselect=True)
+        cmds.select(jointList[0].replace('_loc', '_jnt'))
+
+
+        # confirmMessage = cmds.confirmDialog(title='Confirm', message='Delete corresponding locators?', button=['Yes', 'No'],
+        #                                     defaultButton='Yes', cancelButton='No', dismissString='No')
+        # if confirmMessage == 'Yes':
+        #    for i in slist:
+        #        cmds.delete(i)
 
     def orientJoints(self, args):
 
         def findNub():
-            cmds.select(hi=True)
-            joint = cmds.ls(sl=True)
-            for each in joint:
+
+            for each in orient:
                 if cmds.listRelatives(each) is None:
                     cmds.joint(each, e=True, oj='none', ch=True, zso=True)
                 else:
@@ -332,13 +337,15 @@ class Interface:
         for i in xyz:
             if sel in i[:2]:
                 allAxis = i
-        print(allAxis)
+
         secAxis = a[r3 - 1] + b[r4 - 1]
 
-        findNub()
         cmds.select(hi=True)
         orient = cmds.ls(sl=True)
-        print(orient)
+        findNub()
+        if 'l_hand_jnt' in orient:
+            unparentFingers(args=True)
+
         c = []
         for i in orient:
             c.append(cmds.joint(i, q=True, o=True))
@@ -356,17 +363,8 @@ class Interface:
                         else:
                             secAxis = a[r3 - 2] + b[r4 - 1]
         findNub()
-
-    def orientHand(self, args):
-
-        jointList = cmds.ls(sl=True)
-
-        if 'l_hand_jnt' in jointList:
-            unparentFingers(args=True)
-            self.orientJoints(args=True)
+        if 'l_hand_jnt' in orient:
             parentFingers(args=True)
-        else:
-            self.orientJoints(args=True)
 
     def createJointChain(self, args):
         selected = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
@@ -374,11 +372,17 @@ class Interface:
 
         if isinstance(dropdownList[0], list):  # If selected list contains list (like handLoc)
             for i in dropdownList:  # execute for each sublist
-                spawnJoints(i)
+                self.spawnJoints(i)
+
         else:  # else execute list
-            spawnJoints(dropdownList)
-        self.orientJoints(args=True)
-        parentFingers(args=True)
+            self.spawnJoints(dropdownList)
+
+        if isinstance(dropdownList[0], list):
+            cmds.select(dropdownList[0][0].replace('_loc', '_jnt'))
+        else:
+            cmds.select(dropdownList[0].replace('_loc', '_jnt'))
+        Interface.orientJoints(self, args=True)
+        cmds.select(deselect=True)
 
     def setXYZp(self, args):
         a = cmds.radioButtonGrp(self.radioGroup1, q=True, sl=True)
@@ -414,3 +418,4 @@ class Interface:
 
 
 newWindow = Interface()
+

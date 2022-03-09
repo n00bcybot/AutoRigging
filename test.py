@@ -17,4 +17,5 @@ for i, j in zip(valuesList, jointList):
             cmds.setAttr(j + ".jointOrient" + xyz[i.index(x)], 0)
 
 '''
-
+jointList = cmds.ls(et='joint')
+cmds.select(jointList[0])

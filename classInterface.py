@@ -3,14 +3,13 @@ import maya.cmds as cmds
 
 # noinspection PyUnusedLocal
 def displayLocalAxis(args):  # Display local orientation axis
-    jointList = cmds.ls(type='joint')
+
     selection = cmds.ls(sl=True)
     for i in selection:
-        if i in jointList:
-            if not cmds.getAttr(i + '.displayLocalAxis'):
-                cmds.setAttr(i + '.displayLocalAxis', 1)
-            else:
-                cmds.setAttr(i + '.displayLocalAxis', 0)
+        if not cmds.getAttr(i + '.displayLocalAxis'):
+            cmds.setAttr(i + '.displayLocalAxis', 1)
+        else:
+            cmds.setAttr(i + '.displayLocalAxis', 0)
 
 
 # noinspection PyUnusedLocal
@@ -274,7 +273,8 @@ class Interface:
             cmds.spaceLocator(position=j, name=i)
         cmds.select(deselect=True)
 
-    def spawnJoints(self, slist):  # Create joints from list
+    @staticmethod
+    def spawnJoints(slist):  # Create joints from list
 
         x = cmds.ls(type='locator', s=False)  # Create dictionary from locators in the scene,  with locators'
         y = [i.replace('Shape', '') for i in x]
@@ -349,13 +349,13 @@ class Interface:
         for i in c:                                 # if any of the xyz orientations equals 180, it means the joint has flipped
             for j in i:                             # the following code corrects that with setting the appropriate secondary axis orientation
                 if round(j) == 180:
-                    if cmds.xform(orient[1], q=1, ws=1, rp=1)[0] > cmds.xform(orient[0], q=1, ws=1, rp=1)[0]:
-                        if r3 == 3:
+                    if cmds.xform(orient[1], q=1, ws=1, rp=1)[0] > cmds.xform(orient[0], q=1, ws=1, rp=1)[0]:  # If X value on the second joint in the hierarchy
+                        if r3 == 3:                                                                            # is greater than X value of the first joint:
                             secAxis = a[r3 - 1] + b[r4 - 1]
                         else:
                             secAxis = a[r3 - 3] + b[r4 - 1]
-                    if cmds.xform(orient[1], q=1, ws=1, rp=1)[1] > cmds.xform(orient[0], q=1, ws=1, rp=1)[1]:
-                        if r3 == 3:
+                    if cmds.xform(orient[1], q=1, ws=1, rp=1)[1] > cmds.xform(orient[0], q=1, ws=1, rp=1)[1]:  # If Y value on the second joint in the hierarchy
+                        if r3 == 3:                                                                            # is greater than Y value of the first joint:
                             secAxis = a[r3 - 1] + b[r4 - 1]
                         else:
                             secAxis = a[r3 - 2] + b[r4 - 1]
@@ -379,7 +379,7 @@ class Interface:
         else:
             cmds.select(dropdownList[0].replace('_loc', '_jnt'))
         Interface.orientJoints(self, args=True)
-        cmds.select(deselect=True)
+
 
     def setXYZp(self, args):                                        # Radio buttons logic
         a = cmds.radioButtonGrp(self.radioGroup1, q=True, sl=True)

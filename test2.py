@@ -95,7 +95,7 @@ def spawnJoints(slist):  # Create joints from list
 
     cmds.select(deselect=True)
     cmds.select(jointList[0].replace('_loc', '_jnt'))
-
+    return jointList
 def printValues():
 
     def findNub():

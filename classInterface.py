@@ -268,9 +268,15 @@ class Interface:
         cmds.showWindow()
 
     def spawnTempLocators(self, args):
-        for i, j in zip(self.locTemp.keys(),
-                        self.locTemp.values()):  # Create locators from template dictionary
-            cmds.spaceLocator(position=j, name=i)
+        x = cmds.ls(type='locator', s=False)
+        y = [i.replace('Shape', '') for i in x]
+
+        for i, j in zip(self.locTemp.keys(), self.locTemp.values()):  # Create locators from template dictionary
+            if i not in y:
+                cmds.spaceLocator(position=j, name=i)
+            else:
+                i = None
+
         cmds.select(deselect=True)
 
     @staticmethod
@@ -307,8 +313,8 @@ class Interface:
         # confirmMessage = cmds.confirmDialog(title='Confirm', message='Delete corresponding locators?', button=['Yes', 'No'],
         #                                     defaultButton='Yes', cancelButton='No', dismissString='No')
         # if confirmMessage == 'Yes':
-        #    for i in slist:
-        #        cmds.delete(i)
+        for i in slist:
+            cmds.delete(i)
 
     def orientJoints(self, args):
 
@@ -379,7 +385,6 @@ class Interface:
         else:
             cmds.select(dropdownList[0].replace('_loc', '_jnt'))
         Interface.orientJoints(self, args=True)
-
 
     def setXYZp(self, args):                                        # Radio buttons logic
         a = cmds.radioButtonGrp(self.radioGroup1, q=True, sl=True)

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Working on controllers at test.py. At the moment controllers are spawned and aligned to the joints positions and orientations, where the controller's normal points in the same direction as the primary axis of the joint. Next step would be to group each controller and parent each according to the hierarchy.">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Created matrix based FK controllers, but it seems they are not working with IK handles. I might need to go back to the traditional controllers with groups and parent constraints">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/locators.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -147,13 +147,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Created recursive function in locators.py that checks for and removes a prefix from given string list. Recursive function was necessary, since simply recreating the list with .remove method won't work unless you use 2 for loops - one containing the strings to be removed and another one containing the original list with the items from the helping list removed. Another way would be to leave the unwanted strings out by using &quot;not&quot; in the condition statement">
-      <created>1643912066462</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1643912066462</updated>
     </task>
     <task id="LOCAL-00009" summary="Created function which replaces a string with another for each item in string list">
       <created>1643922989886</created>
@@ -491,7 +484,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647016972379</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Created matrix based FK controllers, but it seems they are not working with IK handles. I might need to go back to the traditional controllers with groups and parent constraints">
+      <created>1647193878852</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1647193878853</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -535,7 +535,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Added confirmation message if locators need to be deleted when joints are created  and separate function to delete all locators" />
     <MESSAGE value="Nice" />
     <MESSAGE value="I thought it might be a good idea to base the template skeleton on the UE mannequin, or at least have it as another template. In the process developed a function that renames the joints with the joint position prefix instead of suffix. Not essential for the project, but it might be useful in some situations." />
     <MESSAGE value="Updated locators.py with the latest utility functions" />
@@ -560,6 +559,7 @@
     <MESSAGE value="Managed to connect orientJoints function to createJointChain - now joints a created by spawnJoints and oriented with orientJoints in createJointChain. That way orientJoints is used to set orientation immediately after the joints are created, using the input from the radio buttons. Previously I could only use orientJoints for orienting the joints, and not for creating them. Still need to take care of the 'none' radio button, right now it does nothing." />
     <MESSAGE value="Managed to connect orientJoints function to createJointChain - now joints a created by spawnJoints and oriented with orientJoints in createJointChain. That way orientJoints is used to set orientation immediately after the joints are created, using the input from the radio buttons. Previously I could only use orientJoints for orienting the joints, and not for creating them. Still need to take care of the 'none' radio button, right now it does nothing.&#10;Filled the comments" />
     <MESSAGE value="Working on controllers at test.py. At the moment controllers are spawned and aligned to the joints positions and orientations, where the controller's normal points in the same direction as the primary axis of the joint. Next step would be to group each controller and parent each according to the hierarchy." />
-    <option name="LAST_COMMIT_MESSAGE" value="Working on controllers at test.py. At the moment controllers are spawned and aligned to the joints positions and orientations, where the controller's normal points in the same direction as the primary axis of the joint. Next step would be to group each controller and parent each according to the hierarchy." />
+    <MESSAGE value="Created matrix based FK controllers, but it seems they are not working with IK handles. I might need to go back to the traditional controllers with groups and parent constraints" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created matrix based FK controllers, but it seems they are not working with IK handles. I might need to go back to the traditional controllers with groups and parent constraints" />
   </component>
 </project>

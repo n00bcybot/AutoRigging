@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Created another IK chain using direct parenting of the controls to the joint. Still not sure which method of creating controls is best for most cases.">
-      <change afterPath="$PROJECT_DIR$/classInterfaceP2.py" afterDir="false" />
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="It turned out that dictionaries in Python 2.x are not ordered and when I run the script in Maya 2020, which uses Python 2, the joint order is messed up, because the script is written in Python 3.7 (Maya 2022 uses Python 3), which has ordered dictionaries. So I created a version of the script that works in Python 2.x - instead of a dictionary, containing the names and the positions, I use 2 separate list, one for names and one for positions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,13 +146,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Created function which replaces a string with another for each item in string list">
-      <created>1643923078201</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1643923078201</updated>
     </task>
     <task id="LOCAL-00011" summary="Created function which replaces a string with another for each item in string list">
       <created>1643923191236</created>
@@ -490,7 +483,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647383701191</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="It turned out that dictionaries in Python 2.x are not ordered and when I run the script in Maya 2020, which uses Python 2, the joint order is messed up, because the script is written in Python 3.7 (Maya 2022 uses Python 3), which has ordered dictionaries. So I created a version of the script that works in Python 2.x - instead of a dictionary, containing the names and the positions, I use 2 separate list, one for names and one for positions">
+      <created>1647535774744</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1647535774745</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -534,7 +534,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="I thought it might be a good idea to base the template skeleton on the UE mannequin, or at least have it as another template. In the process developed a function that renames the joints with the joint position prefix instead of suffix. Not essential for the project, but it might be useful in some situations." />
     <MESSAGE value="Updated locators.py with the latest utility functions" />
     <MESSAGE value="Looking into orientations and rotations. Created a few more utility functions - select all joints, select hierarchy, enable scale compensation, set rotation order and align translational axis to local rotational axis. These should help to any rig setup and are related to the most important procedures for correctly creating a rig. Next, I will look into creating joints with predefined orientation" />
     <MESSAGE value="Managed to set the orientation with the joint creation properly and parented the fingers to the arm. As it is now, the thumb still has to be rotated manually to curl in the palm" />
@@ -559,6 +558,7 @@
     <MESSAGE value="Working on controllers at test.py. At the moment controllers are spawned and aligned to the joints positions and orientations, where the controller's normal points in the same direction as the primary axis of the joint. Next step would be to group each controller and parent each according to the hierarchy." />
     <MESSAGE value="Created matrix based FK controllers, but it seems they are not working with IK handles. I might need to go back to the traditional controllers with groups and parent constraints" />
     <MESSAGE value="Created another IK chain using direct parenting of the controls to the joint. Still not sure which method of creating controls is best for most cases." />
-    <option name="LAST_COMMIT_MESSAGE" value="Created another IK chain using direct parenting of the controls to the joint. Still not sure which method of creating controls is best for most cases." />
+    <MESSAGE value="It turned out that dictionaries in Python 2.x are not ordered and when I run the script in Maya 2020, which uses Python 2, the joint order is messed up, because the script is written in Python 3.7 (Maya 2022 uses Python 3), which has ordered dictionaries. So I created a version of the script that works in Python 2.x - instead of a dictionary, containing the names and the positions, I use 2 separate list, one for names and one for positions" />
+    <option name="LAST_COMMIT_MESSAGE" value="It turned out that dictionaries in Python 2.x are not ordered and when I run the script in Maya 2020, which uses Python 2, the joint order is messed up, because the script is written in Python 3.7 (Maya 2022 uses Python 3), which has ordered dictionaries. So I created a version of the script that works in Python 2.x - instead of a dictionary, containing the names and the positions, I use 2 separate list, one for names and one for positions" />
   </component>
 </project>

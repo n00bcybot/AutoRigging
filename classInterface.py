@@ -298,8 +298,7 @@ class Interface:
         dictNew = {}  # Declaring the new list
         for i in slist:  # For each item in slist, if the item is in list_B
             if i in list_B:  # add it to the dictNew
-                dictNew[i] = locatorsDict[
-                    i]  # dictNew[item] becomes the key, = , dictOld[i] gets the corresponding values
+                dictNew[i] = locatorsDict[i]  # dictNew[item] becomes the key, = , dictOld[i] gets the corresponding values
 
         jointList = []
         for i, j in dictNew.items():  # Creating the chain by iterating over the keys and the values

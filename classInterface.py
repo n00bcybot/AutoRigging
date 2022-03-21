@@ -274,6 +274,9 @@ class Interface:
         for i, j in zip(self.locTemp.keys(), self.locTemp.values()):  # Create locators from template dictionary
             if i not in y:
                 cmds.spaceLocator(position=j, name=i)
+                cmds.xform(cp=True)
+                cmds.setAttr(i + 'Shape' + ".overrideEnabled", 1)  # Change locators' color
+                cmds.setAttr(i + 'Shape' + ".overrideColor", 17)  # to yellow
             else:
                 i = None
 

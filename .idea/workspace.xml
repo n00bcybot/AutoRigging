@@ -4,6 +4,9 @@
     <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="It turned out that dictionaries in Python 2.x are not ordered and when I run the script in Maya 2020, which uses Python 2, the joint order is messed up, because the script is written in Python 3.7 (Maya 2022 uses Python 3), which has ordered dictionaries. So I created a version of the script that works in Python 2.x - instead of a dictionary, containing the names and the positions, I use 2 separate list, one for names and one for positions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/locators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,13 +149,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Created function which replaces a string with another for each item in string list">
-      <created>1643923191236</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1643923191236</updated>
     </task>
     <task id="LOCAL-00012" summary="This block creates a list of locators and spawns joints in their place">
       <created>1643987817200</created>
@@ -490,7 +486,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647535774745</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="It turned out that dictionaries in Python 2.x are not ordered and when I run the script in Maya 2020, which uses Python 2, the joint order is messed up, because the script is written in Python 3.7 (Maya 2022 uses Python 3), which has ordered dictionaries. So I created a version of the script that works in Python 2.x - instead of a dictionary, containing the names and the positions, I use 2 separate list, one for names and one for positions">
+      <created>1647586566836</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1647586566837</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

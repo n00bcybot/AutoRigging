@@ -1,150 +1,41 @@
 import maya.cmds as cmds
 
-locTemp = {
-    'COMOffset_loc': [0.0, 105.0, 0.0],
-    'COM_loc': [0.0, 105, 0.0],
-    'head01_loc': [-2.6069044344454757e-07, 162.29514066931262, -3.573263976481437],
-    'head02_loc': [-3.94965337055097e-07, 171.14852788195952, -4.589226443506643],
-    'headNub_loc': [-1.7498294615581403e-15, 178.64732454094343, -7.2398515053674455],
-    'jawNub_loc': [-7.814865691567292e-13, 161.375737440792, 8.559080733573634],
-    'jaw_loc': [-7.677378623110254e-13, 164.0049086101554, 1.5995099911410542],
-    'l_calf_loc': [9.016487172208775, 55.99999943954483, 4.0000000438007675],
-    'l_clavicleNub_loc': [13.000593365381423, 148.65536599425872, -0.46805474032901184],
-    'l_clavicle_loc': [0.5, 148.14189486770232, 4.467180828980827],
-    'l_eyeNub_loc': [2.8762510108536112, 169.08230670451212, 8.743195847205346],
-    'l_eye_loc': [2.8762517261093254, 169.08230670451212, 7.192147091559658],
-    'l_foreArm_loc': [38.47961368255215, 148.65537316436195, -1.872071462890321],
-    'l_hand_loc': [63.92736759544309, 148.6553737316454, -0.15012761776273598],
-    'l_heel_loc': [9.01648766284925, 8.999999803973829, -3.0000015635754016],
-    'l_indexFinger01_loc': [73.15209902861417, 148.77542132191334, 2.4571262793102715],
-    'l_indexFinger02_loc': [75.89273002378945, 148.63085914848477, 2.3421963995873227],
-    'l_indexFinger03_loc': [78.1703102134008, 147.8294824486201, 2.1581582564748674],
-    'l_indexFingerNub_loc': [79.62771505903298, 146.42501754522584, 1.8998077823054957],
-    'l_middleFinger01_loc': [73.29126684700238, 148.8662111031126, 0.802623353054483],
-    'l_middleFinger02_loc': [75.84254391441976, 148.6544797715822, 0.23579633795882804],
-    'l_middleFinger03_loc': [77.89045641693453, 147.8924250170955, -0.12400547314861737],
-    'l_middleFingerNub_loc': [79.88455108582767, 146.25636204699148, -0.4738979650257093],
-    'l_pinkyFinger01_loc': [72.23646492538126, 148.74823031808162, -2.396710983056597],
-    'l_pinkyFinger02_loc': [73.66484017099772, 148.58410656969974, -3.10023485037732],
-    'l_pinkyFinger03_loc': [75.41046093402618, 148.10249312563806, -3.9805551920552533],
-    'l_pinkyFingerNub_loc': [76.65357905791906, 147.22575346795563, -4.701567751108401],
-    'l_ringFinger01_loc': [72.9422449543394, 148.86300681701232, -0.8786873046811359],
-    'l_ringFinger02_loc': [75.26585328047778, 148.66339099763337, -1.6219078896877046],
-    'l_ringFinger03_loc': [77.22398316406374, 148.05818133059097, -2.315907070516789],
-    'l_ringFingerNub_loc': [79.01784428586829, 146.54495173455706, -2.9546933552050803],
-    'l_thigh_loc': [9.016487120738676, 103.21524918079396, -0.06317702051060863],
-    'l_thumb01_loc': [70.11107543741674, 146.6170965926298, 3.5934129703622184],
-    'l_thumb02_loc': [72.5774068262009, 145.94085720275243, 4.138805274033418],
-    'l_thumbNub_loc': [74.20434461154682, 145.59246829389886, 4.010931396151761],
-    'l_toeNub_loc': [9.016487800761242, 1.0000001203622366, 15.9999991785903],
-    'l_toe_loc': [9.016487734626331, 1.0000008199679824, 4.999999178590323],
-    'l_upperArm_loc': [13.000593001987955, 148.6553731643616, -0.46805473651793594],
-    'neck01_loc': [-1.4730733192261448e-07, 155.10695179887028, -0.9901780366957804],
-    'neck02_loc': [-2.1416909327475675e-07, 159.46418229884728, -1.8036069109735917],
-    'pelvis_loc': [0.0, 105, 0.0],
-    'root_loc': [0.0, 0.0, 0.0],
-    'spine01_loc': [0.0, 111, 0.0],
-    'spine02_loc': [0.0, 122.78129034666335, 2.591755210615142],
-    'spine03_loc': [0.0, 138.25796503307137, -1.941777543511742],
-    'spine04_loc': [0.0, 148.43186463177227, -3.0205814470408088]
-}
 
-thumbLocators = ['l_thumb01_loc', 'l_thumb02_loc', 'l_thumbNub_loc']
-indexLocators = ['l_indexFinger01_loc', 'l_indexFinger02_loc', 'l_indexFinger03_loc', 'l_indexFingerNub_loc']
-middleLocators = ['l_middleFinger01_loc', 'l_middleFinger02_loc', 'l_middleFinger03_loc', 'l_middleFingerNub_loc']
-ringLocators = ['l_ringFinger01_loc', 'l_ringFinger02_loc', 'l_ringFinger03_loc', 'l_ringFingerNub_loc']
-pinkyLocators = ['l_pinkyFinger01_loc', 'l_pinkyFinger02_loc', 'l_pinkyFinger03_loc', 'l_pinkyFingerNub_loc']
-armLocators = ['l_clavicle_loc', 'l_upperArm_loc', 'l_foreArm_loc', 'l_hand_loc']
-spineLocators = ['root_loc', 'COMOffset_loc', 'COM_loc', 'pelvis_loc', 'spine01_loc', 'spine02_loc', 'spine03_loc',
-                 'spine04_loc', 'neck01_loc', 'neck02_loc', 'head01_loc', 'head02_loc', 'headNub_loc']
-legLocators = ['l_thigh_loc', 'l_calf_loc', 'l_heel_loc', 'l_toe_loc', 'l_toeNub_loc']
-eyeLocators = ['l_eye_loc', 'l_eyeNub_loc']
-jawLocators = ['jaw_loc', 'jawNub_loc']
-
-fingerLocators = [thumbLocators, indexLocators, middleLocators, ringLocators, pinkyLocators]
-handLocators = [armLocators, thumbLocators, indexLocators, middleLocators, ringLocators, pinkyLocators]
-allLists = [armLocators, legLocators, spineLocators, eyeLocators, jawLocators, thumbLocators,
-            indexLocators, middleLocators, ringLocators, pinkyLocators]
-allChains = [handLocators, legLocators, spineLocators, eyeLocators, jawLocators, allLists]
-
-def spawnJoints(slist):  # Create joints from list
-
-    x = cmds.ls(type='locator', s=False)  # Create dictionary from locators in the scene,  with locators'
-    y = [i.replace('Shape', '') for i in x]
-    locatorsDict = {}  # names as keys and their positions in space, as values.
-    for i in y:  # Joints will be spawned from this dictionary
-        position = cmds.pointPosition(i, world=True)
-        locatorsDict[i] = position
-
-    dictKeys = locatorsDict.keys()  # Creating dict list of keys from the dictionary
-
-    list_B = []  # Converting it to regular list. This step is necessary, since
-    for i in dictKeys:  # dict list is not iterable
-        list_B.append(i)
-
-    dictNew = {}  # Declaring the new list
-    for i in slist:  # For each item in slist, if the item is in list_B
-        if i in list_B:  # add it to the dictNew
-            dictNew[i] = locatorsDict[i]  # dictNew[item] becomes the key, = , dictOld[i] gets the corresponding values
-
+def rope(numberOfJoints, spaceBetween, alongAxis, controlRadius):
+    index = 0
     jointList = []
-    for i, j in dictNew.items():  # Creating the chain by iterating over the keys and the values
+    for i in range(numberOfJoints):
+        if alongAxis is 'x':
+            jointList.append(cmds.joint(name='joint_' + str(i + 1) + '_jnt', position=[index, 0, 0]))
+        elif alongAxis is 'y':
+            jointList.append(cmds.joint(name='joint_' + str(i + 1) + '_jnt', position=[0, index, 0]))
+        elif alongAxis is 'z':
+            jointList.append(cmds.joint(name='joint_' + str(i + 1) + '_jnt', position=[0, 0, index]))
+        index += spaceBetween
+    jointPositions = []
+    for i in jointList:
+        jointPositions.append(cmds.xform(i, query=True, worldSpace=True, rotatePivot=True))
+    ctrlList = []
+    for i, j in zip(jointList[:-1], jointPositions[:-1]):  # Create controllers, rename and position them on the joints
+        cmds.xform(cmds.circle(name=i[:-4] + '_ctrl', radius=controlRadius), translation=j)
+        ctrlList.append(i[:-4] + '_ctrl')
+    for i in ctrlList:
+        if alongAxis is 'x':
+            cmds.circle(i, edit=True, normal=[1, 0, 0])  # Set normal orientation for the controllers based on primary axis orientation
+        elif alongAxis is 'y':
+            cmds.circle(i, edit=True, normal=[0, 1, 0])
+        elif alongAxis is 'z':
+            cmds.circle(i, edit=True, normal=[0, 0, 1])
+    offsetList = []
+    for i, j in zip(ctrlList, jointList):
+        offsetList.append(cmds.group(i, name=i[:-4] + 'offset'))  # Group each controller and add the name to a list
+        cmds.makeIdentity(apply=True)  # Freeze transformations
+        cmds.delete(i, constructionHistory=True)  # Delete construction history
+        cmds.parentConstraint(i, j, maintainOffset=True)  # Constrain joints to controls
+    for i, j in zip(ctrlList[:-1], offsetList[:-1]):  #
+        offset = offsetList[offsetList.index(j) + 1]
+        ctrl = ctrlList[ctrlList.index(i)]
+        cmds.parent(offset, ctrl)  # Parent controls under each other
 
-        cmds.joint(n=i.replace('_loc', '_jnt'), position=j)  # in the dictionary
-        jointList.append(i.replace('_loc', '_jnt'))
 
-    cmds.select(deselect=True)
-    cmds.select(jointList[0].replace('_loc', '_jnt'))
-    return jointList
-def printValues():
-
-    def findNub():
-        cmds.select(hi=True)
-        joint = cmds.ls(sl=True)
-        for i in joint:
-            if cmds.listRelatives(i) is None:
-                cmds.joint(i, e=True, oj='none', ch=True, zso=True)
-            else:
-                cmds.joint(i, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
-
-    xyz = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']
-    a = ['x', 'y', 'z']
-    b = ['up', 'down']
-
-    r1 = 3
-    r2 = 2
-    r3 = 1
-    r4 = 1
-
-    sel = a[r1 - 1] + a[r2 - 1]
-    allAxis = ''
-    for i in xyz:
-        if sel in i[:2]:
-            allAxis = i
-    print(allAxis)
-    secAxis = a[r3 - 1] + b[r4 - 1]
-
-    findNub()
-    cmds.select(hi=True)
-    orient = cmds.ls(sl=True)
-    print(orient)
-    c = []
-    for i in orient:
-        c.append(cmds.joint(i, q=True, o=True))
-    for i in c:
-        for j in i:
-            if round(j) == 180:
-                if cmds.xform(orient[1], q=1, ws=1, rp=1)[0] > cmds.xform(orient[0], q=1, ws=1, rp=1)[0]:
-                    if r3 == 3:
-                        secAxis = a[r3 - 1] + b[r4 - 1]
-                    else:
-                        secAxis = a[r3 - 3] + b[r4 - 1]
-                if cmds.xform(orient[1], q=1, ws=1, rp=1)[1] > cmds.xform(orient[0], q=1, ws=1, rp=1)[1]:
-                    if r3 == 3:
-                        secAxis = a[r3 - 1] + b[r4 - 1]
-                    else:
-                        secAxis = a[r3 - 2] + b[r4 - 1]
-    findNub()
-
-spawnJoints(legLocators)
-
+rope(10, 10, 'y', 5)

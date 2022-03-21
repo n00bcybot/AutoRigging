@@ -77,6 +77,11 @@ def unparentFingers(args):
 
 
 # noinspection PyUnusedLocal
+def matchAllTransform(args):
+    cmds.matchTransform(cmds.ls(sl=True)[0], cmds.ls(sl=True)[1])
+
+
+# noinspection PyUnusedLocal
 class Interface:
 
     unrealMannequin = {
@@ -126,7 +131,6 @@ class Interface:
         'jawNub_loc': [-7.814865691567292e-13, 161.375737440792, 8.559080733573634],
         'jaw_loc': [-7.677378623110254e-13, 164.0049086101554, 1.5995099911410542],
         'l_calf_loc': [9.016487172208775, 55.99999943954483, 4.0000000438007675],
-        'l_clavicleNub_loc': [13.000593365381423, 148.65536599425872, -0.46805474032901184],
         'l_clavicle_loc': [0.5, 148.14189486770232, 4.467180828980827],
         'l_eyeNub_loc': [2.8762510108536112, 169.08230670451212, 8.743195847205346],
         'l_eye_loc': [2.8762517261093254, 169.08230670451212, 7.192147091559658],
@@ -235,6 +239,8 @@ class Interface:
         cmds.button(label='Unparent Fingers', p=self.tab1, command=unparentFingers, height=30)
         cmds.separator(height=2, st='none')
         cmds.button(label='Parent Fingers', p=self.tab1, command=parentFingers, height=30)
+        cmds.separator(height=2, st='none')
+        cmds.button(label='Match Transformations', p=self.tab1, command=matchAllTransform, height=30)
 
         self.tab2 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=self.tabs)
         cmds.separator(height=2, st='none')

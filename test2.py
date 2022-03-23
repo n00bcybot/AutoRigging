@@ -1,7 +1,7 @@
 import maya.cmds as cmds
 
 
-def rope(numberOfJoints, spaceBetween, alongAxis, controlRadius):
+def rope(numberOfJoints, spaceBetween, alongAxis, controllersRadius, step):
     index = 0
     jointList = []
     for i in range(numberOfJoints):
@@ -12,12 +12,18 @@ def rope(numberOfJoints, spaceBetween, alongAxis, controlRadius):
         elif alongAxis is 'z':
             jointList.append(cmds.joint(name='joint_' + str(i + 1) + '_jnt', position=[0, 0, index]))
         index += spaceBetween
+
     jointPositions = []
-    for i in jointList:
-        jointPositions.append(cmds.xform(i, query=True, worldSpace=True, rotatePivot=True))
+    for i in range(0, len(jointList) - 1, step):
+        jointPositions.append(cmds.xform(jointList[i], query=True, worldSpace=True, rotatePivot=True))
+
+    jointStep = []
+    for i in range(0, len(jointList) - 1, step):
+        jointStep.append(jointList[i])
+
     ctrlList = []
-    for i, j in zip(jointList[:-1], jointPositions[:-1]):  # Create controllers, rename and position them on the joints
-        cmds.xform(cmds.circle(name=i[:-4] + '_ctrl', radius=controlRadius), translation=j)
+    for i, j in zip(jointStep, jointPositions):  # Create controllers, rename and position them on the joints
+        cmds.xform(cmds.circle(name=i[:-4] + '_ctrl', radius=controllersRadius), translation=j)
         ctrlList.append(i[:-4] + '_ctrl')
     for i in ctrlList:
         if alongAxis is 'x':
@@ -26,16 +32,36 @@ def rope(numberOfJoints, spaceBetween, alongAxis, controlRadius):
             cmds.circle(i, edit=True, normal=[0, 1, 0])
         elif alongAxis is 'z':
             cmds.circle(i, edit=True, normal=[0, 0, 1])
+
     offsetList = []
-    for i, j in zip(ctrlList, jointList):
+    for i, j in zip(ctrlList, jointStep):
         offsetList.append(cmds.group(i, name=i[:-4] + 'offset'))  # Group each controller and add the name to a list
-        cmds.makeIdentity(apply=True)  # Freeze transformations
+
+    for i, j, o in zip(ctrlList, jointStep, offsetList):
+        cmds.matchTransform(o, j)
+        cmds.makeIdentity(o, apply=True, translate=True)  # Freeze transformations
+        cmds.makeIdentity(i, apply=True)  # Freeze transformations
         cmds.delete(i, constructionHistory=True)  # Delete construction history
         cmds.parentConstraint(i, j, maintainOffset=True)  # Constrain joints to controls
+
     for i, j in zip(ctrlList[:-1], offsetList[:-1]):  #
         offset = offsetList[offsetList.index(j) + 1]
         ctrl = ctrlList[ctrlList.index(i)]
         cmds.parent(offset, ctrl)  # Parent controls under each other
 
 
-rope(10, 10, 'y', 5)
+    for i in ctrlList:
+        for j in jointList:
+            if i[:-4] in j:
+                for each in range(step):
+                    cmds.connectAttr(i + '.rotate', jointList[jointList.index(j) - 1 + each] + '.rotate', force=True)
+
+    for i, j  in zip(jointStep[1:], offsetList[1:]):
+        if i in jointList:
+            cmds.parentConstraint(jointList[jointList.index(i) - 1], j, mo=True, w=1)
+
+rope(20, 10, 'x', 5, 3)
+
+
+# for each controller, connect rotation of the controller to joint that it controls and the following 2 joints (use step)
+# parent-constrain the joint before the controler to the group of the controler

@@ -241,6 +241,8 @@ class Interface:
         cmds.button(label='Parent Fingers', p=self.tab1, command=parentFingers, height=30)
         cmds.separator(height=2, st='none')
         cmds.button(label='Match Transformations', p=self.tab1, command=matchAllTransform, height=30)
+        cmds.separator(height=2, st='none')
+        cmds.button(label='Create FK Controls', p=self.tab1, command=self.createFKcontrols, height=30)
 
         self.tab2 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=self.tabs)
         cmds.separator(height=2, st='none')
@@ -323,6 +325,55 @@ class Interface:
         # if confirmMessage == 'Yes':
         for i in slist:
             cmds.delete(i)
+
+    def createFKcontrols(self, args):
+
+        primaryAxis = cmds.radioButtonGrp(self.radioGroup1, query=True, sl=True)
+
+        jointList = cmds.ls(sl=True)  # Get list of selected joints
+        jointPositions = []
+        for i in jointList:
+            jointPositions.append(cmds.xform(i, q=1, ws=1, rp=1))
+
+        ctrlList = []
+        for i, j in zip(jointList, jointPositions):  # Create controllers, rename and position them on the joints
+
+            cmds.xform(cmds.circle(n=i[:-4] + '_ctrl', r=7), t=j)
+            ctrlList.append(i[:-4] + '_ctrl')  # Append controllers names to ctrlList
+
+        for i in ctrlList:
+            if 'Finger' in i or 'thumb' in i:  # If the controller is a finger controller, set smaller radius
+                cmds.circle(i, e=True, r=2)
+
+        if primaryAxis == 1:
+            for i in ctrlList:
+                cmds.circle(i, e=True, nr=[1, 0, 0])  # Set normal orientation for the controllers based on primary axis orientation
+        elif primaryAxis == 2:
+            for i in ctrlList:
+                cmds.circle(i, e=True, nr=[0, 1, 0])
+        elif primaryAxis == 3:
+            for i in ctrlList:
+                cmds.circle(i, e=True, nr=[0, 0, 1])
+
+        offsetList = []
+        for i, j in zip(ctrlList, jointList):
+            offsetList.append(cmds.group(i, name=i[:-4] + 'offset'))  # Group each controller and add the name to a list
+
+        for i, j, o in zip(ctrlList, jointList, offsetList):
+            cmds.matchTransform(o, j)
+            cmds.makeIdentity(o, apply=True, translate=True)  # Freeze transformations
+            cmds.makeIdentity(i, apply=True)  # Freeze transformations
+            cmds.delete(i, constructionHistory=True)  # Delete construction history
+            cmds.parentConstraint(i, j, maintainOffset=True)  # Constrain joints to controls
+
+        for i, j in zip(ctrlList[:-1], offsetList[:-1]):  #
+            offset = offsetList[offsetList.index(j) + 1]
+            ctrl = ctrlList[ctrlList.index(i)]
+            cmds.parent(offset, ctrl)  # Parent controls under each other
+
+        for i in offsetList[:-1]:  # Parent fingers controls. If 'Nub' is in item (as in, 'i' is the last joint in the hierarchy),
+            if 'Nub' in offsetList[offsetList.index(i)]:
+                cmds.parent(offsetList[offsetList.index(i) + 1], 'l_hand_ctrl')  # parent next item under l_hand_ctrl
 
     def orientJoints(self, args):
 

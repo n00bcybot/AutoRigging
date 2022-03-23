@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Managed to create a function that spawns joint chain of predefined number of joints, space between them, axis along to spawn and radius for the controls. All controlls are grouped, matched transformations and zeroed and parent-constrained. Looking into IK FK switch.    &#10;Setting out to rig a character with just joints for now and test the mirroring. Added some changes on the locators - now they spawn in yellow, so they are much easier to see; also their pivots are now centered to the object, instead of the center of the scene.">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Adapted the function for control and group to the hand chain. The skeleton works absolutely fine when mirrored and connected">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/locators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +52,7 @@
       <recent name="C:\Users\fresh\PycharmProjects\AutoRigging" />
     </key>
   </component>
-  <component name="RunManager" selected="MayaCharm.classInterface">
+  <component name="RunManager" selected="MayaCharm.test2">
     <configuration name="classInterface" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MAYACHARM_RUN_CONFIGURATION">
       <option name="executionType" value="FILE" />
       <option name="mayaSdkPath" value="C:\Program Files\Autodesk\Maya2022\bin\mayapy.exe" />
@@ -147,13 +148,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00013" summary="This block creates a list of locators and spawns joints in their place">
-      <created>1643997845450</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1643997845450</updated>
     </task>
     <task id="LOCAL-00014" summary="Wrist">
       <created>1644001549467</created>
@@ -491,7 +485,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647866021367</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="Adapted the function for control and group to the hand chain. The skeleton works absolutely fine when mirrored and connected">
+      <created>1647887739460</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1647887739460</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -535,7 +536,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Looking into orientations and rotations. Created a few more utility functions - select all joints, select hierarchy, enable scale compensation, set rotation order and align translational axis to local rotational axis. These should help to any rig setup and are related to the most important procedures for correctly creating a rig. Next, I will look into creating joints with predefined orientation" />
     <MESSAGE value="Managed to set the orientation with the joint creation properly and parented the fingers to the arm. As it is now, the thumb still has to be rotated manually to curl in the palm" />
     <MESSAGE value="Cleaning up" />
     <MESSAGE value="Managed to build radio buttons interface, similar to the one in the joint creation tool and the orient joint tool." />
@@ -560,6 +560,7 @@
     <MESSAGE value="Created another IK chain using direct parenting of the controls to the joint. Still not sure which method of creating controls is best for most cases." />
     <MESSAGE value="It turned out that dictionaries in Python 2.x are not ordered and when I run the script in Maya 2020, which uses Python 2, the joint order is messed up, because the script is written in Python 3.7 (Maya 2022 uses Python 3), which has ordered dictionaries. So I created a version of the script that works in Python 2.x - instead of a dictionary, containing the names and the positions, I use 2 separate list, one for names and one for positions" />
     <MESSAGE value="Managed to create a function that spawns joint chain of predefined number of joints, space between them, axis along to spawn and radius for the controls. All controlls are grouped, matched transformations and zeroed and parent-constrained. Looking into IK FK switch.    &#10;Setting out to rig a character with just joints for now and test the mirroring. Added some changes on the locators - now they spawn in yellow, so they are much easier to see; also their pivots are now centered to the object, instead of the center of the scene." />
-    <option name="LAST_COMMIT_MESSAGE" value="Managed to create a function that spawns joint chain of predefined number of joints, space between them, axis along to spawn and radius for the controls. All controlls are grouped, matched transformations and zeroed and parent-constrained. Looking into IK FK switch.    &#10;Setting out to rig a character with just joints for now and test the mirroring. Added some changes on the locators - now they spawn in yellow, so they are much easier to see; also their pivots are now centered to the object, instead of the center of the scene." />
+    <MESSAGE value="Adapted the function for control and group to the hand chain. The skeleton works absolutely fine when mirrored and connected" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adapted the function for control and group to the hand chain. The skeleton works absolutely fine when mirrored and connected" />
   </component>
 </project>

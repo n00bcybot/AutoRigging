@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Adapted the function for control and group to the hand chain. The skeleton works absolutely fine when mirrored and connected">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Finished FK function for spine">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/locators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +42,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GUI" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
   <component name="RecentsManager">
@@ -148,13 +146,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Wrist">
-      <created>1644001549467</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1644001549467</updated>
     </task>
     <task id="LOCAL-00015" summary="Wrist">
       <created>1644002156637</created>
@@ -492,7 +483,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647887739460</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Finished FK function for spine">
+      <created>1648077208670</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1648077208671</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -536,7 +534,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Managed to set the orientation with the joint creation properly and parented the fingers to the arm. As it is now, the thumb still has to be rotated manually to curl in the palm" />
     <MESSAGE value="Cleaning up" />
     <MESSAGE value="Managed to build radio buttons interface, similar to the one in the joint creation tool and the orient joint tool." />
     <MESSAGE value="Aligning the radio box" />
@@ -561,6 +558,7 @@
     <MESSAGE value="It turned out that dictionaries in Python 2.x are not ordered and when I run the script in Maya 2020, which uses Python 2, the joint order is messed up, because the script is written in Python 3.7 (Maya 2022 uses Python 3), which has ordered dictionaries. So I created a version of the script that works in Python 2.x - instead of a dictionary, containing the names and the positions, I use 2 separate list, one for names and one for positions" />
     <MESSAGE value="Managed to create a function that spawns joint chain of predefined number of joints, space between them, axis along to spawn and radius for the controls. All controlls are grouped, matched transformations and zeroed and parent-constrained. Looking into IK FK switch.    &#10;Setting out to rig a character with just joints for now and test the mirroring. Added some changes on the locators - now they spawn in yellow, so they are much easier to see; also their pivots are now centered to the object, instead of the center of the scene." />
     <MESSAGE value="Adapted the function for control and group to the hand chain. The skeleton works absolutely fine when mirrored and connected" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adapted the function for control and group to the hand chain. The skeleton works absolutely fine when mirrored and connected" />
+    <MESSAGE value="Finished FK function for spine" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished FK function for spine" />
   </component>
 </project>

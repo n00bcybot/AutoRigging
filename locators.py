@@ -503,11 +503,9 @@ def rope(numberOfJoints, spaceBetween, alongAxis, controllersRadius, step):
         index += spaceBetween
 
     jointPositions = []
-    for i in range(0, len(jointList) - 1, step):
-        jointPositions.append(cmds.xform(jointList[i], query=True, worldSpace=True, rotatePivot=True))
-
     jointStep = []
     for i in range(0, len(jointList) - 1, step):
+        jointPositions.append(cmds.xform(jointList[i], query=True, worldSpace=True, rotatePivot=True))
         jointStep.append(jointList[i])
 
     ctrlList = []
@@ -516,7 +514,8 @@ def rope(numberOfJoints, spaceBetween, alongAxis, controllersRadius, step):
         ctrlList.append(i[:-4] + '_ctrl')
     for i in ctrlList:
         if alongAxis is 'x':
-            cmds.circle(i, edit=True, normal=[1, 0, 0])  # Set normal orientation for the controllers based on primary axis orientation
+            cmds.circle(i, edit=True, normal=[1, 0,
+                                              0])  # Set normal orientation for the controllers based on primary axis orientation
         elif alongAxis is 'y':
             cmds.circle(i, edit=True, normal=[0, 1, 0])
         elif alongAxis is 'z':
@@ -538,22 +537,18 @@ def rope(numberOfJoints, spaceBetween, alongAxis, controllersRadius, step):
         ctrl = ctrlList[ctrlList.index(i)]
         cmds.parent(offset, ctrl)  # Parent controls under each other
 
-
     for i in ctrlList:
         for j in jointList:
             if i[:-4] in j:
                 for each in range(step):
-                    cmds.connectAttr(i + '.rotate', jointList[jointList.index(j) - 1 + each] + '.rotate', force=True)
+                    cmds.connectAttr(i + '.rotate', jointList[jointList.index(j) + each] + '.rotate', force=True)
 
-    for i, j  in zip(jointStep[1:], offsetList[1:]):
+    for i, j in zip(jointStep[1:], offsetList[1:]):
         if i in jointList:
             cmds.parentConstraint(jointList[jointList.index(i) - 1], j, mo=True, w=1)
 
-rope(20, 10, 'x', 5, 3)
 
-
-# for each controller, connect rotation of the controller to joint that it controls and the following 2 joints (use step)
-# parent-constrain the joint before the controller to the group of the controller
+rope(15, 10, 'y', 5, 3)
 
 ########################################################################################################################
 

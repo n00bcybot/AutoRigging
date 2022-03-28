@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Finished FK function for spine">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Completed IK/FK switch and controls for the hand. Next will be looking into fingers controls, drawing controls and code optimization">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/locators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,13 +148,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Finally discovered a good way to compare list to dictionary keys and fetch the corresponding values in order to create new dictionary in particular order">
-      <created>1644151638157</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1644151638157</updated>
     </task>
     <task id="LOCAL-00017" summary="Finally discovered a good way to compare list to dictionary keys and fetch the corresponding values in order to create new dictionary in particular order">
       <created>1644181070615</created>
@@ -490,7 +485,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648107262053</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Completed IK/FK switch and controls for the hand. Next will be looking into fingers controls, drawing controls and code optimization">
+      <created>1648321583329</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1648321583329</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -534,7 +536,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Cleaning up" />
     <MESSAGE value="Managed to build radio buttons interface, similar to the one in the joint creation tool and the orient joint tool." />
     <MESSAGE value="Aligning the radio box" />
     <MESSAGE value="Created and connected radio buttons for joint creation to the main layout" />
@@ -559,6 +560,7 @@
     <MESSAGE value="Managed to create a function that spawns joint chain of predefined number of joints, space between them, axis along to spawn and radius for the controls. All controlls are grouped, matched transformations and zeroed and parent-constrained. Looking into IK FK switch.    &#10;Setting out to rig a character with just joints for now and test the mirroring. Added some changes on the locators - now they spawn in yellow, so they are much easier to see; also their pivots are now centered to the object, instead of the center of the scene." />
     <MESSAGE value="Adapted the function for control and group to the hand chain. The skeleton works absolutely fine when mirrored and connected" />
     <MESSAGE value="Finished FK function for spine" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished FK function for spine" />
+    <MESSAGE value="Completed IK/FK switch and controls for the hand. Next will be looking into fingers controls, drawing controls and code optimization" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed IK/FK switch and controls for the hand. Next will be looking into fingers controls, drawing controls and code optimization" />
   </component>
 </project>

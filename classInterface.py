@@ -192,6 +192,9 @@ class Interface:
     fkJoints = ['l_upperArm_FK_jnt', 'l_foreArm_FK_jnt', 'l_hand_FK_jnt']
     armJoints = ['l_upperArm_jnt', 'l_foreArm_jnt', 'l_hand_jnt']
 
+    switchCtrlPoints = [(0, 0, 0), (2, 0, -2), (2, 0, -1), (6, 0, -1), (6, 0, -2), (8, 0, 0), (6, 0, 2), (6, 0, 1), (2, 0, 1), (2, 0, 2), (0, 0, 0)]
+    switchCtrlPCount = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
     def __init__(self):
 
         self.window = 'MyWindow'
@@ -408,12 +411,14 @@ class Interface:
 
     def createIKcontrols(self, args):
 
+        primaryAxis = cmds.radioButtonGrp(self.radioGroup1, query=True, sl=True)
+        normal = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
         if cmds.optionMenuGrp('optMenu', query=True, sl=True) == 1:
 
             ikName = 'l_arm_ikHandle'
             ikCtrl = 'l_arm_ikHandle_ctrl'
             cmds.ikHandle(name=ikName, startJoint=self.ikJoints[0], endEffector=self.ikJoints[2], sol='ikRPsolver')  # Create IK handle
-            cmds.xform(cmds.circle(n=ikName + '_ctrl', r=10, nr=[1, 0, 0]), t=cmds.xform(self.ikJoints[2], q=1, ws=1, rp=1))  # Create IK controller and position it on the joint
+            cmds.xform(cmds.circle(n=ikName + '_ctrl', r=10, nr=normal[primaryAxis - 1]), t=cmds.xform(self.ikJoints[2], q=1, ws=1, rp=1))  # Create IK controller and position it on the joint
             cmds.xform(ikCtrl, cp=True)
             cmds.setAttr(ikCtrl + ".overrideEnabled", 1)  # Change color
             cmds.setAttr(ikCtrl + ".overrideColor", 13)  # to red
@@ -427,7 +432,7 @@ class Interface:
 
             IkFkSwitchPosition = cmds.xform(self.ikJoints[2], q=1, ws=1, rp=1)
             IkFkSwitchPosition[2] = IkFkSwitchPosition[2] - 20
-            cmds.xform(cmds.circle(n='IK_FK_switch', r=5, nr=[0, 1, 0]), t=IkFkSwitchPosition)
+            cmds.xform(cmds.curve(n='IK_FK_switch', d=True, p=self.switchCtrlPoints, k=self.switchCtrlPCount), t=IkFkSwitchPosition)
 
             cmds.addAttr(longName='IK_FK_switch', attributeType='double', min=0, max=1, defaultValue=0)
             cmds.setAttr('IK_FK_switch' + '.IK_FK_switch', edit=True, keyable=True)
@@ -436,7 +441,7 @@ class Interface:
 
             elbowControllerPosition = cmds.xform(self.ikJoints[1], q=1, ws=1, rp=1)
             elbowControllerPosition[2] = elbowControllerPosition[2] - 20
-            cmds.xform(cmds.circle(n='l_elbow_ctrl', r=5, nr=[0, 1, 0]), t=elbowControllerPosition)
+            cmds.xform(cmds.curve(n='l_elbow_ctrl', d=True, p=self.switchCtrlPoints, k=self.switchCtrlPCount), t=elbowControllerPosition)
             cmds.makeIdentity('l_elbow_ctrl', apply=True)
             cmds.delete('l_elbow_ctrl', constructionHistory=True)
             cmds.group(name='l_elbow_ctrl' + '_offset')

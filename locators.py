@@ -602,3 +602,17 @@ for i in offsetList[:-1]:  # Parent fingers controls. If 'Nub' is in item (as in
         cmds.parent(offsetList[offsetList.index(i) + 1], 'l_hand_ctrl')  # parent next item under l_hand_ctrl
 
 ########################################################################################################################
+
+# Get point positions from a curve for creating controls later
+
+curvePointsPositions = cmds.getAttr( 'curve1.cv[*]' )
+
+pointsCount = []
+for i in range(len(curvePointsPositions)):
+    pointsCount.append(i)
+print(curvePointsPositions)
+print(pointsCount)
+
+# cmds.curve(d=True, p=curvePointsPositions, k=pointsCount) # Create curve
+
+########################################################################################################################

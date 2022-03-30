@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Completed IK/FK switch and controls for the hand. Next will be looking into fingers controls, drawing controls and code optimization">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Added normal orientation check for the IK controller and created a function that will print out point positions of a given curve. The point positions can be used to spawn the same controller. Next will be looking into matching the transformation of the controllers when switching between IK and FK">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/locators.py" afterDir="false" />
@@ -44,7 +44,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GUI" />
     <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
   <component name="RecentsManager">
@@ -148,13 +148,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Finally discovered a good way to compare list to dictionary keys and fetch the corresponding values in order to create new dictionary in particular order">
-      <created>1644181070615</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1644181070615</updated>
     </task>
     <task id="LOCAL-00018" summary="Spawning selected joint chains from dropdown menu">
       <created>1644409590563</created>
@@ -492,7 +485,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648321583329</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Added normal orientation check for the IK controller and created a function that will print out point positions of a given curve. The point positions can be used to spawn the same controller. Next will be looking into matching the transformation of the controllers when switching between IK and FK">
+      <created>1648461459427</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1648461459428</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -536,7 +536,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Managed to build radio buttons interface, similar to the one in the joint creation tool and the orient joint tool." />
     <MESSAGE value="Aligning the radio box" />
     <MESSAGE value="Created and connected radio buttons for joint creation to the main layout" />
     <MESSAGE value="Trying to connect the radio buttons interface with spawnJoints function" />
@@ -561,6 +560,7 @@
     <MESSAGE value="Adapted the function for control and group to the hand chain. The skeleton works absolutely fine when mirrored and connected" />
     <MESSAGE value="Finished FK function for spine" />
     <MESSAGE value="Completed IK/FK switch and controls for the hand. Next will be looking into fingers controls, drawing controls and code optimization" />
-    <option name="LAST_COMMIT_MESSAGE" value="Completed IK/FK switch and controls for the hand. Next will be looking into fingers controls, drawing controls and code optimization" />
+    <MESSAGE value="Added normal orientation check for the IK controller and created a function that will print out point positions of a given curve. The point positions can be used to spawn the same controller. Next will be looking into matching the transformation of the controllers when switching between IK and FK" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added normal orientation check for the IK controller and created a function that will print out point positions of a given curve. The point positions can be used to spawn the same controller. Next will be looking into matching the transformation of the controllers when switching between IK and FK" />
   </component>
 </project>

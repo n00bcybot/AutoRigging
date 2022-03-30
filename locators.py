@@ -490,16 +490,16 @@ cmds.parent('ikHandle1', 'ik_ctrl')  # Parent the handle to the control
 
 # FK chain with group controls and constraints
 
-def rope(numberOfJoints, spaceBetween, alongAxis, controllersRadius, step):
+def rope(numberOfJoints, spaceBetween, alongAxis, controllersRadius, step, jointName):
     index = 0
     jointList = []
     for i in range(numberOfJoints):
         if alongAxis is 'x':
-            jointList.append(cmds.joint(name='joint_' + str(i + 1) + '_jnt', position=[index, 0, 0]))
+            jointList.append(cmds.joint(name=jointName + str(i + 1) + '_jnt', position=[index, 0, 0]))
         elif alongAxis is 'y':
-            jointList.append(cmds.joint(name='joint_' + str(i + 1) + '_jnt', position=[0, index, 0]))
+            jointList.append(cmds.joint(name=jointName + str(i + 1) + '_jnt', position=[0, index, 0]))
         elif alongAxis is 'z':
-            jointList.append(cmds.joint(name='joint_' + str(i + 1) + '_jnt', position=[0, 0, index]))
+            jointList.append(cmds.joint(name=jointName + str(i + 1) + '_jnt', position=[0, 0, index]))
         index += spaceBetween
 
     jointPositions = []
@@ -514,8 +514,7 @@ def rope(numberOfJoints, spaceBetween, alongAxis, controllersRadius, step):
         ctrlList.append(i[:-4] + '_ctrl')
     for i in ctrlList:
         if alongAxis is 'x':
-            cmds.circle(i, edit=True, normal=[1, 0,
-                                              0])  # Set normal orientation for the controllers based on primary axis orientation
+            cmds.circle(i, edit=True, normal=[1, 0, 0])  # Set normal orientation for the controllers based on primary axis orientation
         elif alongAxis is 'y':
             cmds.circle(i, edit=True, normal=[0, 1, 0])
         elif alongAxis is 'z':
@@ -541,14 +540,15 @@ def rope(numberOfJoints, spaceBetween, alongAxis, controllersRadius, step):
         for j in jointList:
             if i[:-4] in j:
                 for each in range(step):
-                    cmds.connectAttr(i + '.rotate', jointList[jointList.index(j) + each] + '.rotate', force=True)
+                    cmds.connectAttr(i + '.rotate', jointList[jointList.index(j) - 1 + each] + '.rotate', force=True)
 
     for i, j in zip(jointStep[1:], offsetList[1:]):
         if i in jointList:
             cmds.parentConstraint(jointList[jointList.index(i) - 1], j, mo=True, w=1)
+    cmds.select(deselect=True)
 
 
-rope(15, 10, 'y', 5, 3)
+rope(15, 3, 'y', 5, 4, 'rope')
 
 ########################################################################################################################
 
@@ -605,14 +605,62 @@ for i in offsetList[:-1]:  # Parent fingers controls. If 'Nub' is in item (as in
 
 # Get point positions from a curve for creating controls later
 
-curvePointsPositions = cmds.getAttr( 'curve1.cv[*]' )
-
-pointsCount = []
-for i in range(len(curvePointsPositions)):
-    pointsCount.append(i)
-print(curvePointsPositions)
-print(pointsCount)
+def getCurvePoints():
+    curve = cmds.ls(sl=True)[0]     # Select curve
+    curvePointsPositions = cmds.getAttr(curve + '.cv[*]')  # Get point positions
+    pointsCount = []
+    for i in range(len(curvePointsPositions)):  # Get points count
+        pointsCount.append(i)
+    print(curvePointsPositions)
+    print(pointsCount)
 
 # cmds.curve(d=True, p=curvePointsPositions, k=pointsCount) # Create curve
+
+########################################################################################################################
+
+#  Calculate position of the pole vector controller
+
+import maya.OpenMaya as om
+
+def makeLocator(position):
+    cmds.move(position.x, position.y, position.z, cmds.spaceLocator())  # Place locator on the calculated position
+
+def getPoleVectorPosition(armPos, elbowPos, wristPos):
+    armVec = om.MVector(armPos[0], armPos[1], armPos[2])  # Create vector for each joint
+    elbowVec = om.MVector(elbowPos[0], elbowPos[1], elbowPos[2])
+    wristVec = om.MVector(wristPos[0], wristPos[1], wristPos[2])
+
+    midPoint = (wristVec - armVec) * 0.5 + armVec  # Subtract the arm position from the wrist position, multiply by 0.5 to find the midpoint.
+    # + armVec places the new vector at the arm's position
+    poleVectorPos = (elbowVec - midPoint) + elbowVec  # Subtract the midpoint from the elbow's and place it on the elbow
+    # (+ elbowVec) to find where the pole vector should be. Multiply brackets result to extend position farther out
+
+    makeLocator(poleVectorPos)
+
+arm_ik_pos = cmds.xform('arm_ik', q=True, ws=True, t=True)  # Query positions in space of the IK joints and feed them
+elbow_ik_pos = cmds.xform('elbow_ik', q=True, ws=True, t=True)  # to the function, so you can convert them in vectors
+wrist_ik_pos = cmds.xform('wrist_ik', q=True, ws=True, t=True)
+
+########################################################################################################################
+
+# Set ikHandle and pole vector controller's position to snap IK to FK
+
+import maya.OpenMaya as om
+
+def setPVctrlPosition(armPos, elbowPos, wristPos):
+
+    armVec = om.MVector(armPos[0], armPos[1], armPos[2])
+    elbowVec = om.MVector(elbowPos[0], elbowPos[1], elbowPos[2])
+    wristVec = om.MVector(wristPos[0], wristPos[1], wristPos[2])
+
+    midPoint = (wristVec - armVec) * 0.5 + armVec
+    poleVectorPos = (elbowVec - midPoint) + elbowVec
+
+    cmds.move(wristVec.x, wristVec.y, wristVec.z, 'ikHandle1')
+    cmds.move(poleVectorPos.x, poleVectorPos.y, poleVectorPos.z, 'pv_ctrl', rpr=True)
+
+arm_fk_pos = cmds.xform('arm_fk', q=True, ws=True, t=True)  # Query positions in space of the IK joints and feed them
+elbow_fk_pos = cmds.xform('elbow_fk', q=True, ws=True, t=True)  # to the function, so you can convert them in vectors
+wrist_fk_pos = cmds.xform('wrist_fk', q=True, ws=True, t=True)
 
 ########################################################################################################################

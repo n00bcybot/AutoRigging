@@ -489,13 +489,16 @@ class Interface:
 
         jointList = cmds.ls(sl=True, et='joint')
 
+        for i in jointList:
+            if 'Nub' in i:
+                jointList.pop(jointList.index(i))
+
         jointPositions = []
         for i in jointList:
             jointPositions.append(cmds.xform(i, q=1, ws=1, rp=1))
 
         ctrlList = []
         for i, j in zip(jointList, jointPositions):  # Create controllers, rename and position them on the joints
-
             cmds.xform(cmds.circle(n=i[:-4] + '_ctrl', r=7), t=j)
             ctrlList.append(i[:-4] + '_ctrl')  # Append controllers names to ctrlList
 

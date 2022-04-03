@@ -1,62 +1,52 @@
 import maya.cmds as cmds
-'''
-jointDict = {}
-orient = cmds.ls(et='joint')
-selection = cmds.ls(sl=True)
 
-for i in orient:
-    if i in selection:
-        jointDict[i] = cmds.joint(i, q=True, o=True)
+primaryAxis = cmds.radioButtonGrp(self.radioGroup1, query=True, sl=True)
 
-xyz = ['X', 'Y', 'Z']
-jointList = jointDict.keys()
-valuesList = jointDict.values()
-for i, j in zip(valuesList, jointList):
-    for x in i:
-        if round(x) == 180:
-            cmds.setAttr(j + ".jointOrient" + xyz[i.index(x)], 0)
-
-'''
-
-#  FK/IK Setup Python 2.x
-
-r1 = 1
-
-jointList = cmds.ls(sl=True)  # Get list of selected joints
 jointPositions = []
-for i in jointList:
+for i in self.fkJoints:
     jointPositions.append(cmds.xform(i, q=1, ws=1, rp=1))
 
 ctrlList = []
-for i, j in zip(jointList, jointPositions):  # Create controllers, rename and position them on the joints
+for i, j in zip(self.fkJoints, jointPositions):  # Create controllers, rename and position them on the joints
 
     cmds.xform(cmds.circle(n=i[:-4] + '_ctrl', r=7), t=j)
     ctrlList.append(i[:-4] + '_ctrl')  # Append controllers names to ctrlList
+
 for i in ctrlList:
     if 'Finger' in i or 'thumb' in i:  # If the controller is a finger controller, set smaller radius
         cmds.circle(i, e=True, r=2)
 
-if r1 == 1:
+if primaryAxis == 1:
     for i in ctrlList:
         cmds.circle(i, e=True,
                     nr=[1, 0, 0])  # Set normal orientation for the controllers based on primary axis orientation
-elif r1 == 2:
+        changeShapeColor(i, 17)
+elif primaryAxis == 2:
     for i in ctrlList:
         cmds.circle(i, e=True, nr=[0, 1, 0])
-elif r1 == 3:
+        changeShapeColor(i, 17)
+elif primaryAxis == 3:
     for i in ctrlList:
         cmds.circle(i, e=True, nr=[0, 0, 1])
+        changeShapeColor(i, 17)
 
-for i, j in zip(ctrlList, jointList):  # Match rotations of the controller to the rotation of the respective joint
+offsetList = []
+for i, j in zip(ctrlList, self.fkJoints):
+    offsetList.append(cmds.group(i, name=i[:-4] + 'offset'))  # Group each controller and add the name to a list
 
-    cmds.parent(i, j)                   # Parent each controller to each joint
-    cmds.matchTransform(i, j, rot=True)  # Match transformations
-    cmds.makeIdentity(apply=True)  # Freeze transformations
-    cmds.delete(i, ch=True)  # Delete construction history
-    cmds.select(i + 'Shape')  # Select shape node
-    cmds.select(j, add=True)    # Add respective joint to the selection. Order of selection is important for this to work
-    cmds.parent(s=True, r=True)  # Parent the shape node
-    cmds.delete(i)  # Delete the transform node
-cmds.ikHandle(startJoint=jointList[0], endEffector=jointList[2])  # Create IK handle
-cmds.xform(cmds.circle(n='ik_ctrl', r=10, nr=[1, 0, 0]), t=cmds.xform(jointList[2], q=1, ws=1, rp=1))  # Create IK controller and position it on the joint
-cmds.parent('ikHandle1', 'ik_ctrl')  # Parent the handle to the control
+for i, j, o in zip(ctrlList, self.fkJoints, offsetList):
+    cmds.matchTransform(o, j)
+    cmds.makeIdentity(o, apply=True, translate=True)  # Freeze transformations
+    cmds.makeIdentity(i, apply=True)  # Freeze transformations
+    cmds.delete(i, constructionHistory=True)  # Delete construction history
+    cmds.parentConstraint(i, j, maintainOffset=False)  # Constrain joints to controls
+
+for i, j in zip(ctrlList[:-1], offsetList[:-1]):  #
+    offset = offsetList[offsetList.index(j) + 1]
+    ctrl = ctrlList[ctrlList.index(i)]
+    cmds.parent(offset, ctrl)  # Parent controls under each other
+
+for i in offsetList[
+         :-1]:  # Parent fingers controls. If 'Nub' is in item (as in, 'i' is the last joint in the hierarchy),
+    if 'Nub' in offsetList[offsetList.index(i)]:
+        cmds.parent(offsetList[offsetList.index(i) + 1], 'l_hand_ctrl')  # parent next item under l_hand_ctrl

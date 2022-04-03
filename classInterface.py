@@ -214,6 +214,7 @@ class Interface:
 
     switchCtrlPoints = [(0, 0, 0), (2, 0, -2), (2, 0, -1), (6, 0, -1), (6, 0, -2), (8, 0, 0), (6, 0, 2), (6, 0, 1), (2, 0, 1), (2, 0, 2), (0, 0, 0)]
     switchCtrlPCount = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    normal = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
 
     def __init__(self):
 
@@ -483,19 +484,24 @@ class Interface:
 
         primaryAxis = cmds.radioButtonGrp(self.radioGroup1, query=True, sl=True)
 
+        cmds.select('l_clavicle_jnt', hi=True)
+        cmds.select('l_upperArm_FK_jnt', hi=True, add=True)
+
+        jointList = cmds.ls(sl=True, et='joint')
+
         jointPositions = []
-        for i in self.fkJoints:
+        for i in jointList:
             jointPositions.append(cmds.xform(i, q=1, ws=1, rp=1))
 
         ctrlList = []
-        for i, j in zip(self.fkJoints, jointPositions):  # Create controllers, rename and position them on the joints
+        for i, j in zip(jointList, jointPositions):  # Create controllers, rename and position them on the joints
 
             cmds.xform(cmds.circle(n=i[:-4] + '_ctrl', r=7), t=j)
             ctrlList.append(i[:-4] + '_ctrl')  # Append controllers names to ctrlList
 
         for i in ctrlList:
             if 'Finger' in i or 'thumb' in i:  # If the controller is a finger controller, set smaller radius
-                cmds.circle(i, e=True, r=2)
+                cmds.circle(i, e=True, r=1.5)
 
         if primaryAxis == 1:
             for i in ctrlList:
@@ -511,35 +517,55 @@ class Interface:
                 changeShapeColor(i, 17)
 
         offsetList = []
-        for i, j in zip(ctrlList, self.fkJoints):
+        for i, j in zip(ctrlList, jointList):
             offsetList.append(cmds.group(i, name=i[:-4] + 'offset'))  # Group each controller and add the name to a list
 
-        for i, j, o in zip(ctrlList, self.fkJoints, offsetList):
+        for i, j, o in zip(ctrlList, jointList, offsetList):
             cmds.matchTransform(o, j)
             cmds.makeIdentity(o, apply=True, translate=True)  # Freeze transformations
             cmds.makeIdentity(i, apply=True)  # Freeze transformations
             cmds.delete(i, constructionHistory=True)  # Delete construction history
-            cmds.parentConstraint(i, j, maintainOffset=False)  # Constrain joints to controls
+            cmds.parentConstraint(i, j, maintainOffset=True)  # Constrain joints to controls
 
         for i, j in zip(ctrlList[:-1], offsetList[:-1]):  #
             offset = offsetList[offsetList.index(j) + 1]
             ctrl = ctrlList[ctrlList.index(i)]
             cmds.parent(offset, ctrl)  # Parent controls under each other
 
-        for i in offsetList[:-1]:  # Parent fingers controls. If 'Nub' is in item (as in, 'i' is the last joint in the hierarchy),
-            if 'Nub' in offsetList[offsetList.index(i)]:
-                cmds.parent(offsetList[offsetList.index(i) + 1], 'l_hand_ctrl')  # parent next item under l_hand_ctrl
+        cmds.parent('l_upperArm_offset', world=True)  # unparent controls for the main joint chain
+        cmds.parent('l_thumb01_offset', world=True)
+        cmds.delete('l_upperArm_offset')  # Delete main joint chain controls
+        cmds.parent('l_upperArm_FK_offset', 'l_clavicle_ctrl')  # Parent FK controls to l_clavicle_ctrl
+
+        cmds.select(deselect=True)
+        fingersGroup = 'fingers_ctrl_offset'
+        fingersCtrl = 'fingers_ctrl'
+
+        cmds.group(name=fingersGroup, em=True)
+        cmds.matchTransform(fingersGroup, 'l_hand_jnt')
+        cmds.makeIdentity(fingersGroup, apply=True, translate=True)  # Freeze transformations
+        cmds.select(deselect=True)
+
+        fingers = []
+        for i in self.fingerLocators:
+            fingers.append(i[0].replace('loc', 'offset'))
+
+        for i in fingers:
+            cmds.parent(i, fingersGroup)  # Parent fingers to new group
+
+        cmds.parentConstraint('l_hand_jnt', 'fingers_ctrl_offset', mo=False, w=1)
+
 
     def createIKcontrols(self, args):
 
         primaryAxis = cmds.radioButtonGrp(self.radioGroup1, query=True, sl=True)
-        normal = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+
         if cmds.optionMenuGrp('optMenu', query=True, sl=True) == 1:
 
             ikName = 'l_arm_ikHandle'
             ikCtrl = 'l_arm_ikHandle_ctrl'
             cmds.ikHandle(name=ikName, startJoint=self.ikJoints[0], endEffector=self.ikJoints[2], sol='ikRPsolver')  # Create IK handle
-            cmds.circle(n=ikCtrl, r=8, nr=normal[primaryAxis - 1])   # Create IK controller and position it on the joint
+            cmds.circle(n=ikCtrl, r=8, nr=self.normal[primaryAxis - 1])   # Create IK controller and position it on the joint
             cmds.matchTransform(ikCtrl, 'l_hand_IK_jnt')
             cmds.xform(ikCtrl, cp=True)
             cmds.orientConstraint('l_arm_ikHandle_ctrl', 'l_hand_IK_jnt')
@@ -555,13 +581,13 @@ class Interface:
 
             IkFkSwitchPosition = cmds.xform(self.ikJoints[2], q=1, ws=1, rp=1)
             IkFkSwitchPosition[2] = IkFkSwitchPosition[2] - 20
-            cmds.xform(cmds.curve(n='IK_FK_switch', d=True, p=self.switchCtrlPoints, k=self.switchCtrlPCount), t=IkFkSwitchPosition)
-            changeShapeColor('IK_FK_switch', 18)
+            cmds.xform(cmds.curve(n='l_IK_FK_switch', d=True, p=self.switchCtrlPoints, k=self.switchCtrlPCount), t=IkFkSwitchPosition)
+            changeShapeColor('l_IK_FK_switch', 18)
 
-            cmds.addAttr(longName='IK_FK_switch', attributeType='double', min=0, max=1, defaultValue=0)
-            cmds.setAttr('IK_FK_switch' + '.IK_FK_switch', edit=True, keyable=True)
-            cmds.makeIdentity('IK_FK_switch', apply=True)
-            cmds.delete('IK_FK_switch', constructionHistory=True)
+            cmds.addAttr(longName='l_IK_FK_switch', attributeType='double', min=0, max=1, defaultValue=0)
+            cmds.setAttr('l_IK_FK_switch' + '.l_IK_FK_switch', edit=True, keyable=True)
+            cmds.makeIdentity('l_IK_FK_switch', apply=True)
+            cmds.delete('l_IK_FK_switch', constructionHistory=True)
 
             arm_ik_pos = cmds.xform('l_upperArm_IK_jnt', q=True, ws=True, t=True)  # Query positions in space of the IK joints and feed them
             elbow_ik_pos = cmds.xform('l_foreArm_IK_jnt', q=True, ws=True, t=True)  # to the function, so you can convert them in vectors
@@ -575,13 +601,13 @@ class Interface:
             cmds.matchTransform(cmds.poleVectorConstraint('l_elbow_ctrl', ikName), 'l_hand_IK_jnt')
 
             cmds.shadingNode('reverse', asUtility=True, name='IkFkReverse')
-            cmds.connectAttr('IK_FK_switch.IK_FK_switch', 'IkFkReverse.inputX')
+            cmds.connectAttr('l_IK_FK_switch.l_IK_FK_switch', 'IkFkReverse.inputX')
             for i, j, f in zip(self.armJoints, self.ikJoints, self.fkJoints):
-                cmds.connectAttr('IK_FK_switch.IK_FK_switch', i + '_parentConstraint1.' + j + 'W1', force=True)
+                cmds.connectAttr('l_IK_FK_switch.l_IK_FK_switch', i + '_parentConstraint1.' + j + 'W1', force=True)
                 cmds.connectAttr('IkFkReverse.outputX', i + '_parentConstraint1.' + f + 'W0', force=True)
 
-            cmds.connectAttr('IK_FK_switch.IK_FK_switch', 'l_arm_ikHandle_ctrl_offset.visibility', force=True)
-            cmds.connectAttr('IK_FK_switch.IK_FK_switch',  'l_elbow_ctrl_offset.visibility', force=True)
+            cmds.connectAttr('l_IK_FK_switch.l_IK_FK_switch', 'l_arm_ikHandle_ctrl_offset.visibility', force=True)
+            cmds.connectAttr('l_IK_FK_switch.l_IK_FK_switch',  'l_elbow_ctrl_offset.visibility', force=True)
             cmds.connectAttr('IkFkReverse.outputX', 'l_upperArm_FK_offset.visibility', force=True)
 
     def snapIKFK(self, args):
@@ -590,15 +616,15 @@ class Interface:
         elbow_fk_pos = cmds.xform('l_foreArm_FK_jnt', q=True, ws=True, t=True)  # to the function, so you can convert them in vectors
         wrist_fk_pos = cmds.xform('l_hand_FK_jnt', q=True, ws=True, t=True)
 
-        if cmds.getAttr('IK_FK_switch.IK_FK_switch') == 1:
+        if cmds.getAttr('l_IK_FK_switch.l_IK_FK_switch') == 1:
             cmds.matchTransform('l_upperArm_FK_ctrl', 'l_upperArm_jnt')
             cmds.matchTransform('l_foreArm_FK_ctrl', 'l_foreArm_jnt')
             cmds.matchTransform('l_hand_FK_ctrl', 'l_hand_jnt')
-            cmds.setAttr('IK_FK_switch.IK_FK_switch', 0)
+            cmds.setAttr('l_IK_FK_switch.l_IK_FK_switch', 0)
 
-        elif cmds.getAttr('IK_FK_switch.IK_FK_switch') == 0:
+        elif cmds.getAttr('l_IK_FK_switch.l_IK_FK_switch') == 0:
             self.setPVctrlPosition(arm_fk_pos, elbow_fk_pos, wrist_fk_pos)
-            cmds.setAttr('IK_FK_switch.IK_FK_switch', 1)
+            cmds.setAttr('l_IK_FK_switch.l_IK_FK_switch', 1)
 
     def setXYZp(self, args):                                        # Radio buttons logic
         a = cmds.radioButtonGrp(self.radioGroup1, q=True, sl=True)

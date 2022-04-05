@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Rearranged the controllers creating procedure - now the all finger controls are grouped first and then parented to l_hand_ctrl and groups is parent-constrained by the l_hand_jnt. This allows for the hand to be controlled by both the IK and the FK controls when switched respectively and the fingers do not stretch beyond the IK handle">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Corrected finger controls">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +43,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GUI" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
   <component name="RecentsManager">
@@ -146,13 +147,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Added functionality for deleting the locators corresponding to the selected list, from which joints will be spawned.&#10;Wrote correct condition check for selectJointChain(). Now, the function will execute both list of locators and list of nested lists of locators. Nested list of locators allows group of joints to be spawned, like the hand for example, which contains list for each finger. Breaking into lists is necessary, because otherwise the last joint spawned in pne list will be connected/parented to the first joint in the following joint chain.">
-      <created>1644500808152</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1644500808152</updated>
     </task>
     <task id="LOCAL-00021" summary="Added functionality for deleting the locators corresponding to the selected list, from which joints will be spawned.&#10;Wrote correct condition check for selectJointChain(). Now, the function will execute both list of locators and list of nested lists of locators. Nested list of locators allows group of joints to be spawned, like the hand for example, which contains list for each finger. Breaking into lists is necessary, because otherwise the last joint spawned in pne list will be connected/parented to the first joint in the following joint chain.">
       <created>1644697766476</created>
@@ -490,7 +484,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649016887724</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="Corrected finger controls">
+      <created>1649019697439</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1649019697439</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -534,7 +535,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Trying to connect the radio buttons interface with spawnJoints function" />
     <MESSAGE value="Working on integrating the radio buttons" />
     <MESSAGE value="Class restructuring" />
     <MESSAGE value="Now parenting works for the hand and it doesn't mess witht the rest of the joints." />
@@ -559,6 +559,7 @@
     <MESSAGE value="Added normal orientation check for the IK controller and created a function that will print out point positions of a given curve. The point positions can be used to spawn the same controller. Next will be looking into matching the transformation of the controllers when switching between IK and FK" />
     <MESSAGE value="Created function that calculates the correct position for the pole vector controller on the elbow and used the same function for creating seamless IK to FK and FK to IK switch; added it as a button and created reset button too. Also set colors for the different type controllers" />
     <MESSAGE value="Rearranged the controllers creating procedure - now the all finger controls are grouped first and then parented to l_hand_ctrl and groups is parent-constrained by the l_hand_jnt. This allows for the hand to be controlled by both the IK and the FK controls when switched respectively and the fingers do not stretch beyond the IK handle" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rearranged the controllers creating procedure - now the all finger controls are grouped first and then parented to l_hand_ctrl and groups is parent-constrained by the l_hand_jnt. This allows for the hand to be controlled by both the IK and the FK controls when switched respectively and the fingers do not stretch beyond the IK handle" />
+    <MESSAGE value="Corrected finger controls" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrected finger controls" />
   </component>
 </project>

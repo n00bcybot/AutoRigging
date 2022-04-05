@@ -528,7 +528,7 @@ class Interface:
             cmds.makeIdentity(o, apply=True, translate=True)  # Freeze transformations
             cmds.makeIdentity(i, apply=True)  # Freeze transformations
             cmds.delete(i, constructionHistory=True)  # Delete construction history
-            cmds.parentConstraint(i, j, maintainOffset=True)  # Constrain joints to controls
+            cmds.parentConstraint(i, j, maintainOffset=False)  # Constrain joints to controls
 
         for i, j in zip(ctrlList[:-1], offsetList[:-1]):  #
             offset = offsetList[offsetList.index(j) + 1]
@@ -541,8 +541,8 @@ class Interface:
         cmds.parent('l_upperArm_FK_offset', 'l_clavicle_ctrl')  # Parent FK controls to l_clavicle_ctrl
 
         cmds.select(deselect=True)
-        fingersGroup = 'fingers_ctrl_offset'
-        fingersCtrl = 'fingers_ctrl'
+        fingersGroup = 'l_fingers_ctrl_offset'
+        fingersCtrl = 'l_fingers_ctrl'
 
         cmds.group(name=fingersGroup, em=True)
         cmds.matchTransform(fingersGroup, 'l_hand_jnt')
@@ -556,7 +556,7 @@ class Interface:
         for i in fingers:
             cmds.parent(i, fingersGroup)  # Parent fingers to new group
 
-        cmds.parentConstraint('l_hand_jnt', 'fingers_ctrl_offset', mo=False, w=1)
+        cmds.parentConstraint('l_hand_jnt', 'l_fingers_ctrl_offset', mo=False, w=1)
 
 
     def createIKcontrols(self, args):
@@ -603,15 +603,15 @@ class Interface:
             cmds.group(name='l_elbow_ctrl' + '_offset')
             cmds.matchTransform(cmds.poleVectorConstraint('l_elbow_ctrl', ikName), 'l_hand_IK_jnt')
 
-            cmds.shadingNode('reverse', asUtility=True, name='IkFkReverse')
-            cmds.connectAttr('l_IK_FK_switch.l_IK_FK_switch', 'IkFkReverse.inputX')
+            cmds.shadingNode('reverse', asUtility=True, name='l_IkFkReverse')
+            cmds.connectAttr('l_IK_FK_switch.l_IK_FK_switch', 'l_IkFkReverse.inputX')
             for i, j, f in zip(self.armJoints, self.ikJoints, self.fkJoints):
                 cmds.connectAttr('l_IK_FK_switch.l_IK_FK_switch', i + '_parentConstraint1.' + j + 'W1', force=True)
-                cmds.connectAttr('IkFkReverse.outputX', i + '_parentConstraint1.' + f + 'W0', force=True)
+                cmds.connectAttr('l_IkFkReverse.outputX', i + '_parentConstraint1.' + f + 'W0', force=True)
 
             cmds.connectAttr('l_IK_FK_switch.l_IK_FK_switch', 'l_arm_ikHandle_ctrl_offset.visibility', force=True)
             cmds.connectAttr('l_IK_FK_switch.l_IK_FK_switch',  'l_elbow_ctrl_offset.visibility', force=True)
-            cmds.connectAttr('IkFkReverse.outputX', 'l_upperArm_FK_offset.visibility', force=True)
+            cmds.connectAttr('l_IkFkReverse.outputX', 'l_upperArm_FK_offset.visibility', force=True)
 
     def snapIKFK(self, args):
 

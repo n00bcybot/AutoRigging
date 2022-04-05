@@ -475,9 +475,9 @@ class Interface:
         wristVec = om.MVector(wristPos[0], wristPos[1], wristPos[2])
 
         midPoint = (wristVec - armVec) * 0.5 + armVec
-        poleVectorPos = (elbowVec - midPoint) * 2 + elbowVec
+        poleVectorPos = (elbowVec - midPoint) * 1.5 + elbowVec
 
-        cmds.matchTransform('l_arm_ikHandle_ctrl', 'l_hand_FK_jnt')
+        cmds.matchTransform('l_arm_ikHandle_ctrl', 'l_hand_jnt')
         cmds.move(poleVectorPos.x, poleVectorPos.y, poleVectorPos.z, 'l_elbow_ctrl', rpr=True)
 
     def createFKcontrols(self, args):
@@ -558,7 +558,6 @@ class Interface:
 
         cmds.parentConstraint('l_hand_jnt', 'l_fingers_ctrl_offset', mo=False, w=1)
 
-
     def createIKcontrols(self, args):
 
         primaryAxis = cmds.radioButtonGrp(self.radioGroup1, query=True, sl=True)
@@ -569,18 +568,17 @@ class Interface:
             ikCtrl = 'l_arm_ikHandle_ctrl'
             cmds.ikHandle(name=ikName, startJoint=self.ikJoints[0], endEffector=self.ikJoints[2], sol='ikRPsolver')  # Create IK handle
             cmds.circle(n=ikCtrl, r=8, nr=self.normal[primaryAxis - 1])   # Create IK controller and position it on the joint
-            cmds.matchTransform(ikCtrl, 'l_hand_IK_jnt')
-            cmds.xform(ikCtrl, cp=True)
-            cmds.orientConstraint('l_arm_ikHandle_ctrl', 'l_hand_IK_jnt')
-            changeShapeColor(ikCtrl, 13)
 
             offsetGroup = cmds.group(name=ikCtrl + '_offset')
-            cmds.matchTransform(offsetGroup, 'l_hand_IK_jnt')
+            cmds.matchTransform(offsetGroup, 'l_hand_jnt')
+            cmds.parent(ikName, ikCtrl)
+            cmds.matchTransform(ikCtrl, offsetGroup)
+            cmds.orientConstraint(ikCtrl, 'l_hand_IK_jnt')
+            changeShapeColor(ikCtrl, 13)
+            cmds.makeIdentity(ikName, apply=True)
             cmds.makeIdentity(offsetGroup, apply=True, translate=True)  # Freeze transformations
             cmds.makeIdentity(ikCtrl, apply=True)
             cmds.delete(ikCtrl, constructionHistory=True)
-            cmds.parent(ikName, ikCtrl)
-            cmds.makeIdentity(ikName, apply=True)
 
             IkFkSwitchPosition = cmds.xform(self.ikJoints[2], q=1, ws=1, rp=1)
             IkFkSwitchPosition[2] = IkFkSwitchPosition[2] - 20

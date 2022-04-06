@@ -60,7 +60,7 @@ def alignTransAxis(args):       # Aligning translation axis', in case they have 
 # noinspection PyUnusedLocal
 def parentFingers(args):
     y = []                                          # Parent all fingers to hand joint
-    for each in Interface.fingerLocators:
+    for each in Interface.l_fingerLocators:
         y.append(each[0].replace('_loc', '_jnt'))
     for i in y:
         cmds.parent(i, 'l_hand_jnt')
@@ -70,7 +70,7 @@ def parentFingers(args):
 # noinspection PyUnusedLocal
 def unparentFingers(args):
     y = []                                          # Parent all fingers to hand joint
-    for each in Interface.fingerLocators:
+    for each in Interface.l_fingerLocators:
         y.append(each[0].replace('_loc', '_jnt'))
     for i in y:
         cmds.parent(i, w=True)
@@ -99,6 +99,11 @@ def resetControls(args):
         for j in xyz:
             cmds.setAttr(i + '.rotate' + j, 0)
             cmds.setAttr(i + '.translate' + j, 0)
+
+
+# noinspection PyUnusedLocal
+def mirrorJoints(joint):
+    cmds.mirrorJoint(joint, mirrorYZ=True, mirrorBehavior=True, searchReplace=('l_', 'r_'))
 
 
 # noinspection PyUnusedLocal
@@ -190,27 +195,48 @@ class Interface:
         'spine04_loc': [0.0, 148.43186463177227, -3.0205814470408088]
     }
 
-    thumbLocators = ['l_thumb01_loc', 'l_thumb02_loc', 'l_thumbNub_loc']
-    indexLocators = ['l_indexFinger01_loc', 'l_indexFinger02_loc', 'l_indexFinger03_loc', 'l_indexFingerNub_loc']
-    middleLocators = ['l_middleFinger01_loc', 'l_middleFinger02_loc', 'l_middleFinger03_loc', 'l_middleFingerNub_loc']
-    ringLocators = ['l_ringFinger01_loc', 'l_ringFinger02_loc', 'l_ringFinger03_loc', 'l_ringFingerNub_loc']
-    pinkyLocators = ['l_pinkyFinger01_loc', 'l_pinkyFinger02_loc', 'l_pinkyFinger03_loc', 'l_pinkyFingerNub_loc']
-    armLocators = ['l_clavicle_loc', 'l_upperArm_loc', 'l_foreArm_loc', 'l_hand_loc']
+### L locators
+
+    l_thumbLocators = ['l_thumb01_loc', 'l_thumb02_loc', 'l_thumbNub_loc']
+    l_indexLocators = ['l_indexFinger01_loc', 'l_indexFinger02_loc', 'l_indexFinger03_loc', 'l_indexFingerNub_loc']
+    l_middleLocators = ['l_middleFinger01_loc', 'l_middleFinger02_loc', 'l_middleFinger03_loc', 'l_middleFingerNub_loc']
+    l_ringLocators = ['l_ringFinger01_loc', 'l_ringFinger02_loc', 'l_ringFinger03_loc', 'l_ringFingerNub_loc']
+    l_pinkyLocators = ['l_pinkyFinger01_loc', 'l_pinkyFinger02_loc', 'l_pinkyFinger03_loc', 'l_pinkyFingerNub_loc']
+    l_armLocators = ['l_clavicle_loc', 'l_upperArm_loc', 'l_foreArm_loc', 'l_hand_loc']
     spineLocators = ['root_loc', 'COMOffset_loc', 'COM_loc', 'pelvis_loc', 'spine01_loc', 'spine02_loc', 'spine03_loc',
                      'spine04_loc', 'neck01_loc', 'neck02_loc', 'head01_loc', 'head02_loc', 'headNub_loc']
-    legLocators = ['l_thigh_loc', 'l_calf_loc', 'l_heel_loc', 'l_toe_loc', 'l_toeNub_loc']
-    eyeLocators = ['l_eye_loc', 'l_eyeNub_loc']
+    l_legLocators = ['l_thigh_loc', 'l_calf_loc', 'l_heel_loc', 'l_toe_loc', 'l_toeNub_loc']
+    l_eyeLocators = ['l_eye_loc', 'l_eyeNub_loc']
     jawLocators = ['jaw_loc', 'jawNub_loc']
 
-    fingerLocators = [thumbLocators, indexLocators, middleLocators, ringLocators, pinkyLocators]
-    handLocators = [armLocators, thumbLocators, indexLocators, middleLocators, ringLocators, pinkyLocators]
-    allLists = [armLocators, legLocators, spineLocators, eyeLocators, jawLocators, thumbLocators,
-                indexLocators, middleLocators, ringLocators, pinkyLocators]
-    allChains = [handLocators, legLocators, spineLocators, eyeLocators, jawLocators, allLists]
+    l_ikJoints = ['l_upperArm_IK_jnt', 'l_foreArm_IK_jnt', 'l_hand_IK_jnt']
+    l_fkJoints = ['l_upperArm_FK_jnt', 'l_foreArm_FK_jnt', 'l_hand_FK_jnt']
+    l_armJoints = ['l_upperArm_jnt', 'l_foreArm_jnt', 'l_hand_jnt']
 
-    ikJoints = ['l_upperArm_IK_jnt', 'l_foreArm_IK_jnt', 'l_hand_IK_jnt']
-    fkJoints = ['l_upperArm_FK_jnt', 'l_foreArm_FK_jnt', 'l_hand_FK_jnt']
-    armJoints = ['l_upperArm_jnt', 'l_foreArm_jnt', 'l_hand_jnt']
+### R locators
+
+    r_thumbLocators = ['r_thumb01_loc', 'r_thumb02_loc', 'r_thumbNub_loc']
+    r_indexLocators = ['r_indexFinger01_loc', 'r_indexFinger02_loc', 'r_indexFinger03_loc', 'r_indexFingerNub_loc']
+    r_middleLocators = ['r_middleFinger01_loc', 'r_middleFinger02_loc', 'r_middleFinger03_loc', 'r_middleFingerNub_loc']
+    r_ringLocators = ['r_ringFinger01_loc', 'r_ringFinger02_loc', 'r_ringFinger03_loc', 'r_ringFingerNub_loc']
+    r_pinkyLocators = ['r_pinkyFinger01_loc', 'r_pinkyFinger02_loc', 'r_pinkyFinger03_loc', 'r_pinkyFingerNub_loc']
+
+    r_fingerLocators = [r_thumbLocators, r_indexLocators, r_middleLocators, r_ringLocators, r_pinkyLocators]
+
+    r_ikJoints = ['r_upperArm_IK_jnt', 'r_foreArm_IK_jnt', 'r_hand_IK_jnt']
+    r_fkJoints = ['r_upperArm_FK_jnt', 'r_foreArm_FK_jnt', 'r_hand_FK_jnt']
+    r_armJoints = ['r_upperArm_jnt', 'r_foreArm_jnt', 'r_hand_jnt']
+
+### Global locators
+
+    l_fingerLocators = [l_thumbLocators, l_indexLocators, l_middleLocators, l_ringLocators, l_pinkyLocators]
+    l_handLocators = [l_armLocators, l_thumbLocators, l_indexLocators, l_middleLocators, l_ringLocators, l_pinkyLocators]
+
+    allLists = [l_armLocators, l_legLocators, spineLocators, l_eyeLocators, jawLocators, l_thumbLocators,
+                l_indexLocators, l_middleLocators, l_ringLocators, l_pinkyLocators]
+    allChains = [l_handLocators, l_legLocators, spineLocators, l_eyeLocators, jawLocators, allLists]
+
+### Switches
 
     switchCtrlPoints = [(0, 0, 0), (2, 0, -2), (2, 0, -1), (6, 0, -1), (6, 0, -2), (8, 0, 0), (6, 0, 2), (6, 0, 1), (2, 0, 1), (2, 0, 2), (0, 0, 0)]
     switchCtrlPCount = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -430,27 +456,37 @@ class Interface:
 
     def duplicateJoints(self, args):
 
-        jointChain = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
-        if jointChain == 0:
+        def duplicateChain(chain, armChain):
 
-            jointPositions = []
-            for i in self.armJoints:
-                jointPositions.append(cmds.xform(i, q=1, ws=1, rp=1))
+            def jointPosition():
+                jointPositions = []
+                for each in armChain:
+                    jointPositions.append(cmds.xform(each, q=1, ws=1, rp=1))
+                return jointPositions
 
-            for i, j in zip(self.fkJoints, jointPositions):
+            for i, j in zip(chain, jointPosition()):
                 cmds.joint(n=i, position=j)
-            cmds.select('l_upperArm_FK_jnt')
+            cmds.select(chain[0])
             Interface.orientJoints(self, args)
             cmds.select(deselect=True)
 
-            for i, j in zip(self.ikJoints, jointPositions):
-                cmds.joint(n=i, position=j)
-            cmds.select('l_upperArm_IK_jnt')
-            Interface.orientJoints(self, args)
-            cmds.select(deselect=True)
-
-            for i, j, o in zip(self.fkJoints, self.ikJoints, self.armJoints):
+        def constraintJoints(fk, ik, arm):
+            for i, j, o in zip(fk, ik, arm):
                 cmds.parentConstraint(i, j, o, mo=False, w=1)
+
+        dropdown = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
+
+        if dropdown == 0:
+
+            duplicateChain(self.l_ikJoints, self.l_armJoints)
+            duplicateChain(self.l_fkJoints, self.l_armJoints)
+
+            mirrorJoints('l_clavicle_jnt')
+            mirrorJoints('l_upperArm_FK_jnt')
+            mirrorJoints('l_upperArm_IK_jnt')
+
+            constraintJoints(self.l_fkJoints, self.l_ikJoints, self.l_armJoints)
+            constraintJoints(self.r_fkJoints, self.r_ikJoints, self.r_armJoints)
 
     def getPVctrlPosition(self, armPos, elbowPos, wristPos):
 
@@ -550,7 +586,7 @@ class Interface:
         cmds.select(deselect=True)
 
         fingers = []
-        for i in self.fingerLocators:
+        for i in self.l_fingerLocators:
             fingers.append(i[0].replace('loc', 'offset'))
 
         for i in fingers:
@@ -566,7 +602,7 @@ class Interface:
 
             ikName = 'l_arm_ikHandle'
             ikCtrl = 'l_arm_ikHandle_ctrl'
-            cmds.ikHandle(name=ikName, startJoint=self.ikJoints[0], endEffector=self.ikJoints[2], sol='ikRPsolver')  # Create IK handle
+            cmds.ikHandle(name=ikName, startJoint=self.l_ikJoints[0], endEffector=self.l_ikJoints[2], sol='ikRPsolver')  # Create IK handle
             cmds.circle(n=ikCtrl, r=8, nr=self.normal[primaryAxis - 1])   # Create IK controller and position it on the joint
 
             offsetGroup = cmds.group(name=ikCtrl + '_offset')
@@ -580,7 +616,7 @@ class Interface:
             cmds.makeIdentity(ikCtrl, apply=True)
             cmds.delete(ikCtrl, constructionHistory=True)
 
-            l_IkFkSwitchPosition = cmds.xform(self.ikJoints[2], q=1, ws=1, rp=1)
+            l_IkFkSwitchPosition = cmds.xform(self.l_ikJoints[2], q=1, ws=1, rp=1)
             l_IkFkSwitchPosition[2] = l_IkFkSwitchPosition[2] - 20
             cmds.xform(cmds.curve(n='l_IK_FK_switch', d=True, p=self.switchCtrlPoints, k=self.switchCtrlPCount), t=l_IkFkSwitchPosition)
             changeShapeColor('l_IK_FK_switch', 18)
@@ -603,7 +639,7 @@ class Interface:
 
             cmds.shadingNode('reverse', asUtility=True, name='l_IkFkReverse')
             cmds.connectAttr('l_IK_FK_switch.l_IK_FK_switch', 'l_IkFkReverse.inputX')
-            for i, j, f in zip(self.armJoints, self.ikJoints, self.fkJoints):
+            for i, j, f in zip(self.l_armJoints, self.l_ikJoints, self.l_fkJoints):
                 cmds.connectAttr('l_IK_FK_switch.l_IK_FK_switch', i + '_parentConstraint1.' + j + 'W1', force=True)
                 cmds.connectAttr('l_IkFkReverse.outputX', i + '_parentConstraint1.' + f + 'W0', force=True)
 

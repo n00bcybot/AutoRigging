@@ -580,9 +580,9 @@ class Interface:
             cmds.makeIdentity(ikCtrl, apply=True)
             cmds.delete(ikCtrl, constructionHistory=True)
 
-            IkFkSwitchPosition = cmds.xform(self.ikJoints[2], q=1, ws=1, rp=1)
-            IkFkSwitchPosition[2] = IkFkSwitchPosition[2] - 20
-            cmds.xform(cmds.curve(n='l_IK_FK_switch', d=True, p=self.switchCtrlPoints, k=self.switchCtrlPCount), t=IkFkSwitchPosition)
+            l_IkFkSwitchPosition = cmds.xform(self.ikJoints[2], q=1, ws=1, rp=1)
+            l_IkFkSwitchPosition[2] = l_IkFkSwitchPosition[2] - 20
+            cmds.xform(cmds.curve(n='l_IK_FK_switch', d=True, p=self.switchCtrlPoints, k=self.switchCtrlPCount), t=l_IkFkSwitchPosition)
             changeShapeColor('l_IK_FK_switch', 18)
 
             cmds.addAttr(longName='l_IK_FK_switch', attributeType='double', min=0, max=1, defaultValue=0)

@@ -93,7 +93,22 @@ def changeShapeColor(itemName, color):
 
 # noinspection PyUnusedLocal
 def resetControls(args):
-    ctrlList = ['l_upperArm_FK_ctrl', 'l_foreArm_FK_ctrl', 'l_hand_FK_ctrl', 'l_arm_ikHandle_ctrl', 'l_elbow_ctrl']
+
+    left = 'l_'
+    right = 'r_'
+
+    nurbs = cmds.ls(et='nurbsCurve')
+    selection = cmds.ls(sl=True)
+
+    side = []
+    for i in nurbs:
+        if selection[0] in i:
+            if left in i:
+                side = left
+            elif right in i:
+                side = right
+
+    ctrlList = [side + 'upperArm_FK_ctrl', side + 'foreArm_FK_ctrl', side + 'hand_FK_ctrl', side + 'arm_ikHandle_ctrl', side + 'elbow_ctrl']
     xyz = ['X', 'Y', 'Z']
     for i in ctrlList:
         for j in xyz:
@@ -488,7 +503,7 @@ class Interface:
             constraintJoints(self.l_fkJoints, self.l_ikJoints, self.l_armJoints)
             constraintJoints(self.r_fkJoints, self.r_ikJoints, self.r_armJoints)
 
-    def getPVctrlPosition(self, armPos, elbowPos, wristPos):
+    def getPVctrlPosition(self, armPos, elbowPos, wristPos, side):
 
         armVec = om.MVector(armPos[0], armPos[1], armPos[2])  # Create vector for each joint
         elbowVec = om.MVector(elbowPos[0], elbowPos[1], elbowPos[2])
@@ -499,12 +514,12 @@ class Interface:
         poleVectorPos = (elbowVec - midPoint) * 10 + elbowVec  # Subtract the midpoint from the elbow's and place it on the elbow
         # (+ elbowVec) to find where the pole vector should be. Multiply brackets result to extend position farther out
 
-        cmds.move(poleVectorPos.x, poleVectorPos.y, poleVectorPos.z, cmds.curve(n='l_elbow_ctrl', d=True, p=self.switchCtrlPoints, k=self.switchCtrlPCount))  # Place locator on the calculated position
-        cmds.xform('l_elbow_ctrl', ro=[0, 0, 90])
-        changeShapeColor('l_elbow_ctrl', 13)
+        cmds.move(poleVectorPos.x, poleVectorPos.y, poleVectorPos.z, cmds.curve(n=side + 'elbow_ctrl', d=True, p=self.switchCtrlPoints, k=self.switchCtrlPCount))  # Place locator on the calculated position
+        cmds.xform(side + 'elbow_ctrl', ro=[0, 0, 90])
+        changeShapeColor(side + 'elbow_ctrl', 13)
 
     @staticmethod
-    def setPVctrlPosition(armPos, elbowPos, wristPos):
+    def setPVctrlPosition(armPos, elbowPos, wristPos, side):
 
         armVec = om.MVector(armPos[0], armPos[1], armPos[2])
         elbowVec = om.MVector(elbowPos[0], elbowPos[1], elbowPos[2])
@@ -513,103 +528,126 @@ class Interface:
         midPoint = (wristVec - armVec) * 0.5 + armVec
         poleVectorPos = (elbowVec - midPoint) * 1.5 + elbowVec
 
-        cmds.matchTransform('l_arm_ikHandle_ctrl', 'l_hand_jnt')
-        cmds.move(poleVectorPos.x, poleVectorPos.y, poleVectorPos.z, 'l_elbow_ctrl', rpr=True)
+        cmds.matchTransform(side + 'arm_ikHandle_ctrl', side + 'hand_jnt')
+        cmds.move(poleVectorPos.x, poleVectorPos.y, poleVectorPos.z, side + 'elbow_ctrl', rpr=True)
 
     def createFKcontrols(self, args):
 
         primaryAxis = cmds.radioButtonGrp(self.radioGroup1, query=True, sl=True)
 
-        cmds.select('l_clavicle_jnt', hi=True)
-        cmds.select('l_upperArm_FK_jnt', hi=True, add=True)
+        left = 'l_'
+        right = 'r_'
 
-        jointList = cmds.ls(sl=True, et='joint')
+        def fkControls(side):
+            cmds.select(side + 'clavicle_jnt', hi=True)
+            cmds.select(side + 'upperArm_FK_jnt', hi=True, add=True)
+            jointList = cmds.ls(sl=True, et='joint')
 
-        for i in jointList:
-            if 'Nub' in i:
-                jointList.pop(jointList.index(i))
+            for i in jointList:
+                if 'Nub' in i:
+                    jointList.pop(jointList.index(i))
 
-        jointPositions = []
-        for i in jointList:
-            jointPositions.append(cmds.xform(i, q=1, ws=1, rp=1))
+            jointPositions = []
+            for i in jointList:
+                jointPositions.append(cmds.xform(i, q=1, ws=1, rp=1))
 
-        ctrlList = []
-        for i, j in zip(jointList, jointPositions):  # Create controllers, rename and position them on the joints
-            cmds.xform(cmds.circle(n=i[:-4] + '_ctrl', r=7), t=j)
-            ctrlList.append(i[:-4] + '_ctrl')  # Append controllers names to ctrlList
+            ctrlList = []
+            for i, j in zip(jointList, jointPositions):  # Create controllers, rename and position them on the joints
+                cmds.xform(cmds.circle(n=i[:-4] + '_ctrl', r=7), t=j)
+                ctrlList.append(i[:-4] + '_ctrl')  # Append controllers names to ctrlList
 
-        for i in ctrlList:
-            if 'Finger' in i or 'thumb' in i:  # If the controller is a finger controller, set smaller radius
-                cmds.circle(i, e=True, r=1.5)
-
-        if primaryAxis == 1:
             for i in ctrlList:
-                cmds.circle(i, e=True, nr=[1, 0, 0])  # Set normal orientation for the controllers based on primary axis orientation
-                changeShapeColor(i, 17)
-        elif primaryAxis == 2:
-            for i in ctrlList:
-                cmds.circle(i, e=True, nr=[0, 1, 0])
-                changeShapeColor(i, 17)
-        elif primaryAxis == 3:
-            for i in ctrlList:
-                cmds.circle(i, e=True, nr=[0, 0, 1])
-                changeShapeColor(i, 17)
+                if 'Finger' in i or 'thumb' in i:  # If the controller is a finger controller, set smaller radius
+                    cmds.circle(i, e=True, r=1.5)
 
-        offsetList = []
-        for i, j in zip(ctrlList, jointList):
-            offsetList.append(cmds.group(i, name=i[:-4] + 'offset'))  # Group each controller and add the name to a list
+            if primaryAxis == 1:
+                for i in ctrlList:
+                    cmds.circle(i, e=True, nr=[1, 0, 0])  # Set normal orientation for the controllers based on primary axis orientation
+                    changeShapeColor(i, 17)
+            elif primaryAxis == 2:
+                for i in ctrlList:
+                    cmds.circle(i, e=True, nr=[0, 1, 0])
+                    changeShapeColor(i, 17)
+            elif primaryAxis == 3:
+                for i in ctrlList:
+                    cmds.circle(i, e=True, nr=[0, 0, 1])
+                    changeShapeColor(i, 17)
 
-        for i, j, o in zip(ctrlList, jointList, offsetList):
-            cmds.matchTransform(o, j)
-            cmds.makeIdentity(o, apply=True, translate=True)  # Freeze transformations
-            cmds.makeIdentity(i, apply=True)  # Freeze transformations
-            cmds.delete(i, constructionHistory=True)  # Delete construction history
-            cmds.parentConstraint(i, j, maintainOffset=False)  # Constrain joints to controls
+            offsetList = []
+            for i, j in zip(ctrlList, jointList):
+                offsetList.append(cmds.group(i, name=i[:-4] + 'offset'))  # Group each controller and add the name to a list
 
-        for i, j in zip(ctrlList[:-1], offsetList[:-1]):  #
-            offset = offsetList[offsetList.index(j) + 1]
-            ctrl = ctrlList[ctrlList.index(i)]
-            cmds.parent(offset, ctrl)  # Parent controls under each other
+            for i, j, o in zip(ctrlList, jointList, offsetList):
+                cmds.matchTransform(o, j)
+                cmds.makeIdentity(o, apply=True, translate=True)  # Freeze transformations
+                cmds.makeIdentity(i, apply=True)  # Freeze transformations
+                cmds.delete(i, constructionHistory=True)  # Delete construction history
+                cmds.parentConstraint(i, j, maintainOffset=False)  # Constrain joints to controls
 
-        cmds.parent('l_upperArm_offset', world=True)  # unparent controls for the main joint chain
-        cmds.parent('l_thumb01_offset', world=True)
-        cmds.delete('l_upperArm_offset')  # Delete main joint chain controls
-        cmds.parent('l_upperArm_FK_offset', 'l_clavicle_ctrl')  # Parent FK controls to l_clavicle_ctrl
+            for i, j in zip(ctrlList[:-1], offsetList[:-1]):  #
+                offset = offsetList[offsetList.index(j) + 1]
+                ctrl = ctrlList[ctrlList.index(i)]
+                cmds.parent(offset, ctrl)  # Parent controls under each other
 
-        cmds.select(deselect=True)
-        fingersGroup = 'l_fingers_ctrl_offset'
-        fingersCtrl = 'l_fingers_ctrl'
+            cmds.parent(side + 'upperArm_offset', world=True)  # unparent controls for the main joint chain
+            cmds.parent(side + 'thumb01_offset', world=True)
+            cmds.delete(side + 'upperArm_offset')  # Delete main joint chain controls
+            cmds.parent(side + 'upperArm_FK_offset', side + 'clavicle_ctrl')  # Parent FK controls to l_clavicle_ctrl
 
-        cmds.group(name=fingersGroup, em=True)
-        cmds.matchTransform(fingersGroup, 'l_hand_jnt')
-        cmds.makeIdentity(fingersGroup, apply=True, translate=True)  # Freeze transformations
-        cmds.select(deselect=True)
+            cmds.select(deselect=True)
+            fingersGroup = side + 'fingers_ctrl_offset'
+            fingersCtrl = side + 'fingers_ctrl'
 
-        fingers = []
-        for i in self.l_fingerLocators:
-            fingers.append(i[0].replace('loc', 'offset'))
+            cmds.group(name=fingersGroup, em=True)
+            cmds.matchTransform(fingersGroup, side + 'hand_jnt')
+            cmds.makeIdentity(fingersGroup, apply=True, translate=True)  # Freeze transformations
+            cmds.select(deselect=True)
 
-        for i in fingers:
-            cmds.parent(i, fingersGroup)  # Parent fingers to new group
+            fingers = []
+            if side is left:
+                for i in self.l_fingerLocators:
+                    fingers.append(i[0].replace('loc', 'offset'))
+            elif side is right:
+                for i in self.r_fingerLocators:
+                    fingers.append(i[0].replace('loc', 'offset'))
 
-        cmds.parentConstraint('l_hand_jnt', 'l_fingers_ctrl_offset', mo=False, w=1)
+            for i in fingers:
+                cmds.parent(i, fingersGroup)  # Parent fingers to new group
+
+            cmds.parentConstraint(side + 'hand_jnt', side + 'fingers_ctrl_offset', mo=False, w=1)
+
+        fkControls(left)
+        fkControls(right)
 
     def createIKcontrols(self, args):
 
         primaryAxis = cmds.radioButtonGrp(self.radioGroup1, query=True, sl=True)
 
-        if cmds.optionMenuGrp('optMenu', query=True, sl=True) == 1:
+        left = 'l_'
+        right = 'r_'
 
-            ikName = 'l_arm_ikHandle'
-            ikCtrl = 'l_arm_ikHandle_ctrl'
-            cmds.ikHandle(name=ikName, startJoint=self.l_ikJoints[0], endEffector=self.l_ikJoints[2], sol='ikRPsolver')  # Create IK handle
+        def ikControls(side):
+
+            ikName = side + 'arm_ikHandle'
+            ikCtrl = side + 'arm_ikHandle_ctrl'
+
+            startJoint = []
+            endJoint = []
+            if side is left:
+                startJoint = self.l_ikJoints[0]
+                endJoint = self.l_ikJoints[2]
+            elif side is right:
+                startJoint = self.r_ikJoints[0]
+                endJoint = self.r_ikJoints[2]
+
+            cmds.ikHandle(name=ikName, startJoint=startJoint, endEffector=endJoint, sol='ikRPsolver')  # Create IK handle
             cmds.circle(n=ikCtrl, r=8, nr=self.normal[primaryAxis - 1])   # Create IK controller and position it on the joint
 
             offsetGroup = cmds.group(name=ikCtrl + '_offset')
-            cmds.matchTransform(offsetGroup, 'l_hand_jnt')
+            cmds.matchTransform(offsetGroup, side + 'hand_jnt')
             cmds.parent(ikName, ikCtrl)
             cmds.matchTransform(ikCtrl, offsetGroup)
-            cmds.orientConstraint(ikCtrl, 'l_hand_IK_jnt')
+            cmds.orientConstraint(ikCtrl, side + 'hand_IK_jnt')
             changeShapeColor(ikCtrl, 13)
             cmds.makeIdentity(ikName, apply=True)
             cmds.makeIdentity(offsetGroup, apply=True, translate=True)  # Freeze transformations
@@ -618,50 +656,80 @@ class Interface:
 
             l_IkFkSwitchPosition = cmds.xform(self.l_ikJoints[2], q=1, ws=1, rp=1)
             l_IkFkSwitchPosition[2] = l_IkFkSwitchPosition[2] - 20
-            cmds.xform(cmds.curve(n='l_IK_FK_switch', d=True, p=self.switchCtrlPoints, k=self.switchCtrlPCount), t=l_IkFkSwitchPosition)
-            changeShapeColor('l_IK_FK_switch', 18)
+            r_IkFkSwitchPosition = cmds.xform(self.r_ikJoints[2], q=1, ws=1, rp=1)
+            r_IkFkSwitchPosition[2] = r_IkFkSwitchPosition[2] - 20
 
-            cmds.addAttr(longName='l_IK_FK_switch', attributeType='double', min=0, max=1, defaultValue=0)
-            cmds.setAttr('l_IK_FK_switch' + '.l_IK_FK_switch', edit=True, keyable=True)
-            cmds.makeIdentity('l_IK_FK_switch', apply=True)
-            cmds.delete('l_IK_FK_switch', constructionHistory=True)
+            if side is left:
+                cmds.xform(cmds.curve(n=side + 'IK_FK_switch', d=True, p=self.switchCtrlPoints, k=self.switchCtrlPCount), t=l_IkFkSwitchPosition)
+                changeShapeColor(side + 'IK_FK_switch', 18)
+            if side is right:
+                cmds.xform(cmds.curve(n=side + 'IK_FK_switch', d=True, p=self.switchCtrlPoints, k=self.switchCtrlPCount), t=r_IkFkSwitchPosition)
+                changeShapeColor(side + 'IK_FK_switch', 18)
 
-            arm_ik_pos = cmds.xform('l_upperArm_IK_jnt', q=True, ws=True, t=True)  # Query positions in space of the IK joints and feed them
-            elbow_ik_pos = cmds.xform('l_foreArm_IK_jnt', q=True, ws=True, t=True)  # to the function, so you can convert them in vectors
-            wrist_ik_pos = cmds.xform('l_hand_IK_jnt', q=True, ws=True, t=True)
+            cmds.addAttr(longName=side + 'IK_FK_switch', attributeType='double', min=0, max=1, defaultValue=0)
+            cmds.setAttr(side + 'IK_FK_switch' + '.' + side + 'IK_FK_switch', edit=True, keyable=True)
+            cmds.makeIdentity(side + 'IK_FK_switch', apply=True)
+            cmds.delete(side + 'IK_FK_switch', constructionHistory=True)
 
-            self.getPVctrlPosition(arm_ik_pos, elbow_ik_pos, wrist_ik_pos)
+            arm_ik_pos = cmds.xform(side + 'upperArm_IK_jnt', q=True, ws=True, t=True)  # Query positions in space of the IK joints and feed them
+            elbow_ik_pos = cmds.xform(side + 'foreArm_IK_jnt', q=True, ws=True, t=True)  # to the function, so you can convert them in vectors
+            wrist_ik_pos = cmds.xform(side + 'hand_IK_jnt', q=True, ws=True, t=True)
 
-            cmds.makeIdentity('l_elbow_ctrl', apply=True)
-            cmds.delete('l_elbow_ctrl', constructionHistory=True)
-            cmds.group(name='l_elbow_ctrl' + '_offset')
-            cmds.matchTransform(cmds.poleVectorConstraint('l_elbow_ctrl', ikName), 'l_hand_IK_jnt')
+            self.getPVctrlPosition(arm_ik_pos, elbow_ik_pos, wrist_ik_pos, side)
 
-            cmds.shadingNode('reverse', asUtility=True, name='l_IkFkReverse')
-            cmds.connectAttr('l_IK_FK_switch.l_IK_FK_switch', 'l_IkFkReverse.inputX')
-            for i, j, f in zip(self.l_armJoints, self.l_ikJoints, self.l_fkJoints):
-                cmds.connectAttr('l_IK_FK_switch.l_IK_FK_switch', i + '_parentConstraint1.' + j + 'W1', force=True)
-                cmds.connectAttr('l_IkFkReverse.outputX', i + '_parentConstraint1.' + f + 'W0', force=True)
+            cmds.makeIdentity(side + 'elbow_ctrl', apply=True)
+            cmds.delete(side + 'elbow_ctrl', constructionHistory=True)
+            cmds.group(name=side + 'elbow_ctrl' + '_offset')
+            cmds.matchTransform(cmds.poleVectorConstraint(side + 'elbow_ctrl', ikName), side + 'hand_IK_jnt')
 
-            cmds.connectAttr('l_IK_FK_switch.l_IK_FK_switch', 'l_arm_ikHandle_ctrl_offset.visibility', force=True)
-            cmds.connectAttr('l_IK_FK_switch.l_IK_FK_switch',  'l_elbow_ctrl_offset.visibility', force=True)
-            cmds.connectAttr('l_IkFkReverse.outputX', 'l_upperArm_FK_offset.visibility', force=True)
+            cmds.shadingNode('reverse', asUtility=True, name=side + 'IkFkReverse')
+            cmds.connectAttr(side + 'IK_FK_switch.' + side + 'IK_FK_switch', side + 'IkFkReverse.inputX')
+
+            if side is left:
+                for i, j, f in zip(self.l_armJoints, self.l_ikJoints, self.l_fkJoints):
+                    cmds.connectAttr(side + 'IK_FK_switch.' + side + 'IK_FK_switch', i + '_parentConstraint1.' + j + 'W1', force=True)
+                    cmds.connectAttr(side + 'IkFkReverse.outputX', i + '_parentConstraint1.' + f + 'W0', force=True)
+            elif side is right:
+                for i, j, f in zip(self.r_armJoints, self.r_ikJoints, self.r_fkJoints):
+                    cmds.connectAttr(side + 'IK_FK_switch.' + side + 'IK_FK_switch', i + '_parentConstraint1.' + j + 'W1', force=True)
+                    cmds.connectAttr(side + 'IkFkReverse.outputX', i + '_parentConstraint1.' + f + 'W0', force=True)
+
+            cmds.connectAttr(side + 'IK_FK_switch.' + side + 'IK_FK_switch', side + 'arm_ikHandle_ctrl_offset.visibility', force=True)
+            cmds.connectAttr(side + 'IK_FK_switch.' + side + 'IK_FK_switch', side + 'elbow_ctrl_offset.visibility', force=True)
+            cmds.connectAttr(side + 'IkFkReverse.outputX', side + 'upperArm_FK_offset.visibility', force=True)
+
+        ikControls(left)
+        ikControls(right)
 
     def snapIKFK(self, args):
 
-        arm_fk_pos = cmds.xform('l_upperArm_FK_jnt', q=True, ws=True, t=True)  # Query positions in space of the IK joints and feed them
-        elbow_fk_pos = cmds.xform('l_foreArm_FK_jnt', q=True, ws=True, t=True)  # to the function, so you can convert them in vectors
-        wrist_fk_pos = cmds.xform('l_hand_FK_jnt', q=True, ws=True, t=True)
+        left = 'l_'
+        right = 'r_'
 
-        if cmds.getAttr('l_IK_FK_switch.l_IK_FK_switch') == 1:
-            cmds.matchTransform('l_upperArm_FK_ctrl', 'l_upperArm_jnt')
-            cmds.matchTransform('l_foreArm_FK_ctrl', 'l_foreArm_jnt')
-            cmds.matchTransform('l_hand_FK_ctrl', 'l_hand_jnt')
-            cmds.setAttr('l_IK_FK_switch.l_IK_FK_switch', 0)
+        nurbs = cmds.ls(et='nurbsCurve')
+        selection = cmds.ls(sl=True)
 
-        elif cmds.getAttr('l_IK_FK_switch.l_IK_FK_switch') == 0:
-            self.setPVctrlPosition(arm_fk_pos, elbow_fk_pos, wrist_fk_pos)
-            cmds.setAttr('l_IK_FK_switch.l_IK_FK_switch', 1)
+        side = []
+        for i in nurbs:
+            if selection[0] in i:
+                if left in i:
+                    side = left
+                elif right in i:
+                    side = right
+
+        arm_fk_pos = cmds.xform(side + 'upperArm_FK_jnt', q=True, ws=True, t=True)  # Query positions in space of the IK joints and feed them
+        elbow_fk_pos = cmds.xform(side + 'foreArm_FK_jnt', q=True, ws=True, t=True)  # to the function, so you can convert them in vectors
+        wrist_fk_pos = cmds.xform(side + 'hand_FK_jnt', q=True, ws=True, t=True)
+
+        if cmds.getAttr(side + 'IK_FK_switch.' + side + 'IK_FK_switch') == 1:
+            cmds.matchTransform(side + 'upperArm_FK_ctrl', side + 'upperArm_jnt')
+            cmds.matchTransform(side + 'foreArm_FK_ctrl', side + 'foreArm_jnt')
+            cmds.matchTransform(side + 'hand_FK_ctrl', side + 'hand_jnt')
+            cmds.setAttr(side + 'IK_FK_switch.' + side + 'IK_FK_switch', 0)
+
+        elif cmds.getAttr(side + 'IK_FK_switch.' + side + 'IK_FK_switch') == 0:
+            self.setPVctrlPosition(arm_fk_pos, elbow_fk_pos, wrist_fk_pos, side)
+            cmds.setAttr(side + 'IK_FK_switch.' + side + 'IK_FK_switch', 1)
 
     def setXYZp(self, args):                                        # Radio buttons logic
         a = cmds.radioButtonGrp(self.radioGroup1, q=True, sl=True)

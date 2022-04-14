@@ -171,12 +171,12 @@ class Interface:
         'jawNub_loc': [-7.814865691567292e-13, 161.375737440792, 8.559080733573634],
         'jaw_loc': [-7.677378623110254e-13, 164.0049086101554, 1.5995099911410542],
         'l_calf_loc': [9.016487172208775, 55.99999943954483, 4.0000000438007675],
-        'l_clavicle_loc': [0.5, 148.14189486770232, 4.467180828980827],
+        'l_clavicle_loc': [4, 148.14189486770232, 4.467180828980827],
         'l_eyeNub_loc': [2.8762510108536112, 169.08230670451212, 8.743195847205346],
         'l_eye_loc': [2.8762517261093254, 169.08230670451212, 7.192147091559658],
         'l_foreArm_loc': [38.47961368255215, 148.65537316436195, -1.872071462890321],
         'l_hand_loc': [63.92736759544309, 148.6553737316454, -0.15012761776273598],
-        'l_heel_loc': [9.01648766284925, 8.999999803973829, -3.0000015635754016],
+        'l_ankle_loc': [9.01648766284925, 8.999999803973829, -3.0000015635754016],
         'l_indexFinger01_loc': [73.15209902861417, 148.77542132191334, 2.4571262793102715],
         'l_indexFinger02_loc': [75.89273002378945, 148.63085914848477, 2.3421963995873227],
         'l_indexFinger03_loc': [78.1703102134008, 147.8294824486201, 2.1581582564748674],
@@ -220,13 +220,17 @@ class Interface:
     l_armLocators = ['l_clavicle_loc', 'l_upperArm_loc', 'l_foreArm_loc', 'l_hand_loc']
     spineLocators = ['root_loc', 'COMOffset_loc', 'COM_loc', 'pelvis_loc', 'spine01_loc', 'spine02_loc', 'spine03_loc',
                      'spine04_loc', 'neck01_loc', 'neck02_loc', 'head01_loc', 'head02_loc', 'headNub_loc']
-    l_legLocators = ['l_thigh_loc', 'l_calf_loc', 'l_heel_loc', 'l_toe_loc', 'l_toeNub_loc']
+    l_legLocators = ['l_thigh_loc', 'l_calf_loc', 'l_ankle_loc', 'l_toe_loc', 'l_toeNub_loc']
     l_eyeLocators = ['l_eye_loc', 'l_eyeNub_loc']
     jawLocators = ['jaw_loc', 'jawNub_loc']
 
-    l_ikJoints = ['l_upperArm_IK_jnt', 'l_foreArm_IK_jnt', 'l_hand_IK_jnt']
-    l_fkJoints = ['l_upperArm_FK_jnt', 'l_foreArm_FK_jnt', 'l_hand_FK_jnt']
-    l_armJoints = ['l_upperArm_jnt', 'l_foreArm_jnt', 'l_hand_jnt']
+    l_arm_ikJoints = ['l_upperArm_IK_jnt', 'l_foreArm_IK_jnt', 'l_hand_IK_jnt']
+    l_arm_fkJoints = ['l_upperArm_FK_jnt', 'l_foreArm_FK_jnt', 'l_hand_FK_jnt']
+    l_arm_joints = ['l_upperArm_jnt', 'l_foreArm_jnt', 'l_hand_jnt']
+
+    l_leg_ikJoints = ['l_thigh_IK_jnt', 'l_calf_IK_jnt', 'l_ankle_IK_jnt']
+    l_leg_joints = ['l_thigh_jnt', 'l_calf_jnt', 'l_ankle_jnt']
+
 
 ### R locators
 
@@ -238,9 +242,13 @@ class Interface:
 
     r_fingerLocators = [r_thumbLocators, r_indexLocators, r_middleLocators, r_ringLocators, r_pinkyLocators]
 
-    r_ikJoints = ['r_upperArm_IK_jnt', 'r_foreArm_IK_jnt', 'r_hand_IK_jnt']
-    r_fkJoints = ['r_upperArm_FK_jnt', 'r_foreArm_FK_jnt', 'r_hand_FK_jnt']
-    r_armJoints = ['r_upperArm_jnt', 'r_foreArm_jnt', 'r_hand_jnt']
+    r_arm_ikJoints = ['r_upperArm_IK_jnt', 'r_foreArm_IK_jnt', 'r_hand_IK_jnt']
+    r_arm_fkJoints = ['r_upperArm_FK_jnt', 'r_foreArm_FK_jnt', 'r_hand_FK_jnt']
+    r_arm_joints = ['r_upperArm_jnt', 'r_foreArm_jnt', 'r_hand_jnt']
+
+    r_leg_ikJoints = ['r_thigh_IK_jnt', 'r_calf_IK_jnt', 'r_ankle_IK_jnt']
+    r_leg_joints = ['r_thigh_jnt', 'r_calf_jnt', 'r_ankle_jnt']
+
 
 ### Global locators
 
@@ -253,8 +261,8 @@ class Interface:
 
 ### Switches
 
-    switchCtrlPoints = [(0, 0, 0), (2, 0, -2), (2, 0, -1), (6, 0, -1), (6, 0, -2), (8, 0, 0), (6, 0, 2), (6, 0, 1), (2, 0, 1), (2, 0, 2), (0, 0, 0)]
-    switchCtrlPCount = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    IKFK_switchCtrlPoints = [(0, 0, 0), (2, 0, -2), (2, 0, -1), (6, 0, -1), (6, 0, -2), (8, 0, 0), (6, 0, 2), (6, 0, 1), (2, 0, 1), (2, 0, 2), (0, 0, 0)]
+    IKFK_switchCtrlPCount = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     normal = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
 
     def __init__(self):
@@ -402,7 +410,7 @@ class Interface:
     def orientJoints(self, args):
 
         def findNub():  # This function checks whether the joint that needs to be orientated is at the end of the chain, as in, it has no children
-            # If it has no children, it will oriented to the world (meaning it will inherit orientation from the parent joint)
+            # If it has no children, it will be oriented to the world (meaning it will inherit orientation from the parent joint)
             for each in orient:     # thus automatically aligning correctly
                 if cmds.listRelatives(each) is None:
                     cmds.joint(each, e=True, oj='none', ch=True, zso=True)
@@ -471,11 +479,11 @@ class Interface:
 
     def duplicateJoints(self, args):
 
-        def duplicateChain(chain, armChain):
+        def duplicateChain(chain, limbs):
 
             def jointPosition():
                 jointPositions = []
-                for each in armChain:
+                for each in limbs:
                     jointPositions.append(cmds.xform(each, q=1, ws=1, rp=1))
                 return jointPositions
 
@@ -485,23 +493,39 @@ class Interface:
             Interface.orientJoints(self, args)
             cmds.select(deselect=True)
 
-        def constraintJoints(fk, ik, arm):
+        def constraintArmJoints(fk, ik, arm):
             for i, j, o in zip(fk, ik, arm):
                 cmds.parentConstraint(i, j, o, mo=False, w=1)
+
+        def constraintLegJoints(ik, leg):
+            for i, j in zip(ik, leg):
+                cmds.parentConstraint(i, j, mo=False, w=1)
 
         dropdown = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
 
         if dropdown == 0:
 
-            duplicateChain(self.l_ikJoints, self.l_armJoints)
-            duplicateChain(self.l_fkJoints, self.l_armJoints)
+            duplicateChain(self.l_arm_ikJoints, self.l_arm_joints)
+            duplicateChain(self.l_arm_fkJoints, self.l_arm_joints)
 
             mirrorJoints('l_clavicle_jnt')
             mirrorJoints('l_upperArm_FK_jnt')
             mirrorJoints('l_upperArm_IK_jnt')
 
-            constraintJoints(self.l_fkJoints, self.l_ikJoints, self.l_armJoints)
-            constraintJoints(self.r_fkJoints, self.r_ikJoints, self.r_armJoints)
+            constraintArmJoints(self.l_arm_fkJoints, self.l_arm_ikJoints, self.l_arm_joints)
+            constraintArmJoints(self.r_arm_fkJoints, self.r_arm_ikJoints, self.r_arm_joints)
+
+        elif dropdown == 1:
+
+            duplicateChain(self.l_leg_ikJoints, self.l_leg_joints)
+
+            cmds.matchTransform('l_ankle_IK_jnt', 'l_ankle_jnt')
+
+            mirrorJoints('l_thigh_jnt')
+            mirrorJoints('l_thigh_IK_jnt')
+
+            constraintLegJoints(self.l_leg_ikJoints, self.l_leg_joints)
+            constraintLegJoints(self.r_leg_ikJoints, self.r_leg_joints)
 
     def getPVctrlPosition(self, armPos, elbowPos, wristPos, side):
 
@@ -514,9 +538,24 @@ class Interface:
         poleVectorPos = (elbowVec - midPoint) * 10 + elbowVec  # Subtract the midpoint from the elbow's and place it on the elbow
         # (+ elbowVec) to find where the pole vector should be. Multiply brackets result to extend position farther out
 
-        cmds.move(poleVectorPos.x, poleVectorPos.y, poleVectorPos.z, cmds.curve(n=side + 'elbow_ctrl', d=True, p=self.switchCtrlPoints, k=self.switchCtrlPCount))  # Place locator on the calculated position
+        cmds.move(poleVectorPos.x, poleVectorPos.y, poleVectorPos.z, cmds.curve(n=side + 'elbow_ctrl', d=True, p=self.IKFK_switchCtrlPoints, k=self.IKFK_switchCtrlPCount))  # Place locator on the calculated position
         cmds.xform(side + 'elbow_ctrl', ro=[0, 0, 90])
         changeShapeColor(side + 'elbow_ctrl', 13)
+
+    def getPVkneeCtrlPosition(self, thighPos, kneePos, anklePos, side):
+
+        thighVec = om.MVector(thighPos[0], thighPos[1], thighPos[2])  # Create vector for each joint
+        kneeVec = om.MVector(kneePos[0], kneePos[1], kneePos[2])
+        ankleVec = om.MVector(anklePos[0], anklePos[1], anklePos[2])
+
+        midPoint = (ankleVec - thighVec) * 0.5 + thighVec  # Subtract the arm position from the wrist position, multiply by 0.5 to find the midpoint.
+        # + armVec places the new vector at the arm's position
+        poleVectorPos = (kneeVec - midPoint) * 5 + kneeVec  # Subtract the midpoint from the elbow's and place it on the elbow
+        # (+ elbowVec) to find where the pole vector should be. Multiply brackets result to extend position farther out
+
+        cmds.move(poleVectorPos.x, poleVectorPos.y, poleVectorPos.z, cmds.curve(n=side + 'knee_ctrl', d=True, p=self.IKFK_switchCtrlPoints, k=self.IKFK_switchCtrlPCount))  # Place locator on the calculated position
+        cmds.xform(side + 'knee_ctrl', ro=[0, 0, 90])
+        changeShapeColor(side + 'knee_ctrl', 13)
 
     @staticmethod
     def setPVctrlPosition(armPos, elbowPos, wristPos, side):
@@ -539,6 +578,7 @@ class Interface:
         right = 'r_'
 
         def fkControls(side):
+
             cmds.select(side + 'clavicle_jnt', hi=True)
             cmds.select(side + 'upperArm_FK_jnt', hi=True, add=True)
             jointList = cmds.ls(sl=True, et='joint')
@@ -626,7 +666,7 @@ class Interface:
         left = 'l_'
         right = 'r_'
 
-        def ikControls(side):
+        def arm_ikControls(side):
 
             ikName = side + 'arm_ikHandle'
             ikCtrl = side + 'arm_ikHandle_ctrl'
@@ -634,11 +674,11 @@ class Interface:
             startJoint = []
             endJoint = []
             if side is left:
-                startJoint = self.l_ikJoints[0]
-                endJoint = self.l_ikJoints[2]
+                startJoint = self.l_arm_ikJoints[0]
+                endJoint = self.l_arm_ikJoints[2]
             elif side is right:
-                startJoint = self.r_ikJoints[0]
-                endJoint = self.r_ikJoints[2]
+                startJoint = self.r_arm_ikJoints[0]
+                endJoint = self.r_arm_ikJoints[2]
 
             cmds.ikHandle(name=ikName, startJoint=startJoint, endEffector=endJoint, sol='ikRPsolver')  # Create IK handle
             cmds.circle(n=ikCtrl, r=8, nr=self.normal[primaryAxis - 1])   # Create IK controller and position it on the joint
@@ -654,16 +694,16 @@ class Interface:
             cmds.makeIdentity(ikCtrl, apply=True)
             cmds.delete(ikCtrl, constructionHistory=True)
 
-            l_IkFkSwitchPosition = cmds.xform(self.l_ikJoints[2], q=1, ws=1, rp=1)
+            l_IkFkSwitchPosition = cmds.xform(self.l_arm_ikJoints[2], q=1, ws=1, rp=1)
             l_IkFkSwitchPosition[2] = l_IkFkSwitchPosition[2] - 20
-            r_IkFkSwitchPosition = cmds.xform(self.r_ikJoints[2], q=1, ws=1, rp=1)
+            r_IkFkSwitchPosition = cmds.xform(self.r_arm_ikJoints[2], q=1, ws=1, rp=1)
             r_IkFkSwitchPosition[2] = r_IkFkSwitchPosition[2] - 20
 
             if side is left:
-                cmds.xform(cmds.curve(n=side + 'IK_FK_switch', d=True, p=self.switchCtrlPoints, k=self.switchCtrlPCount), t=l_IkFkSwitchPosition)
+                cmds.xform(cmds.curve(n=side + 'IK_FK_switch', d=True, p=self.IKFK_switchCtrlPoints, k=self.IKFK_switchCtrlPCount), t=l_IkFkSwitchPosition)
                 changeShapeColor(side + 'IK_FK_switch', 18)
             if side is right:
-                cmds.xform(cmds.curve(n=side + 'IK_FK_switch', d=True, p=self.switchCtrlPoints, k=self.switchCtrlPCount), t=r_IkFkSwitchPosition)
+                cmds.xform(cmds.curve(n=side + 'IK_FK_switch', d=True, p=self.IKFK_switchCtrlPoints, k=self.IKFK_switchCtrlPCount), t=r_IkFkSwitchPosition)
                 changeShapeColor(side + 'IK_FK_switch', 18)
 
             cmds.addAttr(longName=side + 'IK_FK_switch', attributeType='double', min=0, max=1, defaultValue=0)
@@ -686,11 +726,11 @@ class Interface:
             cmds.connectAttr(side + 'IK_FK_switch.' + side + 'IK_FK_switch', side + 'IkFkReverse.inputX')
 
             if side is left:
-                for i, j, f in zip(self.l_armJoints, self.l_ikJoints, self.l_fkJoints):
+                for i, j, f in zip(self.l_arm_joints, self.l_arm_ikJoints, self.l_arm_fkJoints):
                     cmds.connectAttr(side + 'IK_FK_switch.' + side + 'IK_FK_switch', i + '_parentConstraint1.' + j + 'W1', force=True)
                     cmds.connectAttr(side + 'IkFkReverse.outputX', i + '_parentConstraint1.' + f + 'W0', force=True)
             elif side is right:
-                for i, j, f in zip(self.r_armJoints, self.r_ikJoints, self.r_fkJoints):
+                for i, j, f in zip(self.r_arm_joints, self.r_arm_ikJoints, self.r_arm_fkJoints):
                     cmds.connectAttr(side + 'IK_FK_switch.' + side + 'IK_FK_switch', i + '_parentConstraint1.' + j + 'W1', force=True)
                     cmds.connectAttr(side + 'IkFkReverse.outputX', i + '_parentConstraint1.' + f + 'W0', force=True)
 
@@ -698,8 +738,106 @@ class Interface:
             cmds.connectAttr(side + 'IK_FK_switch.' + side + 'IK_FK_switch', side + 'elbow_ctrl_offset.visibility', force=True)
             cmds.connectAttr(side + 'IkFkReverse.outputX', side + 'upperArm_FK_offset.visibility', force=True)
 
-        ikControls(left)
-        ikControls(right)
+        def createFootCtrl(footCtrl, side):
+
+            def selectMoveCurvePoints(curvePoint, x, y, z):
+                cmds.select(curvePoint, r=True)
+                cmds.xform(curvePoint, r=True, t=[x, y, z])
+                cmds.select(deselect=True)
+
+            if side is left:
+                cmds.circle(n=side + footCtrl, c=[0, 0, 0], nr=[0, 1, 0], sw=360, r=15, d=3, ut=0, tol=0.01, s=8, ch=1)
+
+                selectMoveCurvePoints(side + footCtrl + '.cv[3]', 13, 0, 0)
+                selectMoveCurvePoints(side + footCtrl + '.cv[0]', -6.5, 0, 0)
+                selectMoveCurvePoints(side + footCtrl + '.cv[7]', -8, 0, 0)
+                selectMoveCurvePoints(side + footCtrl + '.cv[2]', 1.5, 0, 0)
+                selectMoveCurvePoints(side + footCtrl + '.cv[4]', 1.5, 0, 0)
+
+                cmds.matchTransform(side + footCtrl, side + 'toe_jnt', px=True, pz=True)
+                cmds.makeIdentity(side + footCtrl, apply=True)
+                cmds.delete(side + footCtrl, constructionHistory=True)
+                cmds.group(side + footCtrl, name=side + footCtrl + '_offset')
+                cmds.select(deselect=True)
+                movePivot('l_foot_ctrl_offset', 'l_ankle_jnt')
+                movePivot('l_foot_ctrl', 'l_ankle_jnt')
+            if side is right:
+                cmds.duplicate('l_foot_ctrl_offset', name='r_foot_ctrl_offset')
+                cmds.select('r_foot_ctrl_offset', hi=True)
+                cmds.ls(sl=True)
+                cmds.rename(cmds.ls(sl=True)[1], 'r_foot_ctrl')
+                movePivot('r_foot_ctrl_offset', 'world')
+                cmds.setAttr('r_foot_ctrl_offset.scaleX', -1)
+                movePivot('r_foot_ctrl_offset', 'r_ankle_jnt')
+                movePivot('r_foot_ctrl', 'r_ankle_jnt')
+
+        def movePivot(obj, jointName):
+
+            world = [0, 0, 0]
+
+            def getJointWP(jnt):
+                cmds.spaceLocator()
+                locator = cmds.ls(sl=True)[0]
+                cmds.matchTransform(locator, jnt)
+                pointWP = cmds.xform(locator, q=True, t=True)
+                cmds.delete(locator)
+                return pointWP
+
+            if jointName is 'world':
+                point = world
+            else:
+                point = getJointWP(jointName)
+
+            x = point[0]
+            y = point[1]
+            z = point[2]
+
+            cmds.move(x, y, z, obj + '.scalePivot', obj + '.rotatePivot')
+
+        def leg_ikControls(side):
+
+            ikName = side + 'leg_ikHandle'
+
+
+            startJoint = []
+            endJoint = []
+            if side is left:
+                startJoint = self.l_leg_ikJoints[0]
+                endJoint = self.l_leg_ikJoints[2]
+            elif side is right:
+                startJoint = self.r_leg_ikJoints[0]
+                endJoint = self.r_leg_ikJoints[2]
+
+            cmds.ikHandle(name=ikName, startJoint=startJoint, endEffector=endJoint, sol='ikRPsolver')  # Create IK handle
+
+            thigh_ik_pos = cmds.xform(side + 'thigh_IK_jnt', q=True, ws=True, t=True)  # Query positions in space of the IK joints and feed them
+            calf_ik_pos = cmds.xform(side + 'calf_IK_jnt', q=True, ws=True, t=True)  # to the function, so you can convert them in vectors
+            ankle_ik_pos = cmds.xform(side + 'ankle_IK_jnt', q=True, ws=True, t=True)
+
+            self.getPVkneeCtrlPosition(thigh_ik_pos, calf_ik_pos, ankle_ik_pos, side)
+
+            cmds.makeIdentity(side + 'knee_ctrl', apply=True)
+            cmds.delete(side + 'knee_ctrl', constructionHistory=True)
+            cmds.group(name=side + 'knee_ctrl' + '_offset')
+            cmds.matchTransform(cmds.poleVectorConstraint(side + 'knee_ctrl', ikName), side + 'ankle_IK_jnt')
+
+        dropdown = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
+
+        if dropdown == 0:
+
+            arm_ikControls(left)
+            arm_ikControls(right)
+
+        elif dropdown == 1:
+
+            createFootCtrl('foot_ctrl', left)
+            createFootCtrl('foot_ctrl', right)
+            leg_ikControls(left)
+            leg_ikControls(right)
+            cmds.parent('l_leg_ikHandle', 'l_foot_ctrl')
+            cmds.parent('r_leg_ikHandle', 'r_foot_ctrl')
+            cmds.orientConstraint('l_foot_ctrl', 'l_ankle_IK_jnt', mo=True)
+            cmds.orientConstraint('r_foot_ctrl', 'r_ankle_IK_jnt', mo=True)
 
     def snapIKFK(self, args):
 

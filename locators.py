@@ -664,3 +664,13 @@ elbow_fk_pos = cmds.xform('elbow_fk', q=True, ws=True, t=True)  # to the functio
 wrist_fk_pos = cmds.xform('wrist_fk', q=True, ws=True, t=True)
 
 ########################################################################################################################
+
+### Get joint world space position
+
+def getJointWP(joint):
+    cmds.spaceLocator()
+    locator=cmds.ls(sl=True)[0]
+    cmds.matchTransform(locator, joint)
+    jointWP = cmds.xform(locator, q=True, t=True)
+    cmds.delete(locator)
+    return jointWP

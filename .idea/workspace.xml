@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Completed mirroring and control creation for both hands; updated snapIKFK and resetControls to work with selected side">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Completed mirroring of the legs and foot control, moving onto foot roll.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/locators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,13 +146,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Nice">
-      <created>1644880918850</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1644880918850</updated>
     </task>
     <task id="LOCAL-00027" summary="I thought it might be a good idea to base the template skeleton on the UE mannequin, or at least have it as another template. In the process developed a function that renames the joints with the joint position prefix instead of suffix. Not essential for the project, but it might be useful in some situations.">
       <created>1644956294151</created>
@@ -493,7 +483,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649361595779</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="Completed mirroring of the legs and foot control, moving onto foot roll.">
+      <created>1649959576541</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1649959576541</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -537,7 +534,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Managed to correct the flipping." />
     <MESSAGE value="Restructured the class again by taking all static methods out of the class; created a couple of functions for parenting/unparenting the fingers for ease of use - unparenting is needed when applying new orientation, since when reorientated, the hand joint will point towards the first joint created after it, instead of following the elbow axis (I might b able to change that with 'position' in cmds.joint,which should orient the joint to world). More thorough commenting needs to be done." />
     <MESSAGE value="Final touches for the day. Tested leg and hand with IKs, all seems fine. Will continue with proper commenting and will be looking into mirroring." />
     <MESSAGE value="Fixed some orientation issues with secondary axis world orientation and l_hand_jnt orientation. Orientation is working properly now, but it works on all joints, instead of selection of joints. Next will work on that" />
@@ -562,6 +558,7 @@
     <MESSAGE value="Created new branch and proceeding with mirroring" />
     <MESSAGE value="Restructured duplicateJoint() - now the function mirrors the lefthand joints first and then parent-constraints the main joint chain with the fk/ik joints. It seems that the best strategy would be to spawn the joints and controls for both hand at the same time. Next will look into reworking the createFKjoints, so the code is reused and works for both left and right chains" />
     <MESSAGE value="Completed mirroring and control creation for both hands; updated snapIKFK and resetControls to work with selected side" />
-    <option name="LAST_COMMIT_MESSAGE" value="Completed mirroring and control creation for both hands; updated snapIKFK and resetControls to work with selected side" />
+    <MESSAGE value="Completed mirroring of the legs and foot control, moving onto foot roll." />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed mirroring of the legs and foot control, moving onto foot roll." />
   </component>
 </project>

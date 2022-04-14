@@ -746,6 +746,7 @@ class Interface:
                 cmds.select(deselect=True)
 
             if side is left:
+
                 cmds.circle(n=side + footCtrl, c=[0, 0, 0], nr=[0, 1, 0], sw=360, r=15, d=3, ut=0, tol=0.01, s=8, ch=1)
 
                 selectMoveCurvePoints(side + footCtrl + '.cv[3]', 13, 0, 0)
@@ -761,7 +762,9 @@ class Interface:
                 cmds.select(deselect=True)
                 movePivot('l_foot_ctrl_offset', 'l_ankle_jnt')
                 movePivot('l_foot_ctrl', 'l_ankle_jnt')
+
             if side is right:
+
                 cmds.duplicate('l_foot_ctrl_offset', name='r_foot_ctrl_offset')
                 cmds.select('r_foot_ctrl_offset', hi=True)
                 cmds.ls(sl=True)
@@ -796,19 +799,43 @@ class Interface:
 
         def leg_ikControls(side):
 
-            ikName = side + 'leg_ikHandle'
+            ikLegName = side + 'leg_ikHandle'
+            ikHeelName = side + 'heel_ikHandle'
+            ikToeName = side + 'toe_ikHandle'
 
-
-            startJoint = []
-            endJoint = []
             if side is left:
-                startJoint = self.l_leg_ikJoints[0]
-                endJoint = self.l_leg_ikJoints[2]
-            elif side is right:
-                startJoint = self.r_leg_ikJoints[0]
-                endJoint = self.r_leg_ikJoints[2]
+                cmds.ikHandle(name=ikLegName, startJoint=self.l_leg_ikJoints[0], endEffector=self.l_leg_ikJoints[2], sol='ikRPsolver')  # Create leg IK handle
+                cmds.ikHandle(name=ikHeelName, startJoint='l_ankle_jnt', endEffector='l_toe_jnt', sol='ikRPsolver')  # Create heel IK handle
+                cmds.ikHandle(name=ikToeName, startJoint='l_toe_jnt', endEffector='l_toeNub_jnt', sol='ikRPsolver')  # Create toe IK handle
+                cmds.group(name='l_toeGrp')
+                cmds.group(name='l_midRoll')
+                cmds.group(name='l_toeRoll')
+                cmds.group(name='l_heelRoll')
+                cmds.parent('l_toeGrp', 'l_toeRoll')
+                cmds.parent('l_leg_ikHandle', 'l_midRoll')
+                cmds.parent('l_heel_ikHandle', 'l_midRoll')
+                cmds.parent('l_heelRoll', 'l_foot_ctrl')
+                movePivot('l_heelRoll', 'l_ankle_jnt')
+                movePivot('l_toeRoll', 'l_toeNub_jnt')
+                movePivot('l_toeGrp', 'l_toe_jnt')
+                movePivot('l_midRoll', 'l_toe_jnt')
 
-            cmds.ikHandle(name=ikName, startJoint=startJoint, endEffector=endJoint, sol='ikRPsolver')  # Create IK handle
+            elif side is right:
+                cmds.ikHandle(name=ikLegName, startJoint=self.r_leg_ikJoints[0], endEffector=self.r_leg_ikJoints[2], sol='ikRPsolver')  # Create leg IK handle
+                cmds.ikHandle(name=ikHeelName, startJoint='r_ankle_jnt', endEffector='r_toe_jnt', sol='ikRPsolver')  # Create heel IK handle
+                cmds.ikHandle(name=ikToeName, startJoint='r_toe_jnt', endEffector='r_toeNub_jnt', sol='ikRPsolver')  # Create toe IK handle
+                cmds.group(name='r_toeGrp')
+                cmds.group(name='r_midRoll')
+                cmds.group(name='r_toeRoll')
+                cmds.group(name='r_heelRoll')
+                cmds.parent('r_toeGrp', 'r_toeRoll')
+                cmds.parent('r_leg_ikHandle', 'r_midRoll')
+                cmds.parent('r_heel_ikHandle', 'r_midRoll')
+                cmds.parent('r_heelRoll', 'r_foot_ctrl')
+                movePivot('r_heelRoll', 'r_ankle_jnt')
+                movePivot('r_toeRoll', 'r_toeNub_jnt')
+                movePivot('r_toeGrp', 'r_toe_jnt')
+                movePivot('r_midRoll', 'r_toe_jnt')
 
             thigh_ik_pos = cmds.xform(side + 'thigh_IK_jnt', q=True, ws=True, t=True)  # Query positions in space of the IK joints and feed them
             calf_ik_pos = cmds.xform(side + 'calf_IK_jnt', q=True, ws=True, t=True)  # to the function, so you can convert them in vectors
@@ -819,7 +846,7 @@ class Interface:
             cmds.makeIdentity(side + 'knee_ctrl', apply=True)
             cmds.delete(side + 'knee_ctrl', constructionHistory=True)
             cmds.group(name=side + 'knee_ctrl' + '_offset')
-            cmds.matchTransform(cmds.poleVectorConstraint(side + 'knee_ctrl', ikName), side + 'ankle_IK_jnt')
+            cmds.matchTransform(cmds.poleVectorConstraint(side + 'knee_ctrl', ikLegName), side + 'ankle_IK_jnt')
 
         dropdown = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
 
@@ -834,10 +861,10 @@ class Interface:
             createFootCtrl('foot_ctrl', right)
             leg_ikControls(left)
             leg_ikControls(right)
-            cmds.parent('l_leg_ikHandle', 'l_foot_ctrl')
-            cmds.parent('r_leg_ikHandle', 'r_foot_ctrl')
             cmds.orientConstraint('l_foot_ctrl', 'l_ankle_IK_jnt', mo=True)
             cmds.orientConstraint('r_foot_ctrl', 'r_ankle_IK_jnt', mo=True)
+            cmds.parent('l_knee_ctrl_offset', 'l_foot_ctrl')
+            cmds.parent('r_knee_ctrl_offset', 'r_foot_ctrl')
 
     def snapIKFK(self, args):
 

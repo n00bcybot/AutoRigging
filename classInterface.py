@@ -781,8 +781,12 @@ class Interface:
             def getJointWP(jnt):
                 cmds.spaceLocator()
                 locator = cmds.ls(sl=True)[0]
-                cmds.matchTransform(locator, jnt)
-                pointWP = cmds.xform(locator, q=True, t=True)
+                jointList = cmds.ls(et='joint')
+                if jnt not in jointList:
+                    pointWP = cmds.xform(jnt, q=True, t=True)
+                else:
+                    cmds.matchTransform(locator, jnt)
+                    pointWP = cmds.xform(locator, q=True, t=True)
                 cmds.delete(locator)
                 return pointWP
 
@@ -791,11 +795,72 @@ class Interface:
             else:
                 point = getJointWP(jointName)
 
-            x = point[0]
-            y = point[1]
-            z = point[2]
+            if jointName is 'l_toeNub_jnt' or jointName is 'r_toeNub_jnt':
+                x = point[0]
+                y = 0
+                z = point[2]
+                print(jointName)
+            else:
+                x = point[0]
+                y = point[1]
+                z = point[2]
 
+                print(jointName)
             cmds.move(x, y, z, obj + '.scalePivot', obj + '.rotatePivot')
+
+        def footRoll(side):
+
+            def channelControl(side, channel):
+                cmds.select(side + channel)
+                cmds.setAttr(side + channel + '.scaleX', k=False)
+                cmds.setAttr(side + channel + '.scaleY', k=False)
+                cmds.setAttr(side + channel + '.scaleZ', k=False)
+                cmds.setAttr(side + channel + '.translateX', k=False)
+                cmds.setAttr(side + channel + '.translateY', k=False)
+                cmds.setAttr(side + channel + '.translateZ', k=False)
+                cmds.setAttr(side + channel + '.rotateAxisX', k=True)
+
+            def setKey(side):
+                cmds.setDrivenKeyframe(side + 'heelRoll.rotateAxisX',
+                                       currentDriver=side + 'foot_ctrl' + '.' + side + 'footRoll')
+                cmds.setDrivenKeyframe(side + 'toeRoll.rotateAxisX',
+                                       currentDriver=side + 'foot_ctrl' + '.' + side + 'footRoll')
+                cmds.setDrivenKeyframe(side + 'ballRoll.rotateAxisX',
+                                       currentDriver=side + 'foot_ctrl' + '.' + side + 'footRoll')
+
+            cmds.select(side + 'foot_ctrl')
+            cmds.addAttr(longName=side + 'footRoll', attributeType='double', min=-10, max=10, defaultValue=0)
+            cmds.setAttr(side + 'foot_ctrl' + '.' + side + 'footRoll', e=True, keyable=True)
+
+            channelControl(side, 'heelRoll')
+            channelControl(side, 'toeRoll')
+            channelControl(side, 'ballRoll')
+
+            cmds.select(side + 'heelRoll')
+            cmds.select(side + 'toeRoll', add=True)
+            cmds.select(side + 'ballRoll', add=True)
+
+            cmds.setAttr(side + 'foot_ctrl' + '.' + side + 'footRoll', -10)
+            cmds.setAttr(side + 'heelRoll.rotateAxisX', -50)
+            setKey(side)
+
+            cmds.setAttr(side + 'foot_ctrl' + '.' + side + 'footRoll', 0)
+            cmds.setAttr(side + 'heelRoll.rotateAxisX', 0)
+            setKey(side)
+
+            cmds.setAttr(side + 'foot_ctrl' + '.' + side + 'footRoll', 5)
+            cmds.setAttr(side + 'ballRoll.rotateAxisX', 50)
+            setKey(side)
+
+            cmds.setAttr(side + 'foot_ctrl' + '.' + side + 'footRoll', 10)
+            cmds.setAttr(side + 'toeRoll.rotateAxisX', 50)
+            cmds.setAttr(side + 'ballRoll.rotateAxisX', 0)
+            setKey(side)
+
+            cmds.setAttr(side + 'ballRoll.rotateAxisX', 0)
+            cmds.setAttr(side + 'foot_ctrl' + '.' + side + 'footRoll', 0)
+            setKey(side)
+            cmds.select(d=True)
 
         def leg_ikControls(side):
 
@@ -808,34 +873,34 @@ class Interface:
                 cmds.ikHandle(name=ikHeelName, startJoint='l_ankle_jnt', endEffector='l_toe_jnt', sol='ikRPsolver')  # Create heel IK handle
                 cmds.ikHandle(name=ikToeName, startJoint='l_toe_jnt', endEffector='l_toeNub_jnt', sol='ikRPsolver')  # Create toe IK handle
                 cmds.group(name='l_toeGrp')
-                cmds.group(name='l_midRoll')
+                cmds.group(name='l_ballRoll')
                 cmds.group(name='l_toeRoll')
                 cmds.group(name='l_heelRoll')
                 cmds.parent('l_toeGrp', 'l_toeRoll')
-                cmds.parent('l_leg_ikHandle', 'l_midRoll')
-                cmds.parent('l_heel_ikHandle', 'l_midRoll')
+                cmds.parent('l_leg_ikHandle', 'l_ballRoll')
+                cmds.parent('l_heel_ikHandle', 'l_ballRoll')
                 cmds.parent('l_heelRoll', 'l_foot_ctrl')
-                movePivot('l_heelRoll', 'l_ankle_jnt')
+                movePivot('l_heelRoll', 'l_foot_ctrlShape.cv[1]')
                 movePivot('l_toeRoll', 'l_toeNub_jnt')
                 movePivot('l_toeGrp', 'l_toe_jnt')
-                movePivot('l_midRoll', 'l_toe_jnt')
+                movePivot('l_ballRoll', 'l_toe_jnt')
 
             elif side is right:
                 cmds.ikHandle(name=ikLegName, startJoint=self.r_leg_ikJoints[0], endEffector=self.r_leg_ikJoints[2], sol='ikRPsolver')  # Create leg IK handle
                 cmds.ikHandle(name=ikHeelName, startJoint='r_ankle_jnt', endEffector='r_toe_jnt', sol='ikRPsolver')  # Create heel IK handle
                 cmds.ikHandle(name=ikToeName, startJoint='r_toe_jnt', endEffector='r_toeNub_jnt', sol='ikRPsolver')  # Create toe IK handle
                 cmds.group(name='r_toeGrp')
-                cmds.group(name='r_midRoll')
+                cmds.group(name='r_ballRoll')
                 cmds.group(name='r_toeRoll')
                 cmds.group(name='r_heelRoll')
                 cmds.parent('r_toeGrp', 'r_toeRoll')
-                cmds.parent('r_leg_ikHandle', 'r_midRoll')
-                cmds.parent('r_heel_ikHandle', 'r_midRoll')
+                cmds.parent('r_leg_ikHandle', 'r_ballRoll')
+                cmds.parent('r_heel_ikHandle', 'r_ballRoll')
                 cmds.parent('r_heelRoll', 'r_foot_ctrl')
-                movePivot('r_heelRoll', 'r_ankle_jnt')
+                movePivot('r_heelRoll', 'r_foot_ctrlShape.cv[1]')
                 movePivot('r_toeRoll', 'r_toeNub_jnt')
                 movePivot('r_toeGrp', 'r_toe_jnt')
-                movePivot('r_midRoll', 'r_toe_jnt')
+                movePivot('r_ballRoll', 'r_toe_jnt')
 
             thigh_ik_pos = cmds.xform(side + 'thigh_IK_jnt', q=True, ws=True, t=True)  # Query positions in space of the IK joints and feed them
             calf_ik_pos = cmds.xform(side + 'calf_IK_jnt', q=True, ws=True, t=True)  # to the function, so you can convert them in vectors
@@ -861,10 +926,14 @@ class Interface:
             createFootCtrl('foot_ctrl', right)
             leg_ikControls(left)
             leg_ikControls(right)
+            footRoll(left)
+            footRoll(right)
+            cmds.makeIdentity('r_heelRoll', apply=True)
             cmds.orientConstraint('l_foot_ctrl', 'l_ankle_IK_jnt', mo=True)
             cmds.orientConstraint('r_foot_ctrl', 'r_ankle_IK_jnt', mo=True)
             cmds.parent('l_knee_ctrl_offset', 'l_foot_ctrl')
             cmds.parent('r_knee_ctrl_offset', 'r_foot_ctrl')
+
 
     def snapIKFK(self, args):
 

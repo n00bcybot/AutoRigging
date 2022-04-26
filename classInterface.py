@@ -368,8 +368,8 @@ class Interface:
                 cmds.setAttr(i + 'Shape' + ".overrideColor", 17)  # to yellow
             else:
                 i = None
+        cmds.select(d=True)
 
-        cmds.select(deselect=True)
 
     @staticmethod
     def spawnJoints(slist):  # Create joints from list
@@ -933,7 +933,6 @@ class Interface:
             cmds.orientConstraint('r_foot_ctrl', 'r_ankle_IK_jnt', mo=True)
             cmds.parent('l_knee_ctrl_offset', 'l_foot_ctrl')
             cmds.parent('r_knee_ctrl_offset', 'r_foot_ctrl')
-
 
     def snapIKFK(self, args):
 

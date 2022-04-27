@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Starting spine">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Edit duplicateJoints and createFKcontrols for the right hand at test.py. Will be working on integrating it with the rest of the code and potentially blend it with the left hand functions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +41,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GUI" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
   <component name="RecentsManager">
@@ -131,13 +128,13 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="MayaCharm.test" />
       <item itemvalue="MayaCharm.classInterface" />
-      <item itemvalue="MayaCharm.test2" />
-      <item itemvalue="MayaCharm.locators" />
       <item itemvalue="MayaCharm.interface" />
-      <item itemvalue="Python.locators" />
+      <item itemvalue="MayaCharm.locators" />
+      <item itemvalue="MayaCharm.test2" />
+      <item itemvalue="MayaCharm.test" />
       <item itemvalue="Python.interface" />
+      <item itemvalue="Python.locators" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -148,6 +145,62 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Restructured the class completely. Now all the variable containing the data (mostly the locators positions) and the functions are contained within the class, and it's all cleaner and better structured">
+      <created>1644759691713</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1644759691713</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Added tab menu with misc functions and created 2 misc functions - displayLocalAxis and deleteAllLocators. Originally locators were deleted upon spawning the joints, but it might be useful to keep them until final joint chains are defined">
+      <created>1644863956711</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1644863956711</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Added confirmation message if locators need to be deleted when joints are created  and separate function to delete all locators">
+      <created>1644867583765</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1644867583765</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Nice">
+      <created>1644873520733</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1644873520733</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Nice">
+      <created>1644880918850</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1644880918850</updated>
+    </task>
+    <task id="LOCAL-00027" summary="I thought it might be a good idea to base the template skeleton on the UE mannequin, or at least have it as another template. In the process developed a function that renames the joints with the joint position prefix instead of suffix. Not essential for the project, but it might be useful in some situations.">
+      <created>1644956294151</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1644956294151</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Updated locators.py with the latest utility functions">
+      <created>1644963579952</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1644963579952</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Looking into orientations and rotations. Created a few more utility functions - select all joints, select hierarchy, enable scale compensation, set rotation order and align translational axis to local rotational axis. These should help to any rig setup and are related to the most important procedures for correctly creating a rig. Next, I will look into creating joints with predefined orientation">
+      <created>1645195853519</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1645195853519</updated>
     </task>
     <task id="LOCAL-00030" summary="Looking into orientations and rotations. Created a few more utility functions - select all joints, select hierarchy, enable scale compensation, set rotation order and align translational axis to local rotational axis. These should help to any rig setup and are related to the most important procedures for correctly creating a rig. Next, I will look into creating joints with predefined orientation">
       <created>1645224086431</created>
@@ -436,63 +489,7 @@
       <option name="project" value="LOCAL" />
       <updated>1649196653653</updated>
     </task>
-    <task id="LOCAL-00071" summary="Small changes">
-      <created>1649201919550</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1649201919550</updated>
-    </task>
-    <task id="LOCAL-00072" summary="Created new branch and proceeding with mirroring">
-      <created>1649279917068</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1649279917069</updated>
-    </task>
-    <task id="LOCAL-00073" summary="Restructured duplicateJoint() - now the function mirrors the lefthand joints first and then parent-constraints the main joint chain with the fk/ik joints. It seems that the best strategy would be to spawn the joints and controls for both hand at the same time. Next will look into reworking the createFKjoints, so the code is reused and works for both left and right chains">
-      <created>1649285776679</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1649285776679</updated>
-    </task>
-    <task id="LOCAL-00074" summary="Completed mirroring and control creation for both hands; updated snapIKFK and resetControls to work with selected side">
-      <created>1649361595779</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1649361595779</updated>
-    </task>
-    <task id="LOCAL-00075" summary="Completed mirroring of the legs and foot control, moving onto foot roll.">
-      <created>1649959576541</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1649959576541</updated>
-    </task>
-    <task id="LOCAL-00076" summary="Set up foot roll, though it will need minor tweaks">
-      <created>1649974994119</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1649974994119</updated>
-    </task>
-    <task id="LOCAL-00077" summary="Completed foot roll setup">
-      <created>1650288709548</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1650288709548</updated>
-    </task>
-    <task id="LOCAL-00078" summary="Starting spine">
-      <created>1650968537036</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1650968537036</updated>
-    </task>
-    <option name="localTasksCounter" value="79" />
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -536,6 +533,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Class restructuring" />
+    <MESSAGE value="Now parenting works for the hand and it doesn't mess witht the rest of the joints." />
+    <MESSAGE value="For some reason, Maya will flip the second joint in new hierarchy every time, but I have an idea how to fix it. Whenever that happens, the joint is fipped exactly 180 degrees, so perhaps I can query the hierarchy orientation and whenever there is 180 orientation, I can flip it back." />
+    <MESSAGE value="Managed to correct the filipping." />
+    <MESSAGE value="Managed to correct the flipping." />
+    <MESSAGE value="Restructured the class again by taking all static methods out of the class; created a couple of functions for parenting/unparenting the fingers for ease of use - unparenting is needed when applying new orientation, since when reorientated, the hand joint will point towards the first joint created after it, instead of following the elbow axis (I might b able to change that with 'position' in cmds.joint,which should orient the joint to world). More thorough commenting needs to be done." />
+    <MESSAGE value="Final touches for the day. Tested leg and hand with IKs, all seems fine. Will continue with proper commenting and will be looking into mirroring." />
+    <MESSAGE value="Fixed some orientation issues with secondary axis world orientation and l_hand_jnt orientation. Orientation is working properly now, but it works on all joints, instead of selection of joints. Next will work on that" />
     <MESSAGE value="Managed to set rotation order correctly for both leg and arm, or for world x and world y axis. Now when new orientation is applied, all joints are being adjusted accordingly. The code compares the position in world space of the first 2 joints to determine along which axis is the joint chain laid. Also now only selected joints are queried, instead of all of them, so joint chains now can be separately adjusted." />
     <MESSAGE value="Managed to set rotation order correctly for both leg and arm, or for world x and world y axis. Now when new orientation is applied, all joints are being adjusted accordingly. The code compares the position in world space of the first 2 joints to determine along which axis is the joint chain laid. Also now only selected joints are queried, instead of all of them, so joint chains now can be separately adjusted. Updated main interface." />
     <MESSAGE value="Managed to connect orientJoints function to createJointChain - now joints a created by spawnJoints and oriented with orientJoints in createJointChain. That way orientJoints is used to set orientation immediately after the joints are created, using the input from the radio buttons. Previously I could only use orientJoints for orienting the joints, and not for creating them. Still need to take care of the 'none' radio button, right now it does nothing." />
@@ -553,14 +558,6 @@
     <MESSAGE value="Rearranged the controllers creating procedure - now the all finger controls are grouped first and then parented to l_hand_ctrl and groups is parent-constrained by the l_hand_jnt. This allows for the hand to be controlled by both the IK and the FK controls when switched respectively and the fingers do not stretch beyond the IK handle" />
     <MESSAGE value="Corrected finger controls" />
     <MESSAGE value="Edit duplicateJoints and createFKcontrols for the right hand at test.py. Will be working on integrating it with the rest of the code and potentially blend it with the left hand functions" />
-    <MESSAGE value="Small changes" />
-    <MESSAGE value="Created new branch and proceeding with mirroring" />
-    <MESSAGE value="Restructured duplicateJoint() - now the function mirrors the lefthand joints first and then parent-constraints the main joint chain with the fk/ik joints. It seems that the best strategy would be to spawn the joints and controls for both hand at the same time. Next will look into reworking the createFKjoints, so the code is reused and works for both left and right chains" />
-    <MESSAGE value="Completed mirroring and control creation for both hands; updated snapIKFK and resetControls to work with selected side" />
-    <MESSAGE value="Completed mirroring of the legs and foot control, moving onto foot roll." />
-    <MESSAGE value="Set up foot roll, though it will need minor tweaks" />
-    <MESSAGE value="Completed foot roll setup" />
-    <MESSAGE value="Starting spine" />
-    <option name="LAST_COMMIT_MESSAGE" value="Starting spine" />
+    <option name="LAST_COMMIT_MESSAGE" value="Edit duplicateJoints and createFKcontrols for the right hand at test.py. Will be working on integrating it with the rest of the code and potentially blend it with the left hand functions" />
   </component>
 </project>

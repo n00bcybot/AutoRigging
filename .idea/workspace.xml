@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Completed eye controls">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Completed controls and component connection, moving onto locking attributes and testing">
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -146,13 +145,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Nice">
-      <created>1644873520733</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1644873520733</updated>
     </task>
     <task id="LOCAL-00026" summary="Nice">
       <created>1644880918850</created>
@@ -490,7 +482,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651158973859</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="Completed controls and component connection, moving onto locking attributes and testing">
+      <created>1651162285116</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1651162285116</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -534,7 +533,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Managed to correct the filipping." />
     <MESSAGE value="Managed to correct the flipping." />
     <MESSAGE value="Restructured the class again by taking all static methods out of the class; created a couple of functions for parenting/unparenting the fingers for ease of use - unparenting is needed when applying new orientation, since when reorientated, the hand joint will point towards the first joint created after it, instead of following the elbow axis (I might b able to change that with 'position' in cmds.joint,which should orient the joint to world). More thorough commenting needs to be done." />
     <MESSAGE value="Final touches for the day. Tested leg and hand with IKs, all seems fine. Will continue with proper commenting and will be looking into mirroring." />
@@ -559,6 +557,7 @@
     <MESSAGE value="Completed basic FK controls for the spine with additional waist control and successfully connected the pelvis to the legs." />
     <MESSAGE value="Completed spine and successfully connected all components, moving onto eyes and jaw" />
     <MESSAGE value="Completed eye controls" />
-    <option name="LAST_COMMIT_MESSAGE" value="Completed eye controls" />
+    <MESSAGE value="Completed controls and component connection, moving onto locking attributes and testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed controls and component connection, moving onto locking attributes and testing" />
   </component>
 </project>

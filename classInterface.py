@@ -521,6 +521,7 @@ class Interface:
         findNub()
         if 'l_hand_jnt' in orient:
             parentFingers(args=True)  # Parents the fingers back
+        cmds.select(d=True)
 
     def createJointChain(self, args):
 
@@ -597,6 +598,7 @@ class Interface:
 
             constraintLegJoints(self.l_leg_ikJoints, self.l_leg_joints)
             constraintLegJoints(self.r_leg_ikJoints, self.r_leg_joints)
+            cmds.select(d=True)
 
         elif dropdown == 3:
 

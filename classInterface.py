@@ -199,8 +199,8 @@ class Interface:
     locTemp = {
         'COMOffset_loc': [0.0, 105.0, 0.0],
         'COM_loc': [0.0, 105, 0.0],
-        'head01_loc': [-2.6069044344454757e-07, 162.29514066931262, -3.573263976481437],
-        'head02_loc': [-3.94965337055097e-07, 171.14852788195952, -2],
+        'head01_loc': [-2.6069044344454757e-07, 155, -2],
+        'head02_loc': [-3.94965337055097e-07, 164, -1],
         'headNub_loc': [-1.7498294615581403e-15, 178.64732454094343, -7.2398515053674455],
         'jawNub_loc': [-7.814865691567292e-13, 161.375737440792, 8.559080733573634],
         'jaw_loc': [-7.677378623110254e-13, 164.0049086101554, 1.5995099911410542],
@@ -234,7 +234,7 @@ class Interface:
         'l_toeNub_loc': [9.016487800761242, 1.0000001203622366, 15.9999991785903],
         'l_toe_loc': [9.016487734626331, 1.0000008199679824, 4.999999178590323],
         'l_upperArm_loc': [13.000593001987955, 148.6553731643616, -0.46805473651793594],
-        'neck01_loc': [-1.4730733192261448e-07, 155.10695179887028, -1.5],
+        'neck01_loc': [-1.4730733192261448e-07, 151, -1],
         'neck02_loc': [-2.1416909327475675e-07, 159.46418229884728, -1.8036069109735917],
         'pelvis_loc': [0.0, 105, -1],
         'root_loc': [0.0, 0.0, 0.0],
@@ -574,6 +574,7 @@ class Interface:
             constraintArmJoints(self.l_arm_fkJoints, self.l_arm_ikJoints, self.l_arm_joints)
             constraintArmJoints(self.r_arm_fkJoints, self.r_arm_ikJoints, self.r_arm_joints)
 
+
         elif dropdown == 1:
 
             duplicateChain(self.l_leg_ikJoints, self.l_leg_joints)
@@ -725,14 +726,11 @@ class Interface:
 
             cmds.parentConstraint(side + 'hand_jnt', side + 'fingers_ctrl_offset', mo=False, w=1)
 
+
         def spineFKControls():
 
             cmds.select('pelvis_jnt', hi=True)
             jointList = cmds.ls(sl=True, et='joint')
-
-            for i in jointList:
-                if 'head02_jnt' in i:
-                    jointList.pop(jointList.index(i))
 
             jointPositions = []
             for i in jointList:
@@ -1065,24 +1063,66 @@ class Interface:
             cmds.parent('l_knee_ctrl_offset', 'l_foot_ctrl')
             cmds.parent('r_knee_ctrl_offset', 'r_foot_ctrl')
             cmds.select(d=True)
-            legGroups = ['l_leg', 'r_leg']
-            legJoints = ['l_thigh_jnt', 'r_thigh_jnt']
 
-            for i, j in zip(legGroups, legJoints):
-                cmds.group(em=True, name=i)
-                cmds.xform(i, cp=True)
-                cmds.matchTransform(i, j)
-                cmds.makeIdentity(i, apply=True, translate=True)
-                cmds.delete(i, constructionHistory=True)
-                cmds.parent(j, i)
-            cmds.parent('l_thigh_IK_jnt', 'l_leg')
-            cmds.parent('r_thigh_IK_jnt', 'r_leg')
+        #    legGroups = ['l_leg', 'r_leg']
+        #    legJoints = ['l_thigh_jnt', 'r_thigh_jnt']
+
+        #    for i, j in zip(legGroups, legJoints):
+        #        cmds.group(em=True, name=i)
+        #        cmds.xform(i, cp=True)
+        #        cmds.matchTransform(i, j)
+        #        cmds.makeIdentity(i, apply=True, translate=True)
+        #        cmds.delete(i, constructionHistory=True)
+        #        cmds.parent(j, i)
+        #    cmds.parent('l_thigh_IK_jnt', 'l_leg')
+        #    cmds.parent('r_thigh_IK_jnt', 'r_leg')
 
     def connectComponents(self, args):
 
+        def connectLegs():
+
+            cmds.parent('l_thigh_jnt', 'pelvis_jnt')
+            cmds.parent('r_thigh_jnt', 'pelvis_jnt')
+            cmds.parent(self.l_leg_ikJoints[0], 'pelvis_jnt')
+            cmds.parent(self.r_leg_ikJoints[0], 'pelvis_jnt')
+            cmds.parentConstraint('waist_ctrl', 'l_thigh_jnt', maintainOffset=True)
+            cmds.parentConstraint('waist_ctrl', 'r_thigh_jnt', maintainOffset=True)
+            cmds.select(d=True)
+
+        def connectArms():
+
+            cmds.parent(self.l_arm_ikJoints[0], 'l_clavicle_jnt')
+            cmds.parent(self.l_arm_fkJoints[0], 'l_clavicle_jnt')
+            cmds.parent(self.r_arm_ikJoints[0], 'r_clavicle_jnt')
+            cmds.parent(self.r_arm_fkJoints[0], 'r_clavicle_jnt')
+
+            cmds.parent('l_clavicle_jnt', 'neck01_jnt')
+            cmds.parent('r_clavicle_jnt', 'neck01_jnt')
+            cmds.parent('pelvis_jnt', 'joints')
+            cmds.select(d=True)
+
+        def connectControls():
+
+            cmds.parent('l_clavicle_offset', 'neck01_ctrl')
+            cmds.parent('r_clavicle_offset', 'neck01_ctrl')
+            cmds.select(d=True)
+            cmds.select('l_fingers_ctrl_offset', 'r_fingers_ctrl_offset', 'l_arm_ikHandle_ctrl_offset',
+                        'l_IK_FK_switch', 'l_elbow_ctrl_offset', 'r_arm_ikHandle_ctrl_offset', 'r_IK_FK_switch',
+                        'r_elbow_ctrl_offset', 'l_foot_ctrl_offset', 'r_foot_ctrl_offset', 'spine_ctrl_offset', add=True)
+            controls = cmds.ls(sl=True)
+            for i in controls:
+                cmds.parent(i, 'controls')
+
         cmds.select(d=True)
-        cmds.parentConstraint('waist_ctrl', 'l_leg', maintainOffset=True)
-        cmds.parentConstraint('waist_ctrl', 'r_leg', maintainOffset=True)
+        cmds.group(em=True, name='rig')
+        cmds.group(em=True, name='joints')
+        cmds.group(em=True, name='controls')
+        cmds.parent('joints', 'rig')
+        cmds.parent('controls', 'rig')
+
+        connectLegs()
+        connectArms()
+        connectControls()
 
     def snapIKFK(self, args):
 

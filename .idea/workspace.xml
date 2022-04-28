@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Completed spine and successfully connected all components, moving onto eyes and jaw">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Completed eye controls">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
     </list>
@@ -146,13 +146,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Added confirmation message if locators need to be deleted when joints are created  and separate function to delete all locators">
-      <created>1644867583765</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1644867583765</updated>
     </task>
     <task id="LOCAL-00025" summary="Nice">
       <created>1644873520733</created>
@@ -490,7 +483,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651143526038</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="Completed eye controls">
+      <created>1651158973859</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1651158973859</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -534,7 +534,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="For some reason, Maya will flip the second joint in new hierarchy every time, but I have an idea how to fix it. Whenever that happens, the joint is fipped exactly 180 degrees, so perhaps I can query the hierarchy orientation and whenever there is 180 orientation, I can flip it back." />
     <MESSAGE value="Managed to correct the filipping." />
     <MESSAGE value="Managed to correct the flipping." />
     <MESSAGE value="Restructured the class again by taking all static methods out of the class; created a couple of functions for parenting/unparenting the fingers for ease of use - unparenting is needed when applying new orientation, since when reorientated, the hand joint will point towards the first joint created after it, instead of following the elbow axis (I might b able to change that with 'position' in cmds.joint,which should orient the joint to world). More thorough commenting needs to be done." />
@@ -559,6 +558,7 @@
     <MESSAGE value="Edit duplicateJoints and createFKcontrols for the right hand at test.py. Will be working on integrating it with the rest of the code and potentially blend it with the left hand functions" />
     <MESSAGE value="Completed basic FK controls for the spine with additional waist control and successfully connected the pelvis to the legs." />
     <MESSAGE value="Completed spine and successfully connected all components, moving onto eyes and jaw" />
-    <option name="LAST_COMMIT_MESSAGE" value="Completed spine and successfully connected all components, moving onto eyes and jaw" />
+    <MESSAGE value="Completed eye controls" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed eye controls" />
   </component>
 </project>

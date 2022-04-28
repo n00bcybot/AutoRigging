@@ -206,8 +206,8 @@ class Interface:
         'head01_loc': [-2.6069044344454757e-07, 155, -2],
         'head02_loc': [-3.94965337055097e-07, 164, -1],
         'headNub_loc': [-1.7498294615581403e-15, 178.64732454094343, -7.2398515053674455],
-        'jawNub_loc': [-7.814865691567292e-13, 161.375737440792, 8.559080733573634],
-        'jaw_loc': [-7.677378623110254e-13, 164.0049086101554, 1.5995099911410542],
+        'jawNub_loc': [-7.814865691567292e-13, 158, 8.559080733573634],
+        'jaw_loc': [-7.677378623110254e-13, 161, 1.5995099911410542],
         'l_calf_loc': [9.016487172208775, 55.99999943954483, 4.0000000438007675],
         'l_clavicle_loc': [4, 148.14189486770232, 4.467180828980827],
         'l_eyeNub_loc': [2.8762510108536112, 169.08230670451212, 8.743195847205346],
@@ -815,7 +815,6 @@ class Interface:
         def eyesFKcontrols(side):
 
             eye = side + 'eye_jnt'
-            cmds.select(eye, hi=True, add=True)
             jointPosition = cmds.xform(eye, q=1, ws=1, rp=1)
 
             eye_ctrl = eye[:-4] + '_ctrl'
@@ -824,12 +823,27 @@ class Interface:
             changeShapeColor(eye_ctrl, 23)
             offsetGrp = cmds.group(name=eye[:-4] + '_offset')
             cmds.matchTransform(offsetGrp, eye)
-            cmds.move(round(jointPosition[2] + 30), eye_ctrl, z=True)
+            cmds.move((jointPosition[2] + 30), eye_ctrl, z=True)
             cmds.makeIdentity(offsetGrp, apply=True, translate=True)  # Freeze transformations
             cmds.makeIdentity(eye_ctrl, apply=True)  # Freeze transformations
             cmds.delete(eye_ctrl, constructionHistory=True)  # Delete construction history
 
+        def jawFKcontrols():
 
+            jaw = 'jaw_jnt'
+            jointPosition = cmds.xform(jaw, q=1, ws=1, rp=1)
+            jaw_ctrl = jaw[:-4] + '_ctrl'
+            cmds.xform(cmds.circle(name=jaw_ctrl, r=7), t=jointPosition)
+            cmds.circle(jaw_ctrl, e=True, nr=[1, 0, 0])
+            changeShapeColor(jaw_ctrl, 12)
+            cmds.matchTransform(jaw_ctrl, jaw)
+            offsetGrp = cmds.group(name=jaw[:-4] + '_offset', em=True)
+            cmds.matchTransform(offsetGrp, jaw)
+            cmds.makeIdentity(offsetGrp, apply=True, translate=True)
+            cmds.parent(jaw_ctrl, offsetGrp)
+            cmds.makeIdentity(jaw_ctrl, apply=True)
+
+            cmds.parentConstraint(jaw_ctrl, jaw)
 
         dropdown = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
 
@@ -841,6 +855,7 @@ class Interface:
             armsFKControls(right)
 
         elif dropdown == 3:
+
             eyesFKcontrols('l_')
             eyesFKcontrols('r_')
 
@@ -863,6 +878,10 @@ class Interface:
             cmds.aimConstraint('r_eye_ctrl', 'r_eye_jnt', mo=True)
             cmds.xform('eye_ctrl_offset', cp=True)
             cmds.makeIdentity('eye_ctrl_offset', apply=True)
+
+        elif dropdown == 4:
+
+            jawFKcontrols()
 
     def createIKcontrols(self, args):
 
@@ -1164,15 +1183,21 @@ class Interface:
             cmds.parent('l_eye_jnt', 'head02_jnt')
             cmds.parent('r_eye_jnt', 'head02_jnt')
 
+
+        def connectJaw():
+
+            cmds.parent('jaw_jnt', 'head02_jnt')
+
         def connectControls():
 
+            cmds.parent('eye_ctrl_offset', 'head02_ctrl')
             cmds.parent('l_clavicle_offset', 'neck01_ctrl')
             cmds.parent('r_clavicle_offset', 'neck01_ctrl')
             cmds.select(d=True)
             cmds.select('l_fingers_ctrl_offset', 'r_fingers_ctrl_offset', 'l_arm_ikHandle_ctrl_offset',
                         'l_IK_FK_switch', 'l_elbow_ctrl_offset', 'r_arm_ikHandle_ctrl_offset', 'r_IK_FK_switch',
                         'r_elbow_ctrl_offset', 'l_foot_ctrl_offset', 'r_foot_ctrl_offset',
-                        'spine_ctrl_offset', 'eye_ctrl_offset', add=True)
+                        'spine_ctrl_offset', 'jaw_offset', add=True)
             controls = cmds.ls(sl=True)
             for i in controls:
                 cmds.parent(i, 'controls')
@@ -1184,9 +1209,11 @@ class Interface:
         cmds.parent('joints', 'rig')
         cmds.parent('controls', 'rig')
 
+
         connectLegs()
         connectArms()
         connectEyes()
+        connectJaw()
         connectControls()
 
     def snapIKFK(self, args):

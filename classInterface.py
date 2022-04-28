@@ -117,7 +117,11 @@ def resetControls(args):
 
 # noinspection PyUnusedLocal
 def mirrorJoints(joint):
-    cmds.mirrorJoint(joint, mirrorYZ=True, mirrorBehavior=True, searchReplace=('l_', 'r_'))
+
+    if joint == 'l_eye_jnt':
+        cmds.mirrorJoint(joint, mirrorYZ=True, searchReplace=('l_', 'r_'))
+    else:
+        cmds.mirrorJoint(joint, mirrorYZ=True, mirrorBehavior=True, searchReplace=('l_', 'r_'))
 
 
 # noinspection PyUnusedLocal
@@ -519,6 +523,7 @@ class Interface:
             parentFingers(args=True)  # Parents the fingers back
 
     def createJointChain(self, args):
+
         selected = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1  # Querying the dropdown menu
         dropdownList = self.allChains[int(selected)]  # Getting the respective list form allChains
 
@@ -534,7 +539,14 @@ class Interface:
             cmds.select(dropdownList[0][0].replace('_loc', '_jnt'))
         else:
             cmds.select(dropdownList[0].replace('_loc', '_jnt'))
-        Interface.orientJoints(self, args=True)
+
+        if selected != 3:
+            Interface.orientJoints(self, args=True)
+        else:
+            cmds.select(hi=True)  # Selecting all joints in the hierarchy
+            eyeJoints = cmds.ls(sl=True)
+            for i in eyeJoints:
+                cmds.joint(i, e=True, oj='none', ch=True, zso=True)
 
     def duplicateJoints(self, args):
 
@@ -574,7 +586,6 @@ class Interface:
             constraintArmJoints(self.l_arm_fkJoints, self.l_arm_ikJoints, self.l_arm_joints)
             constraintArmJoints(self.r_arm_fkJoints, self.r_arm_ikJoints, self.r_arm_joints)
 
-
         elif dropdown == 1:
 
             duplicateChain(self.l_leg_ikJoints, self.l_leg_joints)
@@ -586,6 +597,10 @@ class Interface:
 
             constraintLegJoints(self.l_leg_ikJoints, self.l_leg_joints)
             constraintLegJoints(self.r_leg_ikJoints, self.r_leg_joints)
+
+        elif dropdown == 3:
+
+            mirrorJoints('l_eye_jnt')
 
     def getPVctrlPosition(self, armPos, elbowPos, wristPos, side):
 
@@ -726,7 +741,6 @@ class Interface:
 
             cmds.parentConstraint(side + 'hand_jnt', side + 'fingers_ctrl_offset', mo=False, w=1)
 
-
         def spineFKControls():
 
             cmds.select('pelvis_jnt', hi=True)
@@ -798,13 +812,57 @@ class Interface:
             cmds.delete('pelvis_jnt_parentConstraint1')
             cmds.parentConstraint('waist_ctrl', 'pelvis_jnt', maintainOffset=True)
 
+        def eyesFKcontrols(side):
+
+            eye = side + 'eye_jnt'
+            cmds.select(eye, hi=True, add=True)
+            jointPosition = cmds.xform(eye, q=1, ws=1, rp=1)
+
+            eye_ctrl = eye[:-4] + '_ctrl'
+            cmds.xform(cmds.circle(name=eye_ctrl, r=2), t=jointPosition)
+            cmds.circle(side + 'eye_ctrl', e=True, nr=[0, 0, 1])
+            changeShapeColor(eye_ctrl, 23)
+            offsetGrp = cmds.group(name=eye[:-4] + '_offset')
+            cmds.matchTransform(offsetGrp, eye)
+            cmds.move(round(jointPosition[2] + 30), eye_ctrl, z=True)
+            cmds.makeIdentity(offsetGrp, apply=True, translate=True)  # Freeze transformations
+            cmds.makeIdentity(eye_ctrl, apply=True)  # Freeze transformations
+            cmds.delete(eye_ctrl, constructionHistory=True)  # Delete construction history
+
+
+
         dropdown = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
 
         if dropdown == 2:
             spineFKControls()
+
         elif dropdown == 0:
             armsFKControls(left)
             armsFKControls(right)
+
+        elif dropdown == 3:
+            eyesFKcontrols('l_')
+            eyesFKcontrols('r_')
+
+            eyeCtrl = 'eye_ctrl'
+            midPosition = (getJointWP('r_eye_jnt')[0] - getJointWP('l_eye_jnt')[0]) / 2 + getJointWP('l_eye_jnt')[0]
+            lEyePos = cmds.xform('l_eye_jnt', q=1, ws=1, rp=1)
+            cmds.xform(cmds.circle(name=eyeCtrl, r=6), t=lEyePos)
+            cmds.circle(eyeCtrl, e=True, nr=[0, 0, 1])
+            changeShapeColor(eyeCtrl, 23)
+            cmds.move((lEyePos[2] + 30), eyeCtrl, z=True)
+            cmds.move(midPosition, eyeCtrl, x=True)
+            cmds.makeIdentity(eyeCtrl, apply=True)
+            cmds.delete(eyeCtrl, constructionHistory=True)
+
+            cmds.group(em=True, name='eye_ctrl_offset')
+            cmds.parent(eyeCtrl, 'eye_ctrl_offset')
+            cmds.parent('l_eye_offset', eyeCtrl)
+            cmds.parent('r_eye_offset', eyeCtrl)
+            cmds.aimConstraint('l_eye_ctrl', 'l_eye_jnt', mo=True)
+            cmds.aimConstraint('r_eye_ctrl', 'r_eye_jnt', mo=True)
+            cmds.xform('eye_ctrl_offset', cp=True)
+            cmds.makeIdentity('eye_ctrl_offset', apply=True)
 
     def createIKcontrols(self, args):
 
@@ -1101,6 +1159,11 @@ class Interface:
             cmds.parent('pelvis_jnt', 'joints')
             cmds.select(d=True)
 
+        def connectEyes():
+
+            cmds.parent('l_eye_jnt', 'head02_jnt')
+            cmds.parent('r_eye_jnt', 'head02_jnt')
+
         def connectControls():
 
             cmds.parent('l_clavicle_offset', 'neck01_ctrl')
@@ -1108,7 +1171,8 @@ class Interface:
             cmds.select(d=True)
             cmds.select('l_fingers_ctrl_offset', 'r_fingers_ctrl_offset', 'l_arm_ikHandle_ctrl_offset',
                         'l_IK_FK_switch', 'l_elbow_ctrl_offset', 'r_arm_ikHandle_ctrl_offset', 'r_IK_FK_switch',
-                        'r_elbow_ctrl_offset', 'l_foot_ctrl_offset', 'r_foot_ctrl_offset', 'spine_ctrl_offset', add=True)
+                        'r_elbow_ctrl_offset', 'l_foot_ctrl_offset', 'r_foot_ctrl_offset',
+                        'spine_ctrl_offset', 'eye_ctrl_offset', add=True)
             controls = cmds.ls(sl=True)
             for i in controls:
                 cmds.parent(i, 'controls')
@@ -1122,6 +1186,7 @@ class Interface:
 
         connectLegs()
         connectArms()
+        connectEyes()
         connectControls()
 
     def snapIKFK(self, args):

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Completed basic FK controls for the spine with additional waist control and successfully connected the pelvis to the legs.">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Completed spine and successfully connected all components, moving onto eyes and jaw">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,13 +146,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Added tab menu with misc functions and created 2 misc functions - displayLocalAxis and deleteAllLocators. Originally locators were deleted upon spawning the joints, but it might be useful to keep them until final joint chains are defined">
-      <created>1644863956711</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1644863956711</updated>
     </task>
     <task id="LOCAL-00024" summary="Added confirmation message if locators need to be deleted when joints are created  and separate function to delete all locators">
       <created>1644867583765</created>
@@ -491,7 +483,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651095174698</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Completed spine and successfully connected all components, moving onto eyes and jaw">
+      <created>1651143526038</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1651143526038</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -535,7 +534,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Now parenting works for the hand and it doesn't mess witht the rest of the joints." />
     <MESSAGE value="For some reason, Maya will flip the second joint in new hierarchy every time, but I have an idea how to fix it. Whenever that happens, the joint is fipped exactly 180 degrees, so perhaps I can query the hierarchy orientation and whenever there is 180 orientation, I can flip it back." />
     <MESSAGE value="Managed to correct the filipping." />
     <MESSAGE value="Managed to correct the flipping." />
@@ -560,6 +558,7 @@
     <MESSAGE value="Corrected finger controls" />
     <MESSAGE value="Edit duplicateJoints and createFKcontrols for the right hand at test.py. Will be working on integrating it with the rest of the code and potentially blend it with the left hand functions" />
     <MESSAGE value="Completed basic FK controls for the spine with additional waist control and successfully connected the pelvis to the legs." />
-    <option name="LAST_COMMIT_MESSAGE" value="Completed basic FK controls for the spine with additional waist control and successfully connected the pelvis to the legs." />
+    <MESSAGE value="Completed spine and successfully connected all components, moving onto eyes and jaw" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed spine and successfully connected all components, moving onto eyes and jaw" />
   </component>
 </project>

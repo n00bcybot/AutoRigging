@@ -193,7 +193,7 @@ class Interface:
         'l_upperarm_loc': [17.700220541891962, 149.53024764716957, -9.71100173315968],
         'l_upperarm_twist_01_loc': [18.02264037407829, 149.14981184811705, -9.747251624362109],
         'neck_01_loc': [7.1703705099944316e-06, 156.42101659898393, -5.874689340166416],
-        'pelvis_loc': [1.3536841578012896e-28, 96.75060272216797, -1.0561532974243164],
+        'pelvis_loc': [0, 97, 0],
         'root_loc': [0.0, 0.0, 0.0],
         'spine_01_loc': [1.2988677644386279e-06, 107.55629733472321, -0.1652469392414555],
         'spine_02_loc': [3.547265996651281e-06, 126.76314604454366, -1.51601391020198],
@@ -541,13 +541,13 @@ class Interface:
         else:
             cmds.select(dropdownList[0].replace('_loc', '_jnt'))
 
-        if selected != 3:
-            Interface.orientJoints(self, args=True)
-        else:
+        if selected == 3:
             cmds.select(hi=True)  # Selecting all joints in the hierarchy
             eyeJoints = cmds.ls(sl=True)
             for i in eyeJoints:
                 cmds.joint(i, e=True, oj='none', ch=True, zso=True)
+        else:
+            Interface.orientJoints(self, args=True)
 
     def duplicateJoints(self, args):
 
@@ -1177,7 +1177,6 @@ class Interface:
 
             cmds.parent('l_clavicle_jnt', 'neck01_jnt')
             cmds.parent('r_clavicle_jnt', 'neck01_jnt')
-            cmds.parent('pelvis_jnt', 'joints')
             cmds.select(d=True)
 
         def connectEyes():
@@ -1185,38 +1184,78 @@ class Interface:
             cmds.parent('l_eye_jnt', 'head02_jnt')
             cmds.parent('r_eye_jnt', 'head02_jnt')
 
-
         def connectJaw():
 
             cmds.parent('jaw_jnt', 'head02_jnt')
+            cmds.parent('jaw_offset', 'head02_ctrl')
+
+        def rigControls():
+
+            cmds.spaceLocator(name='loc')
+            rigController = 'rig_ctrl'  # Create spine control
+            cmds.xform(cmds.curve(name=rigController, d=True, p=self.spine_Ctrl_Points, k=self.spine_Ctrl_PCount), cp=True)
+            cmds.select(d=True)
+
+            cmds.matchTransform(rigController, 'loc', px=True, pz=True, pos=True)
+            cmds.scale(0.12, 0.12, 0.12, rigController, absolute=True)
+            changeShapeColor(rigController, 18)
+
+            cmds.group(rigController, name=rigController + '_offset')
+            cmds.makeIdentity(rigController, apply=True)
+            cmds.delete(rigController, constructionHistory=True)
+            cmds.makeIdentity('rig_ctrl_offset', apply=True)
+            cmds.delete('rig_ctrl_offset', constructionHistory=True)
+            cmds.delete('loc')
+
+            rootController = 'root_ctrl'
+            cmds.circle(n=rootController, r=30, nr=self.normal[1])
+            changeShapeColor(rootController, 14)
+            cmds.group(rootController, name=rootController + '_offset')
+            cmds.makeIdentity(rootController, apply=True)
+            cmds.delete(rootController, constructionHistory=True)
+            cmds.makeIdentity('root_ctrl_offset', apply=True)
+            cmds.delete('root_ctrl_offset', constructionHistory=True)
+            cmds.parent('root_ctrl_offset', 'rig_ctrl')
+
+            cmds.joint()
+            cmds.joint(name='root_jnt', e=True, oj='none', ch=True, zso=True)
+            cmds.parent('pelvis_jnt', 'root_jnt')
+            cmds.parent('root_jnt', 'joints')
+            cmds.parentConstraint('root_ctrl', 'root_jnt', mo=True)
 
         def connectControls():
 
-            cmds.parent('eye_ctrl_offset', 'head02_ctrl')
             cmds.parent('l_clavicle_offset', 'neck01_ctrl')
             cmds.parent('r_clavicle_offset', 'neck01_ctrl')
             cmds.select(d=True)
             cmds.select('l_fingers_ctrl_offset', 'r_fingers_ctrl_offset', 'l_arm_ikHandle_ctrl_offset',
-                        'l_IK_FK_switch', 'l_elbow_ctrl_offset', 'r_arm_ikHandle_ctrl_offset', 'r_IK_FK_switch',
-                        'r_elbow_ctrl_offset', 'l_foot_ctrl_offset', 'r_foot_ctrl_offset',
-                        'spine_ctrl_offset', 'jaw_offset', add=True)
+                        'r_arm_ikHandle_ctrl_offset', 'l_elbow_ctrl_offset', 'r_elbow_ctrl_offset',
+                        'l_foot_ctrl_offset', 'r_foot_ctrl_offset', 'spine_ctrl_offset', 'eye_ctrl_offset',
+                         'l_IK_FK_switch', 'r_IK_FK_switch', add=True)
             controls = cmds.ls(sl=True)
             for i in controls:
-                cmds.parent(i, 'controls')
+                cmds.parent(i, 'root_ctrl')
+
+            cmds.parent('rig_ctrl_offset', 'controls')
 
         cmds.select(d=True)
         cmds.group(em=True, name='rig')
         cmds.group(em=True, name='joints')
         cmds.group(em=True, name='controls')
+
         cmds.parent('joints', 'rig')
         cmds.parent('controls', 'rig')
 
+        deleteAllLocators(args=True)
 
         connectLegs()
         connectArms()
         connectEyes()
         connectJaw()
+        rigControls()
         connectControls()
+
+        cmds.select(d=True)
 
     def snapIKFK(self, args):
 

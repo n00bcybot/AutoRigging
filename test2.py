@@ -20,13 +20,14 @@ def getDirection():
     for i in number:
         if i == max(number):
             if number.index(i) == 0:
+                print('Directon is X')
                 return 1
             elif number.index(i) == 1:
+                print('Directon is Y')
                 return 2
             elif number.index(i) == 2:
+                print('Directon is Z')
                 return 3
-
-direction = getDirection()
 
 def findNub():  # This function checks whether the joint that needs to be orientated is at the end of the chain, as in, it has no children
     # If it has no children, it will be oriented to the world (meaning it will inherit orientation from the parent joint)
@@ -36,13 +37,14 @@ def findNub():  # This function checks whether the joint that needs to be orient
         else:
             cmds.joint(each, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
 
+direction = getDirection()
 xyz = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']  # List with all possible combinations for primary axis orientation
 a = ['x', 'y', 'z']
 b = ['up', 'down']
 
-r1 = 1
+r1 = 3
 r2 = 2
-r3 = 1
+r3 = 3
 r4 = 1
 
 sel = a[r1 - 1] + a[r2 - 1]  # Querying the radio buttons and setting the desired axis from list 'a'
@@ -52,25 +54,26 @@ for i in xyz:               # The corresponding letters are then taken from list
         allAxis = i         # of the primary axis
 
 secAxis = a[r3 - 1] + b[r4 - 1]  # Querying r3 and b to establish orientation for the secondary axis
+print(secAxis)
 cmds.select('joint1')
 cmds.select(hi=True)    # Selecting all joints in the hierarchy
 orient = cmds.ls(sl=True)  # and storing their names in here
 findNub()
 c = []                           # that is created (the thumb), which is wrong in the case of the hand. Rather, it needs to
+y = []
 for each in orient:                        # be aligned with the elbow (the world) - that can only happen if it has no children.
     c.append(cmds.joint(each, q=True, o=True))  # Creating the joints and a list with their orientations
 for i in c:                                 # if any of the xyz orientations equals 180, it means the joint has flipped
     for j in i:                             # the following code corrects that with setting the appropriate secondary axis orientation
-        if round(j) == 180:
-
-            if r3 == direction:
-                if direction == 1:
-                    secAxis = a[r3 - 3] + b[r4]
-                elif direction == 2:
-                    secAxis = a[r3] + b[r4 - 1]
-                elif direction == 3:
-                    secAxis = a[r3 - 3] + b[r4 - 1]
-findNub()
-print(orient)
-print(direction)
+        y.append(round(abs(j)))
+for i in y:
+    if i == 180:
+        if r3 == direction:
+            if direction == 1:
+                secAxis = a[r3 - 2] + b[r4 - 1]
+            elif direction == 2:
+                secAxis = a[r3] + b[r4 - 1]
+            elif direction == 3:
+                secAxis = a[r3 - 3] + b[r4 - 1]
 print(secAxis)
+findNub()

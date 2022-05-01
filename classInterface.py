@@ -201,51 +201,60 @@ class Interface:
     }
 
     locTemp = {
-        'COMOffset_loc': [0.0, 105.0, 0.0],
-        'COM_loc': [0.0, 105, 0.0],
-        'head01_loc': [-2.6069044344454757e-07, 155, -2],
-        'head02_loc': [-3.94965337055097e-07, 164, -1],
-        'headNub_loc': [-1.7498294615581403e-15, 178.64732454094343, -7.2398515053674455],
-        'jawNub_loc': [-7.814865691567292e-13, 158, 8.559080733573634],
-        'jaw_loc': [-7.677378623110254e-13, 161, 1.5995099911410542],
-        'l_calf_loc': [9.016487172208775, 55.99999943954483, 4.0000000438007675],
-        'l_clavicle_loc': [4, 148.14189486770232, 4.467180828980827],
+
+        'root_loc': [0.0, 0.0, 0.0],
+        'pelvis_loc': [0.0, 105, 0],
+        'spine01_loc': [0.0, 120, 1],
+        'spine02_loc': [0.0, 135, -2],
+        'neck01_loc': [0, 151, 1],
+        'neck02_loc': [0, 155, 0],
+        'head_loc': [0, 164, 1],
+
+        'jawNub_loc': [0, 158, 8.5],
+        'jaw_loc': [0, 161, 2.5],
+
         'l_eyeNub_loc': [2.8762510108536112, 169.08230670451212, 8.743195847205346],
         'l_eye_loc': [2.8762517261093254, 169.08230670451212, 7.192147091559658],
-        'l_foreArm_loc': [38.47961368255215, 148.65537316436195, -1.872071462890321],
-        'l_hand_loc': [63.92736759544309, 148.6553737316454, -0.15012761776273598],
-        'l_ankle_loc': [9.01648766284925, 8.999999803973829, -3.0000015635754016],
-        'l_indexFinger01_loc': [73.15209902861417, 148.77542132191334, 2.4571262793102715],
-        'l_indexFinger02_loc': [75.89273002378945, 148.63085914848477, 2.3421963995873227],
-        'l_indexFinger03_loc': [78.1703102134008, 147.8294824486201, 2.1581582564748674],
-        'l_indexFingerNub_loc': [79.62771505903298, 146.42501754522584, 1.8998077823054957],
-        'l_middleFinger01_loc': [73.29126684700238, 148.8662111031126, 0.802623353054483],
-        'l_middleFinger02_loc': [75.84254391441976, 148.6544797715822, 0.23579633795882804],
-        'l_middleFinger03_loc': [77.89045641693453, 147.8924250170955, -0.12400547314861737],
-        'l_middleFingerNub_loc': [79.88455108582767, 146.25636204699148, -0.4738979650257093],
-        'l_pinkyFinger01_loc': [72.23646492538126, 148.74823031808162, -2.396710983056597],
-        'l_pinkyFinger02_loc': [73.66484017099772, 148.58410656969974, -3.10023485037732],
-        'l_pinkyFinger03_loc': [75.41046093402618, 148.10249312563806, -3.9805551920552533],
-        'l_pinkyFingerNub_loc': [76.65357905791906, 147.22575346795563, -4.701567751108401],
-        'l_ringFinger01_loc': [72.9422449543394, 148.86300681701232, -0.8786873046811359],
-        'l_ringFinger02_loc': [75.26585328047778, 148.66339099763337, -1.6219078896877046],
-        'l_ringFinger03_loc': [77.22398316406374, 148.05818133059097, -2.315907070516789],
-        'l_ringFingerNub_loc': [79.01784428586829, 146.54495173455706, -2.9546933552050803],
+
+        'l_clavicle_loc': [4, 148.14189486770232, 4.467180828980827],
+        'l_upperArm_loc': [13, 148, 0],
+        'l_foreArm_loc': [38.48, 148.655, -1.872],
+        'l_hand_loc': [63.927, 148.655, 0],
+        'l_thumb01_loc': [69.519, 146.426, 3.435],
+        'l_thumb02_loc': [71.885, 145.75, 4.146],
+        'l_thumbNub_loc': [73.868, 145.051, 4.462],
+        'l_indexFinger01_loc': [71.793, 148.43, 2.434],
+        'l_indexFinger02_loc': [74.447, 148.286, 2.864],
+        'l_indexFinger03_loc': [76.73, 147.484, 3.234],
+        'l_indexFingerNub_loc': [78.326, 146.08, 3.498],
+        'l_middleFinger01_loc': [72.723, 148.866, 0.542],
+        'l_middleFinger02_loc': [75.335, 148.654, 0.733],
+        'l_middleFinger03_loc': [77.73, 147.892, 0.902],
+        'l_middleFingerNub_loc': [79.748, 146.256, 1.054],
+        'l_ringFinger01_loc': [72.31, 148.749, -1.171],
+        'l_ringFinger02_loc': [74.771, 148.55, -1.323],
+        'l_ringFinger03_loc': [76.794, 147.946, -1.464],
+        'l_ringFingerNub_loc': [78.711, 146.434, -1.579],
+        'l_pinkyFinger01_loc': [72.09, 148.599, -2.88],
+        'l_pinkyFinger02_loc': [73.67, 148.437, -3.116],
+        'l_pinkyFinger03_loc': [75.537, 147.957, -3.414],
+        'l_pinkyFingerNub_loc': [77.032, 147.083, -3.638],
+
         'l_thigh_loc': [9.016487120738676, 103.21524918079396, -0.06317702051060863],
-        'l_thumb01_loc': [70.11107543741674, 146.6170965926298, 3.5934129703622184],
-        'l_thumb02_loc': [72.5774068262009, 145.94085720275243, 4.138805274033418],
-        'l_thumbNub_loc': [74.20434461154682, 145.59246829389886, 4.010931396151761],
+        'l_calf_loc': [9.016487172208775, 55.99999943954483, 4.0000000438007675],
+        'l_ankle_loc': [9.01648766284925, 8.999999803973829, -3.0000015635754016],
         'l_toeNub_loc': [9.016487800761242, 1.0000001203622366, 15.9999991785903],
         'l_toe_loc': [9.016487734626331, 1.0000008199679824, 4.999999178590323],
-        'l_upperArm_loc': [13.000593001987955, 148.6553731643616, -0.46805473651793594],
-        'neck01_loc': [-1.4730733192261448e-07, 151, -1],
-        'neck02_loc': [-2.1416909327475675e-07, 159.46418229884728, -1.8036069109735917],
-        'pelvis_loc': [0.0, 105, -1],
-        'root_loc': [0.0, 0.0, 0.0],
-        'spine01_loc': [0.0, 111, 0.0],
-        'spine02_loc': [0.0, 118, 1],
-        'spine03_loc': [0.0, 135, -3],
-        'spine04_loc': [0.0, 148.43186463177227, -3.0205814470408088]
+
+        #  'COMOffset_loc': [0.0, 105.0, 0.0],
+        #  'COM_loc': [0.0, 105, 0.0],
+        #  'head01_loc': [-2.6069044344454757e-07, 155, -2],
+        #  'head02_loc': [-3.94965337055097e-07, 164, -1],
+        #  'headNub_loc': [-1.7498294615581403e-15, 178.64732454094343, -7.2398515053674455],
+        #  'neck02_loc': [-2.1416909327475675e-07, 159.46418229884728, -1.8036069109735917],
+        #  'spine02_loc': [0.0, 118, 1],
+        #  'spine03_loc': [0.0, 135, -3],
+        #  'spine04_loc': [0.0, 148.43186463177227, -3.0205814470408088]
     }
 
     ### L locators
@@ -256,7 +265,7 @@ class Interface:
     l_ringLocators = ['l_ringFinger01_loc', 'l_ringFinger02_loc', 'l_ringFinger03_loc', 'l_ringFingerNub_loc']
     l_pinkyLocators = ['l_pinkyFinger01_loc', 'l_pinkyFinger02_loc', 'l_pinkyFinger03_loc', 'l_pinkyFingerNub_loc']
     l_armLocators = ['l_clavicle_loc', 'l_upperArm_loc', 'l_foreArm_loc', 'l_hand_loc']
-    spineLocators = ['pelvis_loc', 'spine02_loc', 'spine03_loc', 'neck01_loc', 'head01_loc', 'head02_loc']
+    spineLocators = ['pelvis_loc', 'spine01_loc', 'spine02_loc', 'neck01_loc', 'neck02_loc', 'head_loc']
     l_legLocators = ['l_thigh_loc', 'l_calf_loc', 'l_ankle_loc', 'l_toe_loc', 'l_toeNub_loc']
     l_eyeLocators = ['l_eye_loc', 'l_eyeNub_loc']
     jawLocators = ['jaw_loc', 'jawNub_loc']
@@ -571,7 +580,7 @@ class Interface:
 
         def constraintLegJoints(ik, leg):
             for i, j in zip(ik, leg):
-                cmds.parentConstraint(i, j, mo=False, w=1)
+                cmds.parentConstraint(i, j, mo=True, w=1)
 
         dropdown = cmds.optionMenuGrp('optMenu', query=True, sl=True) - 1
 
@@ -808,7 +817,7 @@ class Interface:
             cmds.group(waistController, name=waistController + '_offset')
             cmds.makeIdentity(waistController, apply=True)
             cmds.delete(waistController, constructionHistory=True)
-            movePivot('waist_ctrl', 'spine02_jnt')
+            movePivot('waist_ctrl', 'spine01_jnt')
             cmds.parent('pelvis_offset', 'spine_ctrl')
             cmds.parent('waist_ctrl_offset', 'spine_ctrl')
             cmds.delete('pelvis_jnt_parentConstraint1')
@@ -1181,13 +1190,13 @@ class Interface:
 
         def connectEyes():
 
-            cmds.parent('l_eye_jnt', 'head02_jnt')
-            cmds.parent('r_eye_jnt', 'head02_jnt')
+            cmds.parent('l_eye_jnt', 'head_jnt')
+            cmds.parent('r_eye_jnt', 'head_jnt')
 
         def connectJaw():
 
-            cmds.parent('jaw_jnt', 'head02_jnt')
-            cmds.parent('jaw_offset', 'head02_ctrl')
+            cmds.parent('jaw_jnt', 'head_jnt')
+            cmds.parent('jaw_offset', 'head_ctrl')
 
         def rigControls():
 
@@ -1231,7 +1240,7 @@ class Interface:
             cmds.select('l_fingers_ctrl_offset', 'r_fingers_ctrl_offset', 'l_arm_ikHandle_ctrl_offset',
                         'r_arm_ikHandle_ctrl_offset', 'l_elbow_ctrl_offset', 'r_elbow_ctrl_offset',
                         'l_foot_ctrl_offset', 'r_foot_ctrl_offset', 'spine_ctrl_offset', 'eye_ctrl_offset',
-                         'l_IK_FK_switch', 'r_IK_FK_switch', add=True)
+                        'l_IK_FK_switch', 'r_IK_FK_switch', add=True)
             controls = cmds.ls(sl=True)
             for i in controls:
                 cmds.parent(i, 'root_ctrl')

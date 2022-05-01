@@ -542,7 +542,7 @@ class Interface:
                 y.append(round(abs(j)))
 
         for i in y:
-            if round(i) > 90:
+            if round(i) > 80:
                 if r3 == direction:
                     if direction == 1:
                         secAxis = a[r3 - 2] + b[r4 - 1]

@@ -15,7 +15,7 @@ def getDirection():
 
     number = []
     for i, j in zip(joint2, joint1):
-        number.append(abs((i) - (j)))
+        number.append(abs(i - j))
 
     for i in number:
         if i == max(number):

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Added root controls and edited component connections, looking into locking attributes">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Updated locators positions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,7 +51,7 @@
       <recent name="C:\Users\fresh\PycharmProjects\AutoRigging" />
     </key>
   </component>
-  <component name="RunManager" selected="MayaCharm.test2">
+  <component name="RunManager" selected="MayaCharm.classInterface">
     <configuration name="classInterface" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MAYACHARM_RUN_CONFIGURATION">
       <option name="executionType" value="FILE" />
       <option name="mayaSdkPath" value="C:\Program Files\Autodesk\Maya2022\bin\mayapy.exe" />
@@ -148,13 +147,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Updated locators.py with the latest utility functions">
-      <created>1644963579952</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1644963579952</updated>
     </task>
     <task id="LOCAL-00029" summary="Looking into orientations and rotations. Created a few more utility functions - select all joints, select hierarchy, enable scale compensation, set rotation order and align translational axis to local rotational axis. These should help to any rig setup and are related to the most important procedures for correctly creating a rig. Next, I will look into creating joints with predefined orientation">
       <created>1645195853519</created>
@@ -492,7 +484,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651275115002</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="Updated locators positions">
+      <created>1651431671937</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1651431671938</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -536,7 +535,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Final touches for the day. Tested leg and hand with IKs, all seems fine. Will continue with proper commenting and will be looking into mirroring." />
     <MESSAGE value="Fixed some orientation issues with secondary axis world orientation and l_hand_jnt orientation. Orientation is working properly now, but it works on all joints, instead of selection of joints. Next will work on that" />
     <MESSAGE value="Managed to set rotation order correctly for both leg and arm, or for world x and world y axis. Now when new orientation is applied, all joints are being adjusted accordingly. The code compares the position in world space of the first 2 joints to determine along which axis is the joint chain laid. Also now only selected joints are queried, instead of all of them, so joint chains now can be separately adjusted." />
     <MESSAGE value="Managed to set rotation order correctly for both leg and arm, or for world x and world y axis. Now when new orientation is applied, all joints are being adjusted accordingly. The code compares the position in world space of the first 2 joints to determine along which axis is the joint chain laid. Also now only selected joints are queried, instead of all of them, so joint chains now can be separately adjusted. Updated main interface." />
@@ -561,6 +559,7 @@
     <MESSAGE value="Completed controls and component connection, moving onto locking attributes and testing" />
     <MESSAGE value="Completed controls and component connection, moving onto locking attributes, adjustments, interface and testing" />
     <MESSAGE value="Added root controls and edited component connections, looking into locking attributes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added root controls and edited component connections, looking into locking attributes" />
+    <MESSAGE value="Updated locators positions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated locators positions" />
   </component>
 </project>

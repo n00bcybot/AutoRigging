@@ -478,6 +478,27 @@ class Interface:
 
     def orientJoints(self, args):
 
+        def getDirection():
+
+            joint1 = orient[0]
+            joint2 = orient[1]
+
+            number = []
+            for i, j in zip(getJointWP(joint2), getJointWP(joint1)):
+                number.append(abs(i - j))
+
+            for i in number:
+                if i == max(number):
+                    if number.index(i) == 0:
+                        print('Direction is X')
+                        return 1
+                    elif number.index(i) == 1:
+                        print('Direction is Y')
+                        return 2
+                    elif number.index(i) == 2:
+                        print('Direction is Z')
+                        return 3
+
         def findNub():  # This function checks whether the joint that needs to be orientated is at the end of the chain, as in, it has no children
             # If it has no children, it will be oriented to the world (meaning it will inherit orientation from the parent joint)
             for each in orient:  # thus automatically aligning correctly
@@ -506,27 +527,29 @@ class Interface:
 
         cmds.select(hi=True)  # Selecting all joints in the hierarchy
         orient = cmds.ls(sl=True)  # and storing their names in here
+        direction = getDirection()
         findNub()
         if 'l_hand_jnt' in orient:  # Checking if 'l_hand_jnt' is in the list of joints, if so, the fingers need to be unparented
             unparentFingers(
                 args=True)  # and then orientated. If they are not, the wrist will be oriented towards the next joint
 
         c = []  # that is created (the thumb), which is wrong in the case of the hand. Rather, it needs to
-        for i in orient:  # be aligned with the elbow (the world) - that can only happen if it has no children.
-            c.append(cmds.joint(i, q=True, o=True))  # Creating the joints and a list with their orientations
+        y = []
+        for each in orient:  # be aligned with the elbow (the world) - that can only happen if it has no children.
+            c.append(cmds.joint(each, q=True, o=True))  # Creating the joints and a list with their orientations
         for i in c:  # if any of the xyz orientations equals 180, it means the joint has flipped
             for j in i:  # the following code corrects that with setting the appropriate secondary axis orientation
-                if round(j) == 180:
-                    if cmds.xform(orient[1], q=1, ws=1, rp=1)[0] > cmds.xform(orient[0], q=1, ws=1, rp=1)[0]:  # If X value on the second joint in the hierarchy
-                        if r3 == 3:  # is greater than X value of the first joint:
-                            secAxis = a[r3 - 1] + b[r4 - 1]
-                        else:
-                            secAxis = a[r3 - 3] + b[r4 - 1]
-                    if cmds.xform(orient[1], q=1, ws=1, rp=1)[1] > cmds.xform(orient[0], q=1, ws=1, rp=1)[1]:  # If Y value on the second joint in the hierarchy
-                        if r3 == 3:  # is greater than Y value of the first joint:
-                            secAxis = a[r3 - 1] + b[r4 - 1]
-                        else:
-                            secAxis = a[r3 - 2] + b[r4 - 1]
+                y.append(round(abs(j)))
+
+        for i in y:
+            if round(i) > 90:
+                if r3 == direction:
+                    if direction == 1:
+                        secAxis = a[r3 - 2] + b[r4 - 1]
+                    elif direction == 2:
+                        secAxis = a[r3] + b[r4 - 1]
+                    elif direction == 3:
+                        secAxis = a[r3 - 3] + b[r4 - 1]
         findNub()
         if 'l_hand_jnt' in orient:
             parentFingers(args=True)  # Parents the fingers back

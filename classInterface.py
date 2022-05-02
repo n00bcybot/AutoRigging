@@ -78,6 +78,10 @@ def unparentFingers(args):
 
 
 # noinspection PyUnusedLocal
+
+
+
+# noinspection PyUnusedLocal
 def matchAllTransform(args):
     cmds.matchTransform(cmds.ls(sl=True)[0], cmds.ls(sl=True)[1])
 
@@ -348,10 +352,6 @@ class Interface:
         cmds.menuItem(label='Jaw')
         cmds.menuItem(label='All chains')
 
-        cmds.separator(height=2, st='none')
-        cmds.button(label='Spawn Locators', command=self.spawnTempLocators, height=30)
-        cmds.separator(height=2, st='none')
-
         self.layout1 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=self.tab1)
         self.layout3 = cmds.columnLayout(parent=self.layout1, cw=470, cat=('both', 142))
 
@@ -368,10 +368,15 @@ class Interface:
         self.radioGroup3 = cmds.radioButtonGrp(nrb=3, label='SA World Orientation', labelArray3=['X', 'Y', 'Z'],
                                                cw=([2, 70], [3, 70], [4, 70]), sl=2, p=self.layout2)
 
+        self.slider1 = cmds.intSliderGrp('slider1', label='Orientation Tolerance', field=True, value=90, height=20, max=180, p=self.layout2)
+        self.thumbLayout = cmds.rowColumnLayout('thumbLayout', numberOfColumns=1, adj=True, parent=self.layout2)
+        self.slider2 = cmds.intSliderGrp('slider2', label='Thumb Rotation', field=True, value=-50, height=20, min=-180, max=180, p=self.thumbLayout)
+
         cmds.optionMenuGrp('updown', parent=self.radioGroup3)
         cmds.menuItem(label='+')
         cmds.menuItem(label='-')
 
+        cmds.button(label='Spawn Locators', p=self.tab1, command=self.spawnTempLocators, height=30)
         cmds.separator(height=2, st='none')
         cmds.button(label='Spawn Joints', p=self.tab1, command=self.createJointChain, height=30)
         cmds.separator(height=2, st='none')
@@ -501,11 +506,28 @@ class Interface:
 
         def findNub():  # This function checks whether the joint that needs to be orientated is at the end of the chain, as in, it has no children
             # If it has no children, it will be oriented to the world (meaning it will inherit orientation from the parent joint)
-            for each in orient:  # thus automatically aligning correctly
-                if cmds.listRelatives(each) is None:
+
+            if cmds.checkBox(self.checkbox1, q=True, v=True) == 1:
+                for each in orient:  # thus automatically aligning correctly
                     cmds.joint(each, e=True, oj='none', ch=True, zso=True)
+            else:
+                if r2 == 4:
+                    if r1 == 1:
+                        for i in orient:
+                            cmds.joint(i, e=True, oj='xyz', ch=True, zso=True)
+                    elif r1 == 2:
+                        for i in orient:
+                            cmds.joint(i, e=True, oj='yzx', ch=True, zso=True)
+                    elif r1 == 3:
+                        for i in orient:
+                            cmds.joint(i, e=True, oj='zxy', ch=True, zso=True)
                 else:
-                    cmds.joint(each, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
+                    for each in orient:
+                        if cmds.listRelatives(each) is None:
+                            cmds.joint(each, e=True, oj='none', ch=True, zso=True)
+                        else:
+                            cmds.joint(each, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
+                self.rotateLocalRotAxis(args=True)
 
         xyz = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy',
                'zyx']  # List with all possible combinations for primary axis orientation
@@ -516,6 +538,7 @@ class Interface:
         r2 = cmds.radioButtonGrp(self.radioGroup2, query=True, sl=True)
         r3 = cmds.radioButtonGrp(self.radioGroup3, query=True, sl=True)
         r4 = cmds.optionMenuGrp('updown', query=True, sl=True)
+
 
         sel = a[r1 - 1] + a[r2 - 1]  # Querying the radio buttons and setting the desired axis from list 'a'
         allAxis = ''  # The radio buttons produce integers that correspond to the letters of each radio button
@@ -541,8 +564,10 @@ class Interface:
             for j in i:  # the following code corrects that with setting the appropriate secondary axis orientation
                 y.append(round(abs(j)))
 
+        degrees = cmds.intSliderGrp('slider1', q=True, value=True)
+
         for i in y:
-            if round(i) > 80:
+            if round(i) > degrees:
                 if r3 == direction:
                     if direction == 1:
                         secAxis = a[r3 - 2] + b[r4 - 1]
@@ -550,10 +575,36 @@ class Interface:
                         secAxis = a[r3] + b[r4 - 1]
                     elif direction == 3:
                         secAxis = a[r3 - 3] + b[r4 - 1]
+
         findNub()
         if 'l_hand_jnt' in orient:
             parentFingers(args=True)  # Parents the fingers back
+
         cmds.select(d=True)
+
+    def rotateLocalRotAxis(self, args):
+
+        x=0
+        y=0
+        z=0
+
+        sel = cmds.radioButtonGrp(self.radioGroup1, query=True, sl=True) -1
+        sliderQuery = cmds.intSliderGrp('slider2', q=True, value=True)
+        if sel == 0:
+            x = sliderQuery
+        elif sel == 1:
+            y = sliderQuery
+        elif sel == 2:
+            z = sliderQuery
+        print(sel)
+        cmds.select('l_thumb01_jnt', r=True)
+        cmds.hilite('l_thumb01_jnt')
+        cmds.select('l_thumb01_jnt.rotateAxis')
+        cmds.select('l_thumb02_jnt.rotateAxis', tgl=True)
+        cmds.select('l_thumbNub_jnt.rotateAxis', tgl=True)
+        cmds.rotate(x, y, z, r=True, os=True, fo=True)
+        alignTransAxis(args=True)
+        cmds.hilite('l_thumb01_jnt', u=True)
 
     def createJointChain(self, args):
 

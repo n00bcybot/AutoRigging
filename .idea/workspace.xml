@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Improved orientation">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Improved orientation, considering adding slider that sets the degree of tolerance for the secondary axis world orientation; it all works fine as it as set now for most of the cases, but it will still fail if the degrees between the joints in the chains are too extreme">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +43,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../unityLOD" />
     <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
   <component name="RecentsManager">
@@ -146,13 +147,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Looking into orientations and rotations. Created a few more utility functions - select all joints, select hierarchy, enable scale compensation, set rotation order and align translational axis to local rotational axis. These should help to any rig setup and are related to the most important procedures for correctly creating a rig. Next, I will look into creating joints with predefined orientation">
-      <created>1645224086431</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1645224086431</updated>
     </task>
     <task id="LOCAL-00031" summary="Managed to set the orientation with the joint creation properly and parented the fingers to the arm. As it is now, the thumb still has to be rotated manually to curl in the palm">
       <created>1645302351412</created>
@@ -490,7 +484,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651436092972</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="Improved orientation, considering adding slider that sets the degree of tolerance for the secondary axis world orientation; it all works fine as it as set now for most of the cases, but it will still fail if the degrees between the joints in the chains are too extreme">
+      <created>1651443084333</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1651443084333</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -534,7 +535,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Managed to set rotation order correctly for both leg and arm, or for world x and world y axis. Now when new orientation is applied, all joints are being adjusted accordingly. The code compares the position in world space of the first 2 joints to determine along which axis is the joint chain laid. Also now only selected joints are queried, instead of all of them, so joint chains now can be separately adjusted." />
     <MESSAGE value="Managed to set rotation order correctly for both leg and arm, or for world x and world y axis. Now when new orientation is applied, all joints are being adjusted accordingly. The code compares the position in world space of the first 2 joints to determine along which axis is the joint chain laid. Also now only selected joints are queried, instead of all of them, so joint chains now can be separately adjusted. Updated main interface." />
     <MESSAGE value="Managed to connect orientJoints function to createJointChain - now joints a created by spawnJoints and oriented with orientJoints in createJointChain. That way orientJoints is used to set orientation immediately after the joints are created, using the input from the radio buttons. Previously I could only use orientJoints for orienting the joints, and not for creating them. Still need to take care of the 'none' radio button, right now it does nothing." />
     <MESSAGE value="Managed to connect orientJoints function to createJointChain - now joints a created by spawnJoints and oriented with orientJoints in createJointChain. That way orientJoints is used to set orientation immediately after the joints are created, using the input from the radio buttons. Previously I could only use orientJoints for orienting the joints, and not for creating them. Still need to take care of the 'none' radio button, right now it does nothing.&#10;Filled the comments" />
@@ -559,6 +559,7 @@
     <MESSAGE value="Added root controls and edited component connections, looking into locking attributes" />
     <MESSAGE value="Updated locators positions" />
     <MESSAGE value="Improved orientation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved orientation" />
+    <MESSAGE value="Improved orientation, considering adding slider that sets the degree of tolerance for the secondary axis world orientation; it all works fine as it as set now for most of the cases, but it will still fail if the degrees between the joints in the chains are too extreme" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved orientation, considering adding slider that sets the degree of tolerance for the secondary axis world orientation; it all works fine as it as set now for most of the cases, but it will still fail if the degrees between the joints in the chains are too extreme" />
   </component>
 </project>

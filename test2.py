@@ -37,7 +37,7 @@ def findNub():  # This function checks whether the joint that needs to be orient
         else:
             cmds.joint(each, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
 
-direction = getDirection()
+    direction = getDirection()
 xyz = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx']  # List with all possible combinations for primary axis orientation
 a = ['x', 'y', 'z']
 b = ['up', 'down']

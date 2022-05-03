@@ -78,10 +78,6 @@ def unparentFingers(args):
 
 
 # noinspection PyUnusedLocal
-
-
-
-# noinspection PyUnusedLocal
 def matchAllTransform(args):
     cmds.matchTransform(cmds.ls(sl=True)[0], cmds.ls(sl=True)[1])
 
@@ -141,7 +137,6 @@ def getJointWP(jnt):
     cmds.delete(locator)
     return pointWP
 
-
 # noinspection PyUnusedLocal
 def movePivot(obj, jointName):
 
@@ -162,6 +157,26 @@ def movePivot(obj, jointName):
         z = point[2]
 
     cmds.move(x, y, z, obj + '.scalePivot', obj + '.rotatePivot')
+
+
+# noinspection PyUnusedLocal
+def getPrimaryAxis(jnt):
+
+    cmds.select(jnt, hi=True)
+    jointList = cmds.ls(sl=True)
+
+    joint2pos = cmds.joint(jointList[1], q=True, r=True)
+
+    x = abs(joint2pos[0])
+    y = abs(joint2pos[1])
+    z = abs(joint2pos[2])
+
+    xyz = [x, y, z]
+
+    for i in xyz:
+        if i == max(xyz):
+            return xyz.index(i) + 1
+
 
 
 # noinspection PyUnusedLocal
@@ -483,10 +498,10 @@ class Interface:
 
     def orientJoints(self, args):
 
-        def getDirection():
+        def getDirection(jointChain):
 
-            joint1 = orient[0]
-            joint2 = orient[1]
+            joint1 = jointChain[0]
+            joint2 = jointChain[1]
 
             number = []
             for i, j in zip(getJointWP(joint2), getJointWP(joint1)):
@@ -495,13 +510,10 @@ class Interface:
             for i in number:
                 if i == max(number):
                     if number.index(i) == 0:
-                        print('Direction is X')
                         return 1
                     elif number.index(i) == 1:
-                        print('Direction is Y')
                         return 2
                     elif number.index(i) == 2:
-                        print('Direction is Z')
                         return 3
 
         def findNub():  # This function checks whether the joint that needs to be orientated is at the end of the chain, as in, it has no children
@@ -527,7 +539,8 @@ class Interface:
                             cmds.joint(each, e=True, oj='none', ch=True, zso=True)
                         else:
                             cmds.joint(each, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
-                self.rotateLocalRotAxis(args=True)
+                if 'l_hand_jnt' in orient:
+                    self.rotateLocalRotAxis(args=True)
 
         xyz = ['xyz', 'xzy', 'yxz', 'yzx', 'zxy',
                'zyx']  # List with all possible combinations for primary axis orientation
@@ -550,7 +563,7 @@ class Interface:
 
         cmds.select(hi=True)  # Selecting all joints in the hierarchy
         orient = cmds.ls(sl=True)  # and storing their names in here
-        direction = getDirection()
+        direction = getDirection(orient)
         findNub()
         if 'l_hand_jnt' in orient:  # Checking if 'l_hand_jnt' is in the list of joints, if so, the fingers need to be unparented
             unparentFingers(
@@ -650,7 +663,7 @@ class Interface:
 
         def constraintArmJoints(fk, ik, arm):
             for i, j, o in zip(fk, ik, arm):
-                cmds.parentConstraint(i, j, o, mo=False, w=1)
+                cmds.parentConstraint(i, j, o, mo=True, w=1)
 
         def constraintLegJoints(ik, leg):
             for i, j in zip(ik, leg):
@@ -768,16 +781,17 @@ class Interface:
                 if 'Finger' in i or 'thumb' in i:  # If the controller is a finger controller, set smaller radius
                     cmds.circle(i, e=True, r=1.5)
 
-            if primaryAxis == 1:
+            axis = getPrimaryAxis(jointList[1])
+
+            if axis == 1:
                 for i in ctrlList:
-                    cmds.circle(i, e=True, nr=[1, 0,
-                                               0])  # Set normal orientation for the controllers based on primary axis orientation
+                    cmds.circle(i, e=True, nr=[1, 0, 0])  # Set normal orientation for the controllers based on primary axis orientation
                     changeShapeColor(i, 17)
-            elif primaryAxis == 2:
+            elif axis == 2:
                 for i in ctrlList:
                     cmds.circle(i, e=True, nr=[0, 1, 0])
                     changeShapeColor(i, 17)
-            elif primaryAxis == 3:
+            elif axis == 3:
                 for i in ctrlList:
                     cmds.circle(i, e=True, nr=[0, 0, 1])
                     changeShapeColor(i, 17)
@@ -840,16 +854,16 @@ class Interface:
                 cmds.xform(cmds.circle(n=i[:-4] + '_ctrl', r=18), t=j)
                 ctrlList.append(i[:-4] + '_ctrl')  # Append controllers names to ctrlList
 
-            if primaryAxis == 1:
+            axis = getPrimaryAxis(jointList[1])
+            if axis == 1:
                 for i in ctrlList:
-                    cmds.circle(i, e=True, nr=[1, 0,
-                                               0])  # Set normal orientation for the controllers based on primary axis orientation
+                    cmds.circle(i, e=True, nr=[1, 0, 0])  # Set normal orientation for the controllers based on primary axis orientation
                     changeShapeColor(i, 14)
-            elif primaryAxis == 2:
+            elif axis == 2:
                 for i in ctrlList:
                     cmds.circle(i, e=True, nr=[0, 1, 0])
                     changeShapeColor(i, 14)
-            elif primaryAxis == 3:
+            elif axis == 3:
                 for i in ctrlList:
                     cmds.circle(i, e=True, nr=[0, 0, 1])
                     changeShapeColor(i, 14)

@@ -58,7 +58,7 @@ def alignTransAxis(args):  # Aligning translation axis', in case they have been 
 
 
 # noinspection PyUnusedLocal
-def parentFingers(args):
+def parentFingers():
     y = []  # Parent all fingers to hand joint
     for each in Interface.l_fingerLocators:
         y.append(each[0].replace('_loc', '_jnt'))
@@ -68,8 +68,8 @@ def parentFingers(args):
 
 
 # noinspection PyUnusedLocal
-def unparentFingers(args):
-    y = []  # Parent all fingers to hand joint
+def unparentFingers():
+    y = []
     for each in Interface.l_fingerLocators:
         y.append(each[0].replace('_loc', '_jnt'))
     for i in y:
@@ -143,12 +143,12 @@ def movePivot(obj, jointName):
 
     world = [0, 0, 0]
 
-    if jointName is 'world':
+    if jointName == 'world':
         point = world
     else:
         point = getJointWP(jointName)
 
-    if jointName is 'l_toeNub_jnt' or jointName is 'r_toeNub_jnt':
+    if jointName == 'l_toeNub_jnt' or jointName == 'r_toeNub_jnt':
         x = point[0]
         y = 0
         z = point[2]
@@ -462,37 +462,23 @@ class Interface:
 
         x = cmds.ls(type='locator', s=False)  # Create dictionary from locators in the scene,  with locators'
         y = [i.replace('Shape', '') for i in x]
-        locatorsDict = {}  # names as keys and their positions in space, as values.
+
+        locatorsPositions = []  # names as keys and their positions in space, as values.
         for i in y:  # Joints will be spawned from this dictionary
-            position = cmds.pointPosition(i, world=True)
-            locatorsDict[i] = position
+            locatorsPositions.append(cmds.pointPosition(i, world=True))
 
-        dictKeys = locatorsDict.keys()  # Creating dict list of keys from the dictionary
-
-        list_B = []  # Converting it to regular list. This step is necessary, since
-        for i in dictKeys:  # dict list is not iterable
-            list_B.append(i)
-
-        dictNew = {}  # Declaring the new list
+        newList = []
+        newPositions = []
         for i in slist:  # For each item in slist, if the item is in list_B
-            if i in list_B:  # add it to the dictNew
-                dictNew[i] = locatorsDict[
-                    i]  # dictNew[item] becomes the key, = , dictOld[i] gets the corresponding values
+            if i in y:  # add it to the dictNew
+                newList.append(i)  # dictNew[item] becomes the key, = , dictOld[i] gets the corresponding values
+                newPositions.append(locatorsPositions[y.index(i)])
 
-        jointList = []
-        for i, j in dictNew.items():  # Creating the chain by iterating over the keys and the values
-
+        for i, j in zip(newList, newPositions):  # Creating the chain by iterating over the keys and the values
             cmds.joint(n=i.replace('_loc', '_jnt'), position=j)  # in the dictionary
-            jointList.append(
-                i.replace('_loc', '_jnt'))  # This line appends a list with joint names, which further down is used
 
         cmds.select(deselect=True)  # to select the first joint from the list, after the joints are created.
-        cmds.select(jointList[0].replace('_loc',
-                                         '_jnt'))  # The selected joint is used then to orient the joints along the chain.
 
-        # confirmMessage = cmds.confirmDialog(title='Confirm', message='Delete corresponding locators?', button=['Yes', 'No'],
-        #                                     defaultButton='Yes', cancelButton='No', dismissString='No')
-        # if confirmMessage == 'Yes':
         for i in slist:
             cmds.delete(i)
 
@@ -565,8 +551,7 @@ class Interface:
         direction = getDirection(orient)
         findNub()
         if 'l_hand_jnt' in orient:  # Checking if 'l_hand_jnt' is in the list of joints, if so, the fingers need to be unparented
-            unparentFingers(
-                args=True)  # and then orientated. If they are not, the wrist will be oriented towards the next joint
+            unparentFingers()  # and then orientated. If they are not, the wrist will be oriented towards the next joint
 
         c = []  # that is created (the thumb), which is wrong in the case of the hand. Rather, it needs to
         y = []
@@ -590,7 +575,7 @@ class Interface:
 
         findNub()
         if 'l_hand_jnt' in orient:
-            parentFingers(args=True)  # Parents the fingers back
+            parentFingers()  # Parents the fingers back
 
         cmds.select(d=True)
 
@@ -626,7 +611,7 @@ class Interface:
         if isinstance(dropdownList[0], list):  # If selected list contains list (like handLoc)
             for i in dropdownList:  # execute for each sublist
                 self.spawnJoints(i)
-
+            parentFingers()
         else:  # else execute list
             self.spawnJoints(dropdownList)
 

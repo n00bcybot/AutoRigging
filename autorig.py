@@ -137,7 +137,6 @@ def getJointWP(jnt):
     cmds.delete(locator)
     return pointWP
 
-
 # noinspection PyUnusedLocal
 def movePivot(obj, jointName):
 
@@ -177,6 +176,7 @@ def getPrimaryAxis(jnt):
     for i in xyz:
         if i == max(xyz):
             return xyz.index(i) + 1
+
 
 
 # noinspection PyUnusedLocal
@@ -406,6 +406,8 @@ class Interface:
         cmds.separator(height=2, st='none')
         cmds.button(label='Snap FK to IK / IK to FK', p=self.tab1, command=self.snapIKFK, height=30)
         cmds.separator(height=2, st='none')
+        cmds.button(label='Reset Controls', p=self.tab1, command=resetControls, height=30)
+        cmds.separator(height=2, st='none')
         cmds.button(label='Connect Components', p=self.tab1, command=self.connectComponents, height=30)
 
         self.tab2 = cmds.columnLayout(adjustableColumn=True, ebg=True, parent=self.tabs)
@@ -422,11 +424,9 @@ class Interface:
         cmds.separator(height=2, st='none')
         cmds.button(label='Disable/Enable Scale Compensation', command=disableScaleComp, height=30)
         cmds.separator(height=2, st='none')
-        cmds.button(label='Reset Controls', p=self.tab2, command=resetControls, height=30)
-        cmds.separator(height=2, st='none')
         cmds.button(label='Set Rotation Order', command=changeRotationOrder, height=30)
-        cmds.separator(height=10, st='none')
 
+        cmds.separator(height=10, st='none')
         cmds.optionMenuGrp('rotationMenu', label='Select Order:')
         cmds.separator(height=10, st='none')
         cmds.menuItem(label='xyz')
@@ -552,6 +552,7 @@ class Interface:
         r3 = cmds.radioButtonGrp(self.radioGroup3, query=True, sl=True)
         r4 = cmds.optionMenuGrp('updown', query=True, sl=True)
 
+
         sel = a[r1 - 1] + a[r2 - 1]  # Querying the radio buttons and setting the desired axis from list 'a'
         allAxis = ''  # The radio buttons produce integers that correspond to the letters of each radio button
         for i in xyz:  # The corresponding letters are then taken from list 'a', concatenated and compared against
@@ -596,11 +597,11 @@ class Interface:
 
     def rotateLocalRotAxis(self, args):
 
-        x = 0
-        y = 0
-        z = 0
+        x=0
+        y=0
+        z=0
 
-        sel = cmds.radioButtonGrp(self.radioGroup1, query=True, sl=True) - 1
+        sel = cmds.radioButtonGrp(self.radioGroup1, query=True, sl=True) -1
         sliderQuery = cmds.intSliderGrp('slider2', q=True, value=True)
         if sel == 0:
             x = sliderQuery

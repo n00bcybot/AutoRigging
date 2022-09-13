@@ -100,7 +100,7 @@ eyeLocators = ['l_eye_loc', 'l_eyeNub_loc']
 jawLocators = ['jaw_loc', 'jawNub_loc']
 
 ########################################################################################################################
-# select vertices and spawn locator at each vertex' position
+# Select vertices and spawn locator at each vertex' position
 
 def vertexToLocator():
     vertexList = cmds.ls(selection=True, flatten=True)                     # create list from selected vertices
@@ -246,27 +246,15 @@ def removePrefix(list, prefix):                             # in the process
 
 removePrefix(jointList)
 
-jointPosition = []
+jointList = cmds.ls(et='joint')
+positions = []
 for i in jointList:
-    jointPosition.append(cmds.xform(i, q=1, ws=1, rp=1))
+    positions.append(cmds.joint(i, q=True, p=True, a=True))
 
-y = []
-for i in jointPosition:
-    y.append(i)
+locTemplate = {}
+locTemplate = dict(zip(jointList, positions))
 
-locatorsList = []
-for i, j in zip(jointPosition, jointList):
-    locatorsList.append(cmds.spaceLocator(position=i, name=(j.replace("_jnt", "_loc"))))
-
-x = []
-for i in locatorsList:
-    x.append(i[0])
-
-namesValues = {}
-nameValues = dict(zip(x, y))
-
-for key, value in nameValues.items():
-    print(key, ' : ', value)
+[print(key,':',value) for key, value in locTemplate.items()]
 
 ########################################################################################################################
 

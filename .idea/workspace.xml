@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Improved orientation and added couple of sliders, one for the fail tolerance for the orientation, and another one for setting the degree of rotation for the thumb, moving onto locking attributes">
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Updates on controls axis orientation">
+      <change afterPath="$PROJECT_DIR$/autorig.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/AutoRigging.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AutoRigging.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_4_27_2022_23_28_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_4_27_2022_23_28__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/locators.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +34,15 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/classInterface.py" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="2" />
+  </component>
   <component name="ProjectId" id="24VRdOYFb4hcIuwiXMYQPsEyuQN" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -37,13 +52,9 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../unityLOD" />
-    <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ar" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -146,13 +157,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643713855816</updated>
-    </task>
-    <task id="LOCAL-00032" summary="Managed to set the orientation with the joint creation properly and parented the fingers to the arm. As it is now, the thumb still has to be rotated manually to curl in the palm">
-      <created>1645303402912</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1645303402912</updated>
     </task>
     <task id="LOCAL-00033" summary="Managed to set the orientation with the joint creation properly and parented the fingers to the arm. As it is now, the thumb still has to be rotated manually to curl in the palm">
       <created>1645303686299</created>
@@ -490,7 +494,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651513417625</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="Updates on controls axis orientation">
+      <created>1651618269572</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1651618269572</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -534,7 +545,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Managed to connect orientJoints function to createJointChain - now joints a created by spawnJoints and oriented with orientJoints in createJointChain. That way orientJoints is used to set orientation immediately after the joints are created, using the input from the radio buttons. Previously I could only use orientJoints for orienting the joints, and not for creating them. Still need to take care of the 'none' radio button, right now it does nothing." />
     <MESSAGE value="Managed to connect orientJoints function to createJointChain - now joints a created by spawnJoints and oriented with orientJoints in createJointChain. That way orientJoints is used to set orientation immediately after the joints are created, using the input from the radio buttons. Previously I could only use orientJoints for orienting the joints, and not for creating them. Still need to take care of the 'none' radio button, right now it does nothing.&#10;Filled the comments" />
     <MESSAGE value="Working on controllers at test.py. At the moment controllers are spawned and aligned to the joints positions and orientations, where the controller's normal points in the same direction as the primary axis of the joint. Next step would be to group each controller and parent each according to the hierarchy." />
     <MESSAGE value="Created matrix based FK controllers, but it seems they are not working with IK handles. I might need to go back to the traditional controllers with groups and parent constraints" />
@@ -559,6 +569,7 @@
     <MESSAGE value="Improved orientation" />
     <MESSAGE value="Improved orientation, considering adding slider that sets the degree of tolerance for the secondary axis world orientation; it all works fine as it as set now for most of the cases, but it will still fail if the degrees between the joints in the chains are too extreme" />
     <MESSAGE value="Improved orientation and added couple of sliders, one for the fail tolerance for the orientation, and another one for setting the degree of rotation for the thumb, moving onto locking attributes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved orientation and added couple of sliders, one for the fail tolerance for the orientation, and another one for setting the degree of rotation for the thumb, moving onto locking attributes" />
+    <MESSAGE value="Updates on controls axis orientation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updates on controls axis orientation" />
   </component>
 </project>

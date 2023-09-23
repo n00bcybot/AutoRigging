@@ -138,8 +138,6 @@ def getJointWP(jnt):
     return pointWP
 
 # noinspection PyUnusedLocal
-
-
 def movePivot(obj, jointName):
 
     world = [0, 0, 0]
@@ -178,6 +176,7 @@ def getPrimaryAxis(jnt):
     for i in xyz:
         if i == max(xyz):
             return xyz.index(i) + 1
+
 
 
 # noinspection PyUnusedLocal
@@ -505,41 +504,41 @@ class Interface:
             joint2 = jointChain[1]
 
             number = []
-            for item, jay in zip(getJointWP(joint2), getJointWP(joint1)):
-                number.append(abs(item - jay))
+            for i, j in zip(getJointWP(joint2), getJointWP(joint1)):
+                number.append(abs(i - j))
 
-            for k in number:
-                if k == max(number):
-                    if number.index(k) == 0:
+            for i in number:
+                if i == max(number):
+                    if number.index(i) == 0:
                         return 1
-                    elif number.index(k) == 1:
+                    elif number.index(i) == 1:
                         return 2
-                    elif number.index(k) == 2:
+                    elif number.index(i) == 2:
                         return 3
 
         def findNub():  # This function checks whether the joint that needs to be orientated is at the end of the chain, as in, it has no children
             # If it has no children, it will be oriented to the world (meaning it will inherit orientation from the parent joint)
 
             if cmds.checkBox(self.checkbox1, q=True, v=True) == 1:
-                for e in orient:  # thus automatically aligning correctly
-                    cmds.joint(e, e=True, oj='none', ch=True, zso=True)
+                for each in orient:  # thus automatically aligning correctly
+                    cmds.joint(each, e=True, oj='none', ch=True, zso=True)
             else:
                 if r2 == 4:
                     if r1 == 1:
-                        for item in orient:
+                        for i in orient:
                             cmds.joint(i, e=True, oj='xyz', ch=True, zso=True)
                     elif r1 == 2:
-                        for item in orient:
+                        for i in orient:
                             cmds.joint(i, e=True, oj='yzx', ch=True, zso=True)
                     elif r1 == 3:
-                        for item in orient:
+                        for i in orient:
                             cmds.joint(i, e=True, oj='zxy', ch=True, zso=True)
                 else:
-                    for item in orient:
-                        if cmds.listRelatives(item) is None:
-                            cmds.joint(item, e=True, oj='none', ch=True, zso=True)
+                    for each in orient:
+                        if cmds.listRelatives(each) is None:
+                            cmds.joint(each, e=True, oj='none', ch=True, zso=True)
                         else:
-                            cmds.joint(item, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
+                            cmds.joint(each, e=True, oj=allAxis, sao=secAxis, ch=True, zso=True)
                 if 'l_hand_jnt' in orient:
                     self.rotateLocalRotAxis(args=True)
 
@@ -552,6 +551,7 @@ class Interface:
         r2 = cmds.radioButtonGrp(self.radioGroup2, query=True, sl=True)
         r3 = cmds.radioButtonGrp(self.radioGroup3, query=True, sl=True)
         r4 = cmds.optionMenuGrp('updown', query=True, sl=True)
+
 
         sel = a[r1 - 1] + a[r2 - 1]  # Querying the radio buttons and setting the desired axis from list 'a'
         allAxis = ''  # The radio buttons produce integers that correspond to the letters of each radio button
@@ -597,11 +597,11 @@ class Interface:
 
     def rotateLocalRotAxis(self, args):
 
-        x = 0
-        y = 0
-        z = 0
+        x=0
+        y=0
+        z=0
 
-        sel = cmds.radioButtonGrp(self.radioGroup1, query=True, sl=True) - 1
+        sel = cmds.radioButtonGrp(self.radioGroup1, query=True, sl=True) -1
         sliderQuery = cmds.intSliderGrp('slider2', q=True, value=True)
         if sel == 0:
             x = sliderQuery
@@ -1420,3 +1420,4 @@ class Interface:
 
 
 newWindow = Interface()
+

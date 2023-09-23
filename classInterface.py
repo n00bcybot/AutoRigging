@@ -143,14 +143,14 @@ def movePivot(obj, jointName):
 
     world = [0, 0, 0]
 
-    if jointName is 'world':
+    if jointName == 'world':
         point = world
     else:
         point = getJointWP(jointName)
 
-    if jointName is 'l_toeNub_jnt' or jointName is 'r_toeNub_jnt':
+    if jointName == 'l_toeNub_jnt' or jointName == 'r_toeNub_jnt':
         x = point[0]
-        y = 0
+        y = point[1]
         z = point[2]
     else:
         x = point[0]
@@ -345,7 +345,7 @@ class Interface:
     def __init__(self):
 
         self.window = 'MyWindow'
-        self.title = 'Rigging Tools'
+        self.title = 'Custom Autorigging Interface  by Plamen Peev'
         self.size = (400, 400)
 
         if cmds.window(self.window, query=True, exists=True):

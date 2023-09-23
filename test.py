@@ -13,7 +13,6 @@ def getJointWP(jnt):
     cmds.delete(locator)
     return pointWP
 
-
 def orientJoints():
 
     def findNub():

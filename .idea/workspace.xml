@@ -4,18 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Updates on controls axis orientation">
-      <change beforePath="$PROJECT_DIR$/.idea/AutoRigging.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AutoRigging.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/autorig.py" beforeDir="false" afterPath="$PROJECT_DIR$/autorig.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/classInterface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/files/character.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+    <list default="true" id="287eafa6-163a-445c-b2b5-0ebd237bcde0" name="Changes" comment="Corrections">
+      <change beforePath="$PROJECT_DIR$/.idea/AutoRigging.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +26,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;n00bcybot&quot;
+  }
+}</component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
       <filtered-out-file-type name="LOCAL_BRANCH" />
@@ -40,6 +40,12 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/n00bcybot/AutoRigging.git&quot;,
+    &quot;accountId&quot;: &quot;3f63a330-ea36-4913-b9a5-4688709985d6&quot;
+  }
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/classInterface.py" root0="SKIP_INSPECTION" />
   </component>
@@ -67,17 +73,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/fresh/PycharmProjects/MayaPyRender",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;MayaCharm.autorig.py.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/fresh/Desktop/repos/AutoRigging&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\fresh\PycharmProjects\AutoRigging" />
@@ -86,66 +93,67 @@
   <component name="RunManager" selected="MayaCharm.autorig.py">
     <configuration name="asdad" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MAYACHARM_RUN_CONFIGURATION">
       <option name="executionType" value="FILE" />
-      <option name="mayaSdkPath" value="C:\Program Files\Autodesk\Maya2024\bin\mayapy.exe" />
+      <option name="mayaSdkPath" value="$PROJECT_DIR$/../../../../../Program Files/Autodesk/Maya2025/bin/mayapy.exe" />
       <option name="scriptCodeText" value="" />
-      <option name="scriptFilePath" value="C:\Users\fresh\PycharmProjects\AutoRigging\asdad.py" />
+      <option name="scriptFilePath" value="C:\Users\fresh\Desktop\repos\AutoRigging\asdad.py" />
       <method v="2" />
     </configuration>
     <configuration name="autorig.py" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MAYACHARM_RUN_CONFIGURATION">
       <option name="executionType" value="FILE" />
-      <option name="mayaSdkPath" value="C:\Program Files\Autodesk\Maya2024\bin\mayapy.exe" />
+      <option name="mayaSdkPath" value="$PROJECT_DIR$/../../../../../Program Files/Autodesk/Maya2025/bin/mayapy.exe" />
       <option name="scriptCodeText" value="" />
-      <option name="scriptFilePath" value="C:\Users\fresh\PycharmProjects\AutoRigging\autorig.py" />
+      <option name="scriptFilePath" value="C:\Users\fresh\Desktop\repos\AutoRigging\autorig.py" />
       <method v="2" />
     </configuration>
     <configuration name="classInterface" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MAYACHARM_RUN_CONFIGURATION">
       <option name="executionType" value="FILE" />
-      <option name="mayaSdkPath" value="C:\Program Files\Autodesk\Maya2023\bin\mayapy.exe" />
+      <option name="mayaSdkPath" value="$PROJECT_DIR$/../../../../../Program Files/Autodesk/Maya2025/bin/mayapy.exe" />
       <option name="scriptCodeText" value="" />
-      <option name="scriptFilePath" value="C:\Users\fresh\PycharmProjects\AutoRigging\classInterface.py" />
+      <option name="scriptFilePath" value="C:\Users\fresh\Desktop\repos\AutoRigging\classInterface.py" />
       <method v="2" />
     </configuration>
     <configuration name="interface" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MAYACHARM_RUN_CONFIGURATION">
       <option name="executionType" value="FILE" />
-      <option name="mayaSdkPath" value="C:\Program Files\Autodesk\Maya2022\bin\mayapy.exe" />
+      <option name="mayaSdkPath" value="$PROJECT_DIR$/../../../../../Program Files/Autodesk/Maya2025/bin/mayapy.exe" />
       <option name="scriptCodeText" value="" />
-      <option name="scriptFilePath" value="C:\Users\fresh\PycharmProjects\AutoRigging\interface.py" />
+      <option name="scriptFilePath" value="C:\Users\fresh\Desktop\repos\AutoRigging\interface.py" />
       <method v="2" />
     </configuration>
     <configuration name="locators" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MAYACHARM_RUN_CONFIGURATION">
       <option name="executionType" value="FILE" />
-      <option name="mayaSdkPath" value="C:\Program Files\Autodesk\Maya2022\bin\mayapy.exe" />
+      <option name="mayaSdkPath" value="$PROJECT_DIR$/../../../../../Program Files/Autodesk/Maya2025/bin/mayapy.exe" />
       <option name="scriptCodeText" value="" />
-      <option name="scriptFilePath" value="C:\Users\fresh\PycharmProjects\AutoRigging\locators.py" />
+      <option name="scriptFilePath" value="C:\Users\fresh\Desktop\repos\AutoRigging\locators.py" />
       <method v="2" />
     </configuration>
     <configuration name="test" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MAYACHARM_RUN_CONFIGURATION">
       <option name="executionType" value="FILE" />
-      <option name="mayaSdkPath" value="C:\Program Files\Autodesk\Maya2022\bin\mayapy.exe" />
+      <option name="mayaSdkPath" value="$PROJECT_DIR$/../../../../../Program Files/Autodesk/Maya2025/bin/mayapy.exe" />
       <option name="scriptCodeText" value="" />
-      <option name="scriptFilePath" value="C:\Users\fresh\PycharmProjects\AutoRigging\test.py" />
+      <option name="scriptFilePath" value="C:\Users\fresh\Desktop\repos\AutoRigging\test.py" />
       <method v="2" />
     </configuration>
     <configuration name="test2" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MAYACHARM_RUN_CONFIGURATION">
       <option name="executionType" value="FILE" />
-      <option name="mayaSdkPath" value="C:\Program Files\Autodesk\Maya2022\bin\mayapy.exe" />
+      <option name="mayaSdkPath" value="$PROJECT_DIR$/../../../../../Program Files/Autodesk/Maya2025/bin/mayapy.exe" />
       <option name="scriptCodeText" value="" />
-      <option name="scriptFilePath" value="C:\Users\fresh\PycharmProjects\AutoRigging\test2.py" />
+      <option name="scriptFilePath" value="C:\Users\fresh\Desktop\repos\AutoRigging\test2.py" />
       <method v="2" />
     </configuration>
     <configuration name="importMaya" type="PythonConfigurationType" factoryName="Python">
       <module name="AutoRigging" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="C:\Users\fresh\PycharmProjects\AutoRigging\venv\Scripts\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop/Python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../Python" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/Desktop/Python/importMaya.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../Python/importMaya.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -156,6 +164,7 @@
     </configuration>
     <configuration name="interface" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="AutoRigging" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -177,6 +186,7 @@
     </configuration>
     <configuration name="locators" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="AutoRigging" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -197,8 +207,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="MayaCharm.autorig.py" />
       <item itemvalue="MayaCharm.asdad" />
+      <item itemvalue="MayaCharm.autorig.py" />
       <item itemvalue="MayaCharm.classInterface" />
       <item itemvalue="MayaCharm.interface" />
       <item itemvalue="MayaCharm.locators" />
@@ -208,6 +218,13 @@
       <item itemvalue="Python.interface" />
       <item itemvalue="Python.locators" />
     </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-337b0a7a993a-31b6be0877a2-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.19416.19" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -561,7 +578,7 @@
       <option name="project" value="LOCAL" />
       <updated>1651618269572</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -604,8 +621,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Managed to connect orientJoints function to createJointChain - now joints a created by spawnJoints and oriented with orientJoints in createJointChain. That way orientJoints is used to set orientation immediately after the joints are created, using the input from the radio buttons. Previously I could only use orientJoints for orienting the joints, and not for creating them. Still need to take care of the 'none' radio button, right now it does nothing.&#10;Filled the comments" />
-    <MESSAGE value="Working on controllers at test.py. At the moment controllers are spawned and aligned to the joints positions and orientations, where the controller's normal points in the same direction as the primary axis of the joint. Next step would be to group each controller and parent each according to the hierarchy." />
     <MESSAGE value="Created matrix based FK controllers, but it seems they are not working with IK handles. I might need to go back to the traditional controllers with groups and parent constraints" />
     <MESSAGE value="Created another IK chain using direct parenting of the controls to the joint. Still not sure which method of creating controls is best for most cases." />
     <MESSAGE value="It turned out that dictionaries in Python 2.x are not ordered and when I run the script in Maya 2020, which uses Python 2, the joint order is messed up, because the script is written in Python 3.7 (Maya 2022 uses Python 3), which has ordered dictionaries. So I created a version of the script that works in Python 2.x - instead of a dictionary, containing the names and the positions, I use 2 separate list, one for names and one for positions" />
@@ -628,7 +643,9 @@
     <MESSAGE value="Improved orientation" />
     <MESSAGE value="Improved orientation, considering adding slider that sets the degree of tolerance for the secondary axis world orientation; it all works fine as it as set now for most of the cases, but it will still fail if the degrees between the joints in the chains are too extreme" />
     <MESSAGE value="Improved orientation and added couple of sliders, one for the fail tolerance for the orientation, and another one for setting the degree of rotation for the thumb, moving onto locking attributes" />
+    <MESSAGE value="Check in&#10;&#10;Check in" />
     <MESSAGE value="Updates on controls axis orientation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updates on controls axis orientation" />
+    <MESSAGE value="Corrections" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrections" />
   </component>
 </project>
